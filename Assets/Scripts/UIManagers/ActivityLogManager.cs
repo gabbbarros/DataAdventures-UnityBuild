@@ -18,7 +18,6 @@ public class ActivityLogManager : MonoBehaviour {
 
 	void Start()
 	{
-
 	}
 	// Adds a log object with the given param content to the Activity Log on
 	// both the Overview Tab and the Activity Log Tab

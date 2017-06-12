@@ -1,65 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
+public class FileReader : MonoBehaviour {
 
-public class FileReader {
+	void Start()
+	{
+		ReadSaveFile();
+	}
+	/// <summary>
+	/// Gets or sets the name of the file.
+	/// </summary>
+	/// <value>The name of the file.</value>
+    public string FileName{ get;set; }
 
-    public string FileName{get;set;}
+    public static GameFile TheGameFile;
 
-    // Reads a SaveGame file. SaveGame files are saved in JSON format
+	/// <summary>
+	/// Reads a SaveGame file. SaveGame files are saved in JSON format
+	/// </summary>
     public FileReader()
     {
 
-
     }
+	/// <summary>
+	/// Reads the save file.
+	/// </summary>
     public void ReadSaveFile()
     {
-
-    }
-    /*
-     * People are Objects with values in JSON. They have a Name, an ID, a DialogueTree,
-     *
-     */
-    public void ReadPeople()
-    {
-        // loop through all the people
-
+		string gFile = File.ReadAllText("Assets/Test.json");
+		Debug.Log(gFile);
+		//StringReader r1 = new StringReader(gF);
+		//GameFile gf = JsonUtility.FromJson<GameFile>(GameFile);
+		TheGameFile = JsonUtility.FromJson<GameFile>(gFile);
     }
 
-    public void ReadPlaces()
-    {
 
-    }
-
-    public void ReadBuildings()
-    {
-
-
-    }
-
-    public void ReadConditions()
-    {
-
-    }
-
-    public void ReadSuspectList()
-    {
-
-
-    }
-
-    public void ReadCulprit()
-    {
-
-    }
-
-    public void ReadPerson(string personString)
-    {
-        // Read Name
-
-    }
-
-    public void ReadName()
-    {
-
-    }
 }
