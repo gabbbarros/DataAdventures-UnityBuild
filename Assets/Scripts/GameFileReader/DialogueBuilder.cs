@@ -26,10 +26,10 @@ public class DialogueBuilder : MonoBehaviour {
 		List<DialogueNode> roots = new List<DialogueNode>();
 
 		for(int i = 0; i < nodes.Count; i++) {
-			DialogueNode node = nodes.Items[i];
+			DialogueNode node = nodes[i];
 			for(int j = 0; j < nodes.Count; j++) {
-				if(Contains(node.children, nodes.Items[j].id)) {
-					node.childrenNodes.Add(nodes.Items[j]);
+				if(Contains(node.children, nodes[j].id)) {
+					node.childrenNodes.Add(nodes[j]);
 				}
 			}
 		}
