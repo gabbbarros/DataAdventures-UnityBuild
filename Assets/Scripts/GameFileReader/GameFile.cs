@@ -7,6 +7,7 @@ public class GameFile
 	public Item[] items;
 	public Building[] buildings;
 	public City[] cities;
+	public DialogueNode[] dialoguenodes;
 	public GameFile()
 	{
 		

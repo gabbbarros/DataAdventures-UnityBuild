@@ -7,6 +7,18 @@ public class FileReader : MonoBehaviour {
 	void Start()
 	{
 		ReadSaveFile();
+
+		/*foreach(Person p in TheGameFile.people) {
+			Debug.Log(p.name + " "+ p.id);
+		}
+		Debug.Log(TheGameFile.items);
+		Debug.Log(TheGameFile.dialoguenodes);
+		Debug.Log(TheGameFile.cities);
+		Debug.Log(TheGameFile.buildings);*/
+		foreach(DialogueNode p in TheGameFile.dialoguenodes) {
+			Debug.Log(p.dialogueline + " "+ p.id);
+		}
+		
 	}
 	/// <summary>
 	/// Gets or sets the name of the file.

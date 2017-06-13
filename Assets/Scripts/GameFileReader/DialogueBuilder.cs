@@ -22,12 +22,12 @@ public class DialogueBuilder : MonoBehaviour {
 		return false;
 	}
 
-	List<DialogueNode> BuildTrees(List<DialogueNode> nodes) {
+	List<DialogueNode> BuildTrees(DialogueNode[] nodes) {
 		List<DialogueNode> roots = new List<DialogueNode>();
 
-		for(int i = 0; i < nodes.Count; i++) {
+		for(int i = 0; i < nodes.Length; i++) {
 			DialogueNode node = nodes[i];
-			for(int j = 0; j < nodes.Count; j++) {
+			for(int j = 0; j < nodes.Length; j++) {
 				if(Contains(node.children, nodes[j].id)) {
 					node.childrenNodes.Add(nodes[j]);
 				}
