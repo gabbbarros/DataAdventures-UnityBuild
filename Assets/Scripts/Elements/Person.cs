@@ -18,7 +18,7 @@ public class Person
 	/// </summary>
 	/// <value>The description.</value>
 	public string description;
-	/// <summary>
+		/// <summary>
 	/// Gets or sets the condition.
 	/// </summary>
 	/// <value>The condition.</value>
