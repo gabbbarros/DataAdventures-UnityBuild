@@ -38,6 +38,10 @@ public class DescriptionManager : MonoBehaviour {
 	{
 		FoundInCityButton.GetComponentInChildren<Text>().text = city;
 		FoundInBuildingButton.GetComponentInChildren<Text>().text = building;
-	}
 
+		// set up the button
+
+
+	}
+	 
 }
