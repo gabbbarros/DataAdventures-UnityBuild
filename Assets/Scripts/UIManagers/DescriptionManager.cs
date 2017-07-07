@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class DescriptionManager : MonoBehaviour {
 
 	/// <summary>
@@ -30,16 +29,44 @@ public class DescriptionManager : MonoBehaviour {
 	/// <param name="content">Content.</param>
 	public void SetDescription(string title, string content)
 	{
+		FoundInCityButton.gameObject.SetActive(false);
+		FoundInBuildingButton.gameObject.SetActive(false);
+
 		Name.text = title;
 		Description.text = content;
 	}
 
-	public void SetLocation(string building, string city)
+	public void SetLocation(Building building, City city)
 	{
-		FoundInCityButton.GetComponentInChildren<Text>().text = city;
-		FoundInBuildingButton.GetComponentInChildren<Text>().text = building;
+		FoundInCityButton.gameObject.SetActive(true);
+		FoundInBuildingButton.gameObject.SetActive(true);
+		FoundInCityButton.GetComponentInChildren<Text>().text = city.name;
+		FoundInBuildingButton.GetComponentInChildren<Text>().text = building.name;
 
 		// set up the button
+		FoundInCityButton.onClick.RemoveAllListeners();
+		FoundInBuildingButton.onClick.AddListener(delegate { BuildingPressed(building); });
+		FoundInCityButton.onClick.AddListener(delegate { CityPressed(city); });		
+	}
+
+	public void BuildingPressed(Building me)
+	{
+		// Display what city this is in, with buttons
+		SetDescription(me.name, me.description);
+		// enable the city button & set up	
+		FoundInCityButton.gameObject.SetActive(true);
+		FoundInCityButton.onClick.RemoveAllListeners();
+		FoundInCityButton.onClick.AddListener(delegate { CityPressed(FileReader.TheGameFile.SearchCities(me.cityid)); });
+		// List who is here, complete with buttons
+
+
+	}
+
+	public void CityPressed(City me)
+	{
+		SetDescription(me.name, me.description);
+		// List who is here, complete with buttons
+
 
 
 	}

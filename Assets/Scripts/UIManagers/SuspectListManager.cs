@@ -23,7 +23,7 @@ public class SuspectListManager : MonoBehaviour {
 	public void SuspectClicked(Suspect sus)
 	{
 		DM.SetDescription(sus.me.name, sus.me.description);
-		DM.SetLocation(FileReader.TheGameFile.SearchBuildings(sus.me.buildingid).name, FileReader.TheGameFile.SearchCities(FileReader.TheGameFile.SearchBuildings(sus.me.buildingid).cityid).name);
+		DM.SetLocation(FileReader.TheGameFile.SearchBuildings(sus.me.buildingid), FileReader.TheGameFile.SearchCities(FileReader.TheGameFile.SearchBuildings(sus.me.buildingid).cityid));
 
 
 	}
