@@ -25,8 +25,8 @@ public class PersonManager : MonoBehaviour {
 	public void DescriptionTrigger()
 	{
 		DM.SetDescription(me.name, me.description);
+
+
 		DM.SetLocation(FileReader.TheGameFile.SearchBuildings(me.buildingid), FileReader.TheGameFile.SearchCities(FileReader.TheGameFile.SearchBuildings(me.buildingid).cityid));
-
-
 	}
 }

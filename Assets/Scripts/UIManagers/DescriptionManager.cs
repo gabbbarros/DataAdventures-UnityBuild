@@ -15,6 +15,14 @@ public class DescriptionManager : MonoBehaviour {
 
 	public Button FoundInCityButton;
 	public Button FoundInBuildingButton;
+
+	public GameObject InhabitantsList;
+
+
+	// prefab objects
+	public GameObject InhabitantPrefab;
+	public GameObject TravelHereButton;
+
 	// Use this for initialization
 	void Start () {
 		Name.text = "This is the Description Panel";
@@ -31,15 +39,19 @@ public class DescriptionManager : MonoBehaviour {
 	{
 		FoundInCityButton.gameObject.SetActive(false);
 		FoundInBuildingButton.gameObject.SetActive(false);
+		TravelHereButton.gameObject.SetActive(false);
+		ClearInhabitantsList();
 
 		Name.text = title;
 		Description.text = content;
+
 	}
 
 	public void SetLocation(Building building, City city)
 	{
 		FoundInCityButton.gameObject.SetActive(true);
 		FoundInBuildingButton.gameObject.SetActive(true);
+		Debug.Log("Done");
 		FoundInCityButton.GetComponentInChildren<Text>().text = city.name;
 		FoundInBuildingButton.GetComponentInChildren<Text>().text = building.name;
 
@@ -57,18 +69,61 @@ public class DescriptionManager : MonoBehaviour {
 		FoundInCityButton.gameObject.SetActive(true);
 		FoundInCityButton.onClick.RemoveAllListeners();
 		FoundInCityButton.onClick.AddListener(delegate { CityPressed(FileReader.TheGameFile.SearchCities(me.cityid)); });
+
 		// List who is here, complete with buttons
+		int[] pIDs = me.peopleid;
+		List<Person> peopleList = new List<Person>();
+		// populate the people list
+		foreach (int i in pIDs)
+		{
+			peopleList.Add(FileReader.TheGameFile.SearchPeople(i));
+		}
 
-
+		foreach (Person p in peopleList)
+		{
+			GameObject inhab = Instantiate(InhabitantPrefab, InhabitantsList.transform);
+			inhab.GetComponent<PersonManager>().me = p;
+			inhab.GetComponent<PersonManager>().Name.text = p.name;
+		}
 	}
 
 	public void CityPressed(City me)
 	{
 		SetDescription(me.name, me.description);
+
+		// activate the "Travel Here!" Button
+		TravelHereButton.SetActive(true);
+
+
 		// List who is here, complete with buttons
+		int[] bIDs = me.buildingid;
+		List<Person> peopleList = new List<Person>();
 
+		foreach (int i in bIDs)
+		{
+			int[] pIDs = FileReader.TheGameFile.SearchBuildings(i).peopleid;
+			// populate the people list
+			foreach (int p in pIDs)
+			{
+				peopleList.Add(FileReader.TheGameFile.SearchPeople(p));
+			}
+		}
 
+		foreach (Person p in peopleList)
+		{
+			GameObject inhab = Instantiate(InhabitantPrefab, InhabitantsList.transform);
+			inhab.GetComponent<PersonManager>().me = p;
+			inhab.GetComponent<PersonManager>().Name.text = p.name;
+		}
 
+	}
+
+	public void ClearInhabitantsList()
+	{
+		foreach (Transform child in InhabitantsList.transform)
+		{
+			Destroy(child.gameObject);
+		}
 	}
 	 
 }

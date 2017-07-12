@@ -14,22 +14,6 @@ public class FileReader : MonoBehaviour {
 
 	public SuspectListManager SLM;
 
-	void Start()
-	{
-		ReadSaveFile();
-		SetUpSuspects();
-
-		//Debug.Log(TheGameFile.items);
-		//Debug.Log(TheGameFile.dialoguenodes);
-		//Debug.Log(TheGameFile.cities);
-		//Debug.Log(TheGameFile.buildings);
-		//foreach(DialogueNode p in TheGameFile.dialoguenodes) {
-		//	Debug.Log(p.dialogueline + " "+ p.id);
-		//}
-		Debug.Log(TheGameFile.crime);		
-	}
-
-
 	/// <summary>
 	/// Reads a SaveGame file. SaveGame files are saved in JSON format
 	/// </summary>

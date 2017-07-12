@@ -21,6 +21,7 @@ public class BuildingManager
 	public void ClickedBuilding()
 	{
 		DM.SetDescription(me.name, me.description);
+
 	}
 }
 
