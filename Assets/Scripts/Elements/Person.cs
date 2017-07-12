@@ -22,7 +22,7 @@ public class Person
 	/// Gets or sets the condition.
 	/// </summary>
 	/// <value>The condition.</value>
-	public int condition;
+	public int[] condition;
 	/// <summary>
 	/// Gets or sets the building identifier.
 	/// </summary>

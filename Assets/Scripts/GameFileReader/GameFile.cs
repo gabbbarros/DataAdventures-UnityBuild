@@ -10,10 +10,7 @@ public class GameFile
 	public City[] cities;
 	public DialogueNode[] dialoguenodes;
 	public Crime crime;
-
-	public GameFile()
-	{
-	}
+	public int ConditionSize { get; set; }
 
 	public Person SearchPeople(int id)
 	{
@@ -53,6 +50,56 @@ public class GameFile
 				return b;
 		}
 		return null;
+	}
+
+	public int InitConditions()
+	{
+		int max = -1;
+		foreach (Person p in people)
+		{
+			foreach (int cond in p.condition)
+			{
+				if (cond > max)
+				{
+					max = cond;
+				}
+			}
+		}
+		foreach (Building b in buildings)
+		{
+			foreach (int cond in b.condition)
+			{
+
+				if (cond > max)
+				{
+					max = cond;
+				}
+			}
+		}
+		foreach (City c in cities)
+		{
+			foreach (int cond in c.condition)
+			{
+
+				if (cond > max)
+				{
+					max = cond;
+				}
+			}
+		}
+		foreach (Item i in items)
+		{
+			foreach (int cond in i.condition)
+			{
+
+				if (cond > max)
+				{
+					max = cond;
+				}
+			}
+		}
+		ConditionSize = max;
+		return max;
 	}
 }
 

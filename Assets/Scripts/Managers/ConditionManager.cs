@@ -8,16 +8,16 @@ public class ConditionManager : Singleton<ConditionManager> {
 	// Use this for initialization
 	void Start () {
  		//instance = null;
-ConditionManager test = ConditionManager.GetInstance();
-		test.Initialize(4);
-		test.conditions.Set(2,true);
+		//ConditionManager test = ConditionManager.GetInstance();
+		//test.Initialize(4);
+		//test.conditions.Set(2,true);
 		
-		string s = "";
-		for(int i  = 0; i < test.conditions.Count; i++) {
-			s+=test.conditions.Get(i)+"\t";
-		}
-		Debug.Log(s);
-		Debug.Log(test.conditions.ToString());	
+		//string s = "";
+		//for(int i  = 0; i < test.conditions.Count; i++) {
+		//	s+=test.conditions.Get(i)+"\t";
+		//}
+		//Debug.Log(s);
+		//Debug.Log(test.conditions.ToString());	
 	 	
 	}
 	
@@ -32,7 +32,7 @@ ConditionManager test = ConditionManager.GetInstance();
 			return instance;
 	}*/
 
-	void Initialize(int amountConditions) {
+	public void Initialize(int amountConditions) {
 		conditions = new BitArray(amountConditions + 1);
 	}
 

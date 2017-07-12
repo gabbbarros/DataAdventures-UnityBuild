@@ -93,7 +93,10 @@ public class DescriptionManager : MonoBehaviour {
 
 		// activate the "Travel Here!" Button
 		TravelHereButton.SetActive(true);
-
+		TravelHereButton.GetComponent<Button>().onClick.RemoveAllListeners();
+		TravelHereButton.GetComponent<Button>().onClick.AddListener(delegate {
+			TravelHereButton.GetComponent<TravelHereScript>().TravelHere(me);
+		});
 
 		// List who is here, complete with buttons
 		int[] bIDs = me.buildingid;
