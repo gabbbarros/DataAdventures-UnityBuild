@@ -23,6 +23,9 @@ public class DescriptionManager : MonoBehaviour {
 	public GameObject InhabitantPrefab;
 	public GameObject TravelHereButton;
 
+
+    public GameManager GM;
+
 	// Use this for initialization
 	void Start () {
 		Name.text = "This is the Description Panel";
@@ -51,7 +54,6 @@ public class DescriptionManager : MonoBehaviour {
 	{
 		FoundInCityButton.gameObject.SetActive(true);
 		FoundInBuildingButton.gameObject.SetActive(true);
-		Debug.Log("Done");
 		FoundInCityButton.GetComponentInChildren<Text>().text = city.name;
 		FoundInBuildingButton.GetComponentInChildren<Text>().text = building.name;
 
@@ -95,7 +97,7 @@ public class DescriptionManager : MonoBehaviour {
 		TravelHereButton.SetActive(true);
 		TravelHereButton.GetComponent<Button>().onClick.RemoveAllListeners();
 		TravelHereButton.GetComponent<Button>().onClick.AddListener(delegate {
-			TravelHereButton.GetComponent<TravelHereScript>().TravelHere(me);
+			GM.TravelHere(me);
 		});
 
 		// List who is here, complete with buttons
