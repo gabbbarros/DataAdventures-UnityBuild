@@ -14,12 +14,13 @@ public class PersonManager : MonoBehaviour {
 	{
 		DM = GameObject.FindWithTag("UI Manager").GetComponent<DescriptionManager>();
 	}
-	public void SetUp()
+	public void SetUp(Person p)
 	{
+		me = p;
 		//Photo.sprite = "somesprite.png";
-		me = FileReader.TheGameFile.people[0];
 		Name.text = me.name;
 
+		// set up dialogue button
 	}
 
 	public void DescriptionTrigger()
@@ -27,6 +28,6 @@ public class PersonManager : MonoBehaviour {
 		DM.SetDescription(me.name, me.description);
 
 
-		DM.SetLocation(FileReader.TheGameFile.SearchBuildings(me.buildingid), FileReader.TheGameFile.SearchCities(FileReader.TheGameFile.SearchBuildings(me.buildingid).cityid));
+		DM.SetLocation(me, FileReader.TheGameFile.SearchBuildings(me.buildingid), FileReader.TheGameFile.SearchCities(FileReader.TheGameFile.SearchBuildings(me.buildingid).cityid));
 	}
 }

@@ -50,17 +50,36 @@ public class DescriptionManager : MonoBehaviour {
 
 	}
 
-	public void SetLocation(Building building, City city)
+	public void SetLocation(Person me, Building building, City city)
 	{
-		FoundInCityButton.gameObject.SetActive(true);
-		FoundInBuildingButton.gameObject.SetActive(true);
-		FoundInCityButton.GetComponentInChildren<Text>().text = city.name;
-		FoundInBuildingButton.GetComponentInChildren<Text>().text = building.name;
+		int[] conds = me.condition;
+		List<int> conditionsList = new List<int>(conds);
 
-		// set up the button
-		FoundInCityButton.onClick.RemoveAllListeners();
-		FoundInBuildingButton.onClick.AddListener(delegate { BuildingPressed(building); });
-		FoundInCityButton.onClick.AddListener(delegate { CityPressed(city); });		
+		ConditionManager cm = ConditionManager.GetInstance();
+		// check to make sure we can find this person
+		if (conditionsList.Count == 0 || cm.IsSet(conditionsList))
+		{
+			FoundInCityButton.gameObject.SetActive(true);
+			FoundInBuildingButton.gameObject.SetActive(true);
+			FoundInCityButton.GetComponentInChildren<Text>().text = city.name;
+			FoundInBuildingButton.GetComponentInChildren<Text>().text = building.name;
+
+			// set up the button
+			FoundInCityButton.onClick.RemoveAllListeners();
+			FoundInBuildingButton.onClick.RemoveAllListeners();
+			FoundInBuildingButton.onClick.AddListener(delegate { BuildingPressed(building); });
+			FoundInCityButton.onClick.AddListener(delegate { CityPressed(city); });
+		}
+		else
+		{
+			FoundInCityButton.gameObject.SetActive(true);
+			FoundInBuildingButton.gameObject.SetActive(true);
+			FoundInCityButton.onClick.RemoveAllListeners();
+			FoundInBuildingButton.onClick.RemoveAllListeners();
+
+			FoundInCityButton.GetComponentInChildren<Text>().text = "???";
+			FoundInBuildingButton.GetComponentInChildren<Text>().text = "???";
+		}
 	}
 
 	public void BuildingPressed(Building me)
