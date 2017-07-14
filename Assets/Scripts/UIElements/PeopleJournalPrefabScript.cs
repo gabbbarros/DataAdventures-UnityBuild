@@ -9,9 +9,32 @@ public class PeopleJournalPrefabScript : MonoBehaviour
     public Text DescriptionTitle;
     public Text DescriptionContent;
 
+	public DescriptionManager DM;
+
 	void Start()
 	{
-		DescriptionTitle = GameObject.Find("Description Title").GetComponent<Text>();
-		DescriptionContent = GameObject.Find("Description Content").GetComponent<Text>();
+		DM = GameObject.Find("GameManagers").GetComponent<DescriptionManager>();
+	}
+
+	public void SetUp(Person me)
+	{
+		Person = me;
+		// change names
+		this.GetComponentInChildren<Text>().text = Person.name;
+		this.gameObject.GetComponent<Button>().onClick.AddListener(delegate
+	   {
+		   Clicked();
+	   });
+
+	}
+
+	public void Clicked()
+	{
+		// set description
+		DM.SetDescription(Person.name, Person.description);
+		Building building = FileReader.TheGameFile.SearchBuildings(Person.buildingid);
+		City city = FileReader.TheGameFile.SearchCities(building.cityid);
+		// set the location
+		DM.SetLocation(Person, building, city);
 	}
 }

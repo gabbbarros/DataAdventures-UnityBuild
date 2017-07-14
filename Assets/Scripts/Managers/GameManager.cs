@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour {
 
 	public ActivityLogManager ALM;
 
+	public JournalManager JM;
+
     /** City Panel Stuff Begin **/
     public GameObject CityPanel;
     public GameObject CityPanelName;
@@ -29,9 +31,18 @@ public class GameManager : MonoBehaviour {
     public GameObject PeopleHolder;
 
     public GameObject PeoplePrefab;
-    /** Building Panel Stuff End **/
+	/** Building Panel Stuff End **/
 
 
+	/** Dialogue Panel Stuff Begin **/
+	public GameObject DialoguePanel;
+	public GameObject DialoguePanelName;
+
+	public GameObject PersonImage;
+	public GameObject DialogueHolder;
+
+	public GameObject DialoguePrefab;
+	/** Dialogue Panel Stuff End **/
 
 
     // Use this for initialization
@@ -98,6 +109,9 @@ public class GameManager : MonoBehaviour {
             }
         }
 		ALM.AddLog("Traveled to " + me.name);
+
+		// Add to journal
+		JM.AddPlace(me);
     }
 
     void ClearDotHolder()
@@ -116,6 +130,13 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	void ClearDialogueHolder()
+	{
+		foreach (Transform child in DialogueHolder.transform)
+		{
+			Destroy(child.gameObject);
+		}
+	}
     public void TravelHere(Building me)
     {
 
@@ -129,7 +150,6 @@ public class GameManager : MonoBehaviour {
 		//change name to the building name
 		BuildingPanelName.GetComponent<Text>().text = me.name;
 
-
 		foreach (int pID in me.peopleid)
 		{
 			Person p = FileReader.TheGameFile.SearchPeople(pID);
@@ -142,8 +162,31 @@ public class GameManager : MonoBehaviour {
 
 				// change person name
 				person.GetComponent<PersonManager>().SetUp(p);
+				person.GetComponentsInChildren<Button>()[1].onClick.RemoveAllListeners();
+				person.GetComponentsInChildren<Button>()[1].onClick.AddListener(delegate
+				{
+					TalkTo(p);
+				});
+
+				// add people to journal
+				JM.AddPerson(p);
 			}
 		}
 		ALM.AddLog("Traveled to " + me.name);
     }
+
+	public void TalkTo(Person me)
+	{
+		// clear any dialogue
+		ClearDialogueHolder();
+		// set the person image
+		//PersonImage.GetComponent<Sprite>( whatever this gotta be
+		// Make the dialogue panel the focus
+		DialoguePanel.transform.SetAsLastSibling();
+
+		//display dialogue tree
+
+		// log it
+		ALM.AddLog("Talked to " + me.name);
+	}
 }
