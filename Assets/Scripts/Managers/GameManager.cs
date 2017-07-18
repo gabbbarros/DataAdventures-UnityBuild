@@ -179,7 +179,8 @@ public class GameManager : MonoBehaviour {
 	{
 		// clear any dialogue
 		ClearDialogueHolder();
-		// set the person image
+		// set the person image and name
+		DialoguePanelName.GetComponent<Text>().text = me.name;
 		//PersonImage.GetComponent<Sprite>( whatever this gotta be
 		// Make the dialogue panel the focus
 		DialoguePanel.transform.SetAsLastSibling();

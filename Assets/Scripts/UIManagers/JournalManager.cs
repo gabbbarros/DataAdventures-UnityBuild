@@ -13,6 +13,8 @@ public class JournalManager : MonoBehaviour {
 	public GameObject ThingsJournalPrefab;
 
 
+	public NotificationManager NM;
+
 	public List<int> PeopleSeen;
 	public List<int> PlacesSeen;
 	public List<int> ThingsSeen;
