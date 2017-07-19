@@ -6,7 +6,10 @@ public class GameManager : MonoBehaviour {
 
 
     /** Keeps track of the current journal tab focus **/
+
+    // 1 = Overview, 2 = Journal, 3 = Activity Manager
     public int OverallFocus;
+    // 1 = People, 2 = Places, 3 = Things
     public int JournalTabFocus;
 
 	public FileReader FileReaderManager;
