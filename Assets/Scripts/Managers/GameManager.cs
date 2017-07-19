@@ -5,6 +5,10 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
 
 
+    /** Keeps track of the current journal tab focus **/
+    public int OverallFocus;
+    public int JournalTabFocus;
+
 	public FileReader FileReaderManager;
 
     public DescriptionManager DM;

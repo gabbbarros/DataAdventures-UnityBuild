@@ -11,6 +11,7 @@ public class NotificationManager : MonoBehaviour {
 	public void ShowPeopleNotification()
 	{
 		JournalTabAnimator.Play("NewJournalAnimation");
+        PeopleTabAnimator.Play("NewJournalAnimation");
 	}
 
 	public void ShowPlacesNotification()
