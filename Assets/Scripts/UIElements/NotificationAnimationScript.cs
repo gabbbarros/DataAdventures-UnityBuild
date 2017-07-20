@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class NotificationAnimationScript : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public Animator A;
+    void Start()
+    {
+        A = gameObject.GetComponent<Animator>();
+    }
+    public void StopAnimation()
+    {
+        A.Play("Static");
+    }
 }

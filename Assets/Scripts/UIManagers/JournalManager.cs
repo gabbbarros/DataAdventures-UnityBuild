@@ -32,6 +32,11 @@ public class JournalManager : MonoBehaviour {
 			PeopleSeen.Add(me.id);
 			GameObject p = Instantiate(PeopleJournalPrefab, PeoplePanelContent.transform);
 			p.GetComponent<PeopleJournalPrefabScript>().SetUp(me);
+
+            // show the blinking light on the journal prefab
+            p.GetComponent<Animator>().Play("NewJournalAnimation");
+            // show the blinking lights on the respective overhead tabs
+            NM.ShowPeopleNotification();
 		}
 	}
 
@@ -42,6 +47,11 @@ public class JournalManager : MonoBehaviour {
 			PlacesSeen.Add(me.id);
 			GameObject p = Instantiate(PlacesJournalPrefab, PlacesPanelContent.transform);
 			p.GetComponent<PlaceJournalPrefabScript>().SetUp(me);
+
+            // show the blinking light on the journal prefab
+            p.GetComponent<Animator>().Play("NewJournalAnimation");
+            // show the blinking lights on the respective overhead tabs
+            NM.ShowPlacesNotification();
 		}
 	}
 

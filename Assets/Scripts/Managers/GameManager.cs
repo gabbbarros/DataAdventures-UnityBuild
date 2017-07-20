@@ -197,4 +197,14 @@ public class GameManager : MonoBehaviour {
 		// log it
 		ALM.AddLog("Talked to " + me.name);
 	}
+
+    public void ChangeOverallFocus(int focus)
+    {
+        OverallFocus = focus;
+    }
+
+    public void ChangeJournalFocus(int focus)
+    {
+        JournalTabFocus = focus;
+    }
 }
