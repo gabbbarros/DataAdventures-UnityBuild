@@ -34,7 +34,7 @@ public class Person
 	/// <value>The drootid identifier.</value>
 	public int drootid;
 	/// <summary>
-	public DialogNode rootnode;
+	public DialogueNode rootnode;
 	/// Initializes a new instance of the <see cref="T:Person"/> class.
 	/// </summary>
 	public Person()
