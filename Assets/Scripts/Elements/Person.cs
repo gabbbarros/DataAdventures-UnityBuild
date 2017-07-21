@@ -28,8 +28,13 @@ public class Person
 	/// </summary>
 	/// <value>The building identifier.</value>
 	public int buildingid;
-
+    /// <summary>
+	/// Gets or sets the dialog rootid identifier.
+	/// </summary>
+	/// <value>The drootid identifier.</value>
+	public int drootid;
 	/// <summary>
+	public DialogNode rootnode;
 	/// Initializes a new instance of the <see cref="T:Person"/> class.
 	/// </summary>
 	public Person()

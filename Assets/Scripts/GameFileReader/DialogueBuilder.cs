@@ -22,7 +22,10 @@ public class DialogueBuilder : MonoBehaviour {
 		return false;
 	}
 
-	List<DialogueNode> BuildTrees(DialogueNode[] nodes) {
+	/*
+	Builds all dialogue trees. Return a list of root nodes
+ 	*/
+	public List<DialogueNode> BuildTrees(DialogueNode[] nodes) {
 		List<DialogueNode> roots = new List<DialogueNode>();
 
 		for(int i = 0; i < nodes.Length; i++) {
@@ -41,5 +44,16 @@ public class DialogueBuilder : MonoBehaviour {
 		}
 
 		return roots;
+	}
+
+	public void AddDialogueRootToPeople(List<Person> people, List<DialogueNode> roots) {
+		foreach(Person p in people) {
+			foreach(DialogueNode root in roots) {
+				if(root.id == p.drootid) {
+					p.rootnode = root;
+					break;
+				}
+			}
+		}
 	}
 }
