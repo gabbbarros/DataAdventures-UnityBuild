@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour {
             {
                 // spawn the building on the map
                 GameObject dot = Instantiate(BuildingDotPrefab, DotHolder.transform);
-                dot.transform.localPosition = new Vector2(100f, 80f);
+                dot.transform.localPosition = new Vector2(180f, 80f);
 
 				// Change dot name
 				dot.GetComponentInChildren<BuildingDotPrefabScript>().SetName(b.name);
@@ -193,6 +193,8 @@ public class GameManager : MonoBehaviour {
 		DialoguePanel.transform.SetAsLastSibling();
 
 		//display dialogue tree
+		DialogueNode root = me.rootnode;
+
 
 		// log it
 		ALM.AddLog("Talked to " + me.name);

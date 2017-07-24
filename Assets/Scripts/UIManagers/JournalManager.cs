@@ -55,4 +55,6 @@ public class JournalManager : MonoBehaviour {
 		}
 	}
 
+
+
 }
