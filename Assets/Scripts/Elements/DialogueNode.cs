@@ -11,7 +11,7 @@ public class DialogueNode {
 	public bool visited = false;
 	public string dialogueline;
 	public string option;
-	public bool isRoot;
+	public bool isroot;
 	public List<DialogueNode> childrenNodes;
 	public int[] children;
 

@@ -20,6 +20,10 @@ public class GameManager : MonoBehaviour {
 
 	public JournalManager JM;
 
+    public DialogManager DLM;
+
+    public DialogueBuilder DLB;
+
     /** City Panel Stuff Begin **/
     public GameObject CityPanel;
     public GameObject CityPanelName;
@@ -64,6 +68,10 @@ public class GameManager : MonoBehaviour {
 
 	public void StartGame()
 	{
+        // play some sort of loading animation here
+
+
+
 		FileReaderManager.ReadSaveFile();
 		int max = FileReader.TheGameFile.InitConditions();
 		FileReaderManager.SetUpSuspects();
@@ -71,6 +79,13 @@ public class GameManager : MonoBehaviour {
 		ConditionManager cm = ConditionManager.GetInstance();
 
 		cm.Initialize(FileReader.TheGameFile.ConditionSize);
+
+        // build the list of roots and dialogue trees
+        List<DialogueNode> roots = DLB.BuildTrees(FileReader.TheGameFile.dialoguenodes);
+
+        // connect roots and people
+        List<Person> peeps = new List<Person>(FileReader.TheGameFile.people);
+        DLB.AddDialogueRootToPeople(peeps, roots);
 
         // we want to go to the city of the first building
         Building firstBuilding = FileReader.TheGameFile.SearchBuildings(0);
@@ -186,15 +201,12 @@ public class GameManager : MonoBehaviour {
 	{
 		// clear any dialogue
 		ClearDialogueHolder();
-		// set the person image and name
-		DialoguePanelName.GetComponent<Text>().text = me.name;
-		//PersonImage.GetComponent<Sprite>( whatever this gotta be
+
 		// Make the dialogue panel the focus
 		DialoguePanel.transform.SetAsLastSibling();
 
-		//display dialogue tree
-		DialogueNode root = me.rootnode;
-
+        // give control to dialogue manager
+        DLM.LoadPerson(me);
 
 		// log it
 		ALM.AddLog("Talked to " + me.name);

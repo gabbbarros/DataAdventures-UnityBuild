@@ -4,12 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DialogManager : MonoBehaviour {
-	protected DialogueNode root;
 
 	/// <summary>
 	/// The options.
 	/// </summary>
-	public List<DialogueNode> Options;
+	public GameObject Options;
 
 	/// <summary>
 	/// The name.
@@ -20,14 +19,16 @@ public class DialogManager : MonoBehaviour {
 	/// </summary>
 	public Text Dialogue;
 
-	public Text Choice1;
-	public Text Choice2;
-	public Text Choice3;
-	public Text Choice4;
+    /// <summary>
+    /// The image of the person.
+    /// </summary>
+    public Image Photo;
+
+
+    public GameObject DialogueButtonPrefab;
 
 	// Use this for initialization
 	void Start () {
-		Options = root.childrenNodes;
 	}
 	
 	// Update is called once per frame
@@ -36,7 +37,23 @@ public class DialogManager : MonoBehaviour {
 
 	public void LoadPerson(Person me)
 	{
+        // display person name
+        Name.text = me.name;
 
+        // display person image
+        // TODO : (do it here)
+
+        // display dialogue line at beginning
+        Debug.Log(me.rootnode.id + ": " + me.rootnode.dialogueline);
+        Dialogue.text = me.rootnode.dialogueline;
+
+        // lay down the choices
+        foreach(DialogueNode child in me.rootnode.childrenNodes)
+        {
+            GameObject choice = Instantiate(DialogueButtonPrefab, Options.transform);
+            
+        }
 	}
+
 	
 }

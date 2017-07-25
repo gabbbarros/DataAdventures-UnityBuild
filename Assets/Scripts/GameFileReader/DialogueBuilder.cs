@@ -38,7 +38,7 @@ public class DialogueBuilder : MonoBehaviour {
 		}
 
 		foreach(DialogueNode d in nodes) {
-			if(d.isRoot) {
+			if(d.isroot) {
 				roots.Add(d);
 			}
 		}
