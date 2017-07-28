@@ -55,5 +55,20 @@ public class DialogManager : MonoBehaviour {
         }
 	}
 
+
+	public void ClearOptions()
+	{
+		foreach (Transform child in Options.transform)
+		{
+			DontDestroyOnLoad(child.gameObject);
+		}
+	}
+
+	public GameObject AddChoice(string line)
+	{
+
+
+		return null;
+	}
 	
 }
