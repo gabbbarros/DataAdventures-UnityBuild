@@ -19,18 +19,18 @@ public class DialogueButtonPrefabScript : MonoBehaviour
         Line.text = l;
     }
     
-    /// <summary>
-    /// Populates the list with all dialogue choice children when pressed
-    /// </summary>
-    public void Clicked()
-    {
-        DLM.ClearOptions();
+    ///// <summary>
+    ///// Populates the list with all dialogue choice children when pressed
+    ///// </summary>
+    //public void Clicked()
+    //{
+    //    DLM.ClearOptions();
         
-        // loop through all children and add to dialogue choices
-        foreach(DialogueNode child in me.childrenNodes)
-        {
-            DLM.AddChoice(child);
-        }
-    }
+    //    // loop through all children and add to dialogue choices
+    //    foreach(DialogueNode child in me.childrenNodes)
+    //    {
+    //        DLM.AddChoice(child);
+    //    }
+    //}
 
 }

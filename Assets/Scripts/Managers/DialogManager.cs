@@ -6,6 +6,11 @@ using UnityEngine.UI;
 public class DialogManager : MonoBehaviour {
 
 	/// <summary>
+	/// The game manager.
+	/// </summary>
+	public GameManager GM;
+
+	/// <summary>
 	/// The options.
 	/// </summary>
 	public GameObject Options;
@@ -24,6 +29,7 @@ public class DialogManager : MonoBehaviour {
     /// </summary>
     public Image Photo;
 
+	public Building Location;
 
     public GameObject DialogueButtonPrefab;
 
@@ -40,6 +46,8 @@ public class DialogManager : MonoBehaviour {
         // display person name
         Name.text = me.name;
 
+		// load the person building location
+		Location = FileReader.TheGameFile.SearchBuildings(me.buildingid);
         // display person image
         // TODO : (do it here)
 
@@ -50,17 +58,19 @@ public class DialogManager : MonoBehaviour {
         // lay down the choices
         foreach(DialogueNode child in me.rootnode.childrenNodes)
         {
-            GameObject choice = Instantiate(DialogueButtonPrefab, Options.transform);
-            DialogueButtonPrefabScript DBPS = choice.GetComponent<DialogueButtonPrefabScript>();
+			//         GameObject choice = Instantiate(DialogueButtonPrefab, Options.transform);
+			//         DialogueButtonPrefabScript DBPS = choice.GetComponent<DialogueButtonPrefabScript>();
 
-            DBPS.SetLine(child.option);
-
-            choice.GetComponent<Button>().onClick.AddListener(
-                delegate 
-                {
-                    DBPS.Clicked();
-                });
+			//         DBPS.SetLine(child.option);
+			//DBPS.me = child;
+			//         choice.GetComponent<Button>().onClick.AddListener(
+			//             delegate 
+			//             {
+			//		Clicked(DBPS.me);
+			//             });
+			AddChoice(child);
         }
+		AddExitChoice();
 	}
 
 
@@ -68,7 +78,7 @@ public class DialogManager : MonoBehaviour {
 	{
 		foreach (Transform child in Options.transform)
 		{
-			DontDestroyOnLoad(child.gameObject);
+			Destroy(child.gameObject);
 		}
 	}
 
@@ -82,9 +92,48 @@ public class DialogManager : MonoBehaviour {
 
         choice.GetComponent<Button>().onClick.AddListener(
             delegate {
-                DBPS.Clicked();
+                Clicked(me);
             });
 		return choice;
+	}
+
+	public GameObject AddExitChoice()
+	{
+		GameObject choice = Instantiate(DialogueButtonPrefab, Options.transform);
+		DialogueButtonPrefabScript DBPS = choice.GetComponent<DialogueButtonPrefabScript>();
+
+		DBPS.SetLine("Goodbye");
+
+		choice.GetComponent<Button>().onClick.AddListener(
+			delegate {
+				// add exit functionality
+				
+				GM.TravelHere(Location);
+		});
+
+		return choice;
+	}
+	/// <summary>
+	/// Populates the list with all dialogue choice children when pressed
+	/// </summary>
+	public void Clicked(DialogueNode me)
+	{
+		Debug.Log("Node ID: " + me.id);
+
+		// change dialogue line
+		Dialogue.text = me.dialogueline;
+
+		ClearOptions();
+
+		// loop through all children and add to dialogue choices
+		foreach (DialogueNode child in me.childrenNodes)
+		{
+			AddChoice(child);
+		}
+
+		// add a goodbye exit option
+		AddExitChoice();
+
 	}
 	
 }
