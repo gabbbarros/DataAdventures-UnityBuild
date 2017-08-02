@@ -51,7 +51,15 @@ public class DialogManager : MonoBehaviour {
         foreach(DialogueNode child in me.rootnode.childrenNodes)
         {
             GameObject choice = Instantiate(DialogueButtonPrefab, Options.transform);
-            
+            DialogueButtonPrefabScript DBPS = choice.GetComponent<DialogueButtonPrefabScript>();
+
+            DBPS.SetLine(child.option);
+
+            choice.GetComponent<Button>().onClick.AddListener(
+                delegate 
+                {
+                    DBPS.Clicked();
+                });
         }
 	}
 
@@ -64,11 +72,19 @@ public class DialogManager : MonoBehaviour {
 		}
 	}
 
-	public GameObject AddChoice(string line)
+	public GameObject AddChoice(DialogueNode me)
 	{
+        GameObject choice = Instantiate(DialogueButtonPrefab, Options.transform);
+        DialogueButtonPrefabScript DBPS = choice.GetComponent<DialogueButtonPrefabScript>();
 
+        DBPS.SetLine(me.option);
+        DBPS.me = me;
 
-		return null;
+        choice.GetComponent<Button>().onClick.AddListener(
+            delegate {
+                DBPS.Clicked();
+            });
+		return choice;
 	}
 	
 }
