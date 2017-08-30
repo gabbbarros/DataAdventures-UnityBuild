@@ -5,20 +5,22 @@ using UnityEngine;
 public class ConditionManager : Singleton<ConditionManager> {
 	public BitArray conditions;
 
+	public JournalManager JM;
+
 	// Use this for initialization
 	void Start () {
- 		//instance = null;
+		//instance = null;
 		//ConditionManager test = ConditionManager.GetInstance();
 		//test.Initialize(4);
 		//test.conditions.Set(2,true);
-		
+
 		//string s = "";
 		//for(int i  = 0; i < test.conditions.Count; i++) {
 		//	s+=test.conditions.Get(i)+"\t";
 		//}
 		//Debug.Log(s);
 		//Debug.Log(test.conditions.ToString());	
-	 	
+		JM = GameObject.FindWithTag("UI Manager").GetComponent<JournalManager>();
 	}
 	
 	// Update is called once per frame
@@ -60,8 +62,11 @@ public class ConditionManager : Singleton<ConditionManager> {
 	}
 	
 	public void SetAsTrue(int bitIndex) {
-		if(bitIndex >= 0)
+		if (bitIndex >= 0)
+		{
 			conditions.Set(bitIndex, true);
+			TrollEverything(bitIndex);
+		}
 	}
 	
 	public void SetAsFalse(int bitIndex) {
@@ -71,5 +76,26 @@ public class ConditionManager : Singleton<ConditionManager> {
 	
 	public void ClearConditions() {
 		conditions.SetAll(false);
+	}
+
+	// this method handles all new flag set to true operations.
+	// if an event is set to true, all cities will be notified in the journal
+	public void TrollEverything(int condition)
+	{
+		City[] cities = FileReader.TheGameFile.cities;
+		foreach (City me in cities)
+		{
+			int[] conditions = me.condition;
+			foreach (int cond in conditions)
+			{
+				if (cond == condition)
+				{
+					// this is one of the cities we must make a notification for
+					JM.AddPlace(me, true);
+					break;
+				}
+			}
+
+		}
 	}
 }
