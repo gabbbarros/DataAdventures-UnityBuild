@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour {
 		ALM.AddLog("Traveled to " + me.name);
 
 		// Add to journal
-		JM.AddPlace(me);
+		JM.AddPlace(me, false);
     }
 
     void ClearDotHolder()
@@ -191,7 +191,7 @@ public class GameManager : MonoBehaviour {
 				});
 
 				// add people to journal
-				JM.AddPerson(p);
+				JM.AddPerson(p, false);
 			}
 		}
 		ALM.AddLog("Traveled to " + me.name);

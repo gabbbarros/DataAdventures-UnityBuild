@@ -33,8 +33,10 @@ public class DialogManager : MonoBehaviour {
 
     public GameObject DialogueButtonPrefab;
 
+	private ConditionManager CM;
 	// Use this for initialization
 	void Start () {
+		CM = ConditionManager.GetInstance();
 	}
 	
 	// Update is called once per frame
@@ -133,6 +135,13 @@ public class DialogManager : MonoBehaviour {
 
 		// add a goodbye exit option
 		AddExitChoice();
+
+		// trigger a condition if one exists
+		int eventID = me.eventid;
+		if (eventID != -1)
+		{
+			CM.SetAsTrue(eventID);
+		}
 
 	}
 	

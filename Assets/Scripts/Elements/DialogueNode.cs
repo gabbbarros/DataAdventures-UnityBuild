@@ -6,7 +6,7 @@ using UnityEngine;
 public class DialogueNode {
 	public int id;
 	public int dialoguetype;
-	public int eventid;
+	public int eventid = -1;
 	public int[] condition;
 	public bool visited = false;
 	public string dialogueline;
