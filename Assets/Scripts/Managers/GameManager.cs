@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour {
 
 
 		FileReaderManager.ReadSaveFile();
+
 		int max = FileReader.TheGameFile.InitConditions();
 		FileReaderManager.SetUpSuspects();
 		// set up condition manager
