@@ -55,7 +55,9 @@ public class GameManager : MonoBehaviour {
 	public GameObject DialoguePrefab;
 	/** Dialogue Panel Stuff End **/
 
-
+	public List<Sprite> PeopleSprites;
+	public List<Sprite> BuildingSprites;
+	public List<Sprite> CitySprites;
     // Use this for initialization
     void Start () {
 
@@ -69,7 +71,7 @@ public class GameManager : MonoBehaviour {
 	public void StartGame()
 	{
         // play some sort of loading animation here
-
+		// TODO: Loading Animation
 
 
 		FileReaderManager.ReadSaveFile();
@@ -86,6 +88,25 @@ public class GameManager : MonoBehaviour {
         // connect roots and people
         List<Person> peeps = new List<Person>(FileReader.TheGameFile.people);
         DLB.AddDialogueRootToPeople(peeps, roots);
+
+		// Load all images into their respective lists
+		// load people list
+		Sprite[] Images = Resources.LoadAll<Sprite>("Albert_Einstein/");
+		foreach (Sprite me in Images)
+		{
+			if (me.name.Contains("PERSON"))
+			{
+				PeopleSprites.Add(me);
+			}
+			else if (me.name.Contains("BUILDING"))
+			{
+				BuildingSprites.Add(me);
+			}
+			else if (me.name.Contains("CITY"))
+			{
+				CitySprites.Add(me);
+			}
+		}
 
         // we want to go to the city of the first building
         Building firstBuilding = FileReader.TheGameFile.SearchBuildings(0);
@@ -108,6 +129,19 @@ public class GameManager : MonoBehaviour {
         Debug.Log("City Panel Active");
 		// change name to the city name
 		CityPanelName.GetComponent<Text>().text = me.name;
+
+		// change city image
+		Sprite myFace = null;
+		foreach (Sprite img in CitySprites)
+		{
+			Debug.Log(me.image.Remove(me.image.IndexOf('.')));
+			if (img.name.Contains(me.image.Remove(me.image.IndexOf('.')))) 
+			{
+				myFace = img;
+				break;
+			}
+		}
+		CityMap.GetComponent<Image>().overrideSprite = myFace;
         // add building dots for all buildings that the player can see
         foreach (int bID in me.buildingid)
         {
@@ -119,7 +153,9 @@ public class GameManager : MonoBehaviour {
             {
                 // spawn the building on the map
                 GameObject dot = Instantiate(BuildingDotPrefab, DotHolder.transform);
-                dot.transform.localPosition = new Vector2(180f, 80f);
+				// TODO: randomize this
+				dot.transform.localPosition = new Vector2(Random.Range(-250f, 250f), Random.Range(-130f, 80f));
+
 
 				// Change dot name
 				dot.GetComponentInChildren<BuildingDotPrefabScript>().SetName(b.name);
@@ -171,6 +207,19 @@ public class GameManager : MonoBehaviour {
 		Debug.Log("Building Panel Active");
 		//change name to the building name
 		BuildingPanelName.GetComponent<Text>().text = me.name;
+
+		// change building image
+		Sprite myFace = null;
+		foreach (Sprite img in BuildingSprites)
+		{
+			Debug.Log(me.image.Remove(me.image.IndexOf('.')));
+			if (img.name.Contains(me.image.Remove(me.image.IndexOf('.')))) 
+			{
+				myFace = img;
+				break;
+			}
+		}
+		BuildingImage.GetComponent<Image>().overrideSprite = myFace;
 
 		foreach (int pID in me.peopleid)
 		{

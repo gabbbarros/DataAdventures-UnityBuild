@@ -18,7 +18,7 @@ public class Person
 	/// </summary>
 	/// <value>The description.</value>
 	public string description;
-		/// <summary>
+	/// <summary>
 	/// Gets or sets the condition.
 	/// </summary>
 	/// <value>The condition.</value>
@@ -33,6 +33,10 @@ public class Person
 	/// </summary>
 	/// <value>The drootid identifier.</value>
 	public int drootid;
+	/// <summary>
+	/// The image.
+	/// </summary>
+	public string image;
 	/// <summary>
 	public DialogueNode rootnode;
 	/// Initializes a new instance of the <see cref="T:Person"/> class.

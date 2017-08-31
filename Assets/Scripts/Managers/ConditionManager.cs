@@ -36,6 +36,7 @@ public class ConditionManager : Singleton<ConditionManager> {
 
 	public void Initialize(int amountConditions) {
 		conditions = new BitArray(amountConditions + 1);
+		Debug.Log("Conditions Size: " + conditions.Count);
 	}
 
 	/**
@@ -64,6 +65,8 @@ public class ConditionManager : Singleton<ConditionManager> {
 	public void SetAsTrue(int bitIndex) {
 		if (bitIndex >= 0)
 		{
+			Debug.Log("Index:" + bitIndex);
+
 			conditions.Set(bitIndex, true);
 			TrollEverything(bitIndex);
 		}

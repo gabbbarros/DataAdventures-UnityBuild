@@ -27,7 +27,7 @@ public class DialogManager : MonoBehaviour {
     /// <summary>
     /// The image of the person.
     /// </summary>
-    public Image Photo;
+	public GameObject Photo;
 
 	public Building Location;
 
@@ -50,26 +50,28 @@ public class DialogManager : MonoBehaviour {
 
 		// load the person building location
 		Location = FileReader.TheGameFile.SearchBuildings(me.buildingid);
-        // display person image
-        // TODO : (do it here)
+		// display person image
+		// TODO : swap out game name
+		// search for image
+		Sprite myFace = null;
+		foreach (Sprite img in GM.PeopleSprites)
+		{
+			Debug.Log(me.image.Remove(me.image.IndexOf('.')));
+			if (img.name.Contains(me.image.Remove(me.image.IndexOf('.')))) 
+			{
+				myFace = img;
+				break;
+			}
+		}
+		Photo.GetComponent<Image>().overrideSprite = myFace;
+
 
         // display dialogue line at beginning
-        Debug.Log(me.rootnode.id + ": " + me.rootnode.dialogueline);
         Dialogue.text = me.rootnode.dialogueline;
 
         // lay down the choices
         foreach(DialogueNode child in me.rootnode.childrenNodes)
         {
-			//         GameObject choice = Instantiate(DialogueButtonPrefab, Options.transform);
-			//         DialogueButtonPrefabScript DBPS = choice.GetComponent<DialogueButtonPrefabScript>();
-
-			//         DBPS.SetLine(child.option);
-			//DBPS.me = child;
-			//         choice.GetComponent<Button>().onClick.AddListener(
-			//             delegate 
-			//             {
-			//		Clicked(DBPS.me);
-			//             });
 			AddChoice(child);
         }
 		AddExitChoice();

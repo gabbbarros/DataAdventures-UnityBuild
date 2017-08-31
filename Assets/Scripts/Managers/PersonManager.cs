@@ -5,22 +5,37 @@ using UnityEngine.UI;
 
 public class PersonManager : MonoBehaviour {
 	public Person me;
-	public Image Photo;
+	public GameObject Photo;
 	public Text Name;
 	public Button TalkButton;
 
 	private DescriptionManager DM;
+	private GameManager GM;
 	void Start()
 	{
 		DM = GameObject.FindWithTag("UI Manager").GetComponent<DescriptionManager>();
 	}
 	public void SetUp(Person p)
 	{
+		GM = GameObject.FindWithTag("UI Manager").GetComponent<GameManager>();
 		me = p;
-		//Photo.sprite = "somesprite.png";
+
 		Name.text = me.name;
 
-		// set up dialogue button
+		// set up photo
+		// seach for image
+		Sprite myFace = null;
+
+		foreach (Sprite img in GM.PeopleSprites)
+		{
+			Debug.Log(me.image.Remove(me.image.IndexOf('.')));
+			if (img.name.Contains(me.image.Remove(me.image.IndexOf('.')))) 
+			{
+				myFace = img;
+				break;
+			}
+		}
+		Photo.GetComponentInChildren<Image>().overrideSprite = myFace;
 	}
 
 	public void DescriptionTrigger()
