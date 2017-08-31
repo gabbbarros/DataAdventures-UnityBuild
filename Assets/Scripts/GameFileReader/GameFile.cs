@@ -55,7 +55,7 @@ public class GameFile
 	public int InitConditions()
 	{
 		int max = -1;
-		foreach (Person p in people)
+		/*foreach (Person p in people)
 		{
 			foreach (int cond in p.condition)
 			{
@@ -96,6 +96,13 @@ public class GameFile
 				{
 					max = cond;
 				}
+			}
+		}*/
+		foreach (Fact f in crime.facts)
+		{
+			if (f.condition > max)
+			{
+				max = f.condition;
 			}
 		}
 		ConditionSize = max;
