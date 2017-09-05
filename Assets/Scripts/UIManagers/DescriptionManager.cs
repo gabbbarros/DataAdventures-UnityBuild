@@ -13,16 +13,20 @@ public class DescriptionManager : MonoBehaviour {
 	/// </summary>
 	public Text Description;
 
+	public Text InhabitantsTitle;
+
 	public Button FoundInCityButton;
 	public Button FoundInBuildingButton;
+	public Button ArrestButton;
 
 	public GameObject InhabitantsList;
 
+	public GameObject FadePanel;
 
 	// prefab objects
 	public GameObject InhabitantPrefab;
 	public GameObject TravelHereButton;
-
+	public GameObject FactPrefab;
 
     public GameManager GM;
 
@@ -30,7 +34,6 @@ public class DescriptionManager : MonoBehaviour {
 	void Start () {
 		Name.text = "This is the Description Panel";
 		Description.text = "When you click on any object, place, or person in the game, a description of it will be displayed here.";
-		Debug.Log("Boop");
 	}
 
 	/// <summary>
@@ -44,12 +47,19 @@ public class DescriptionManager : MonoBehaviour {
 		FoundInBuildingButton.gameObject.SetActive(false);
 		TravelHereButton.gameObject.SetActive(false);
 		ClearInhabitantsList();
-
+		FadePanel.SetActive(false);
 		Name.text = title;
 		Description.text = content;
 
 	}
 
+
+	/// <summary>
+	/// Sets the location.
+	/// </summary>
+	/// <param name="me">Me.</param>
+	/// <param name="building">Building.</param>
+	/// <param name="city">City.</param>
 	public void SetLocation(Person me, Building building, City city)
 	{
 		int[] conds = me.condition;
@@ -82,6 +92,52 @@ public class DescriptionManager : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Sets the facts.
+	/// </summary>
+	/// <param name="me">Me.</param>
+	public void SetFacts(Person me)
+	{
+		if (FileReader.TheGameFile.SearchSuspects(me.id) != null)
+		{
+			InhabitantsTitle.text = "Facts Known";
+			// if this is a suspect, show which facts we know
+			List<Fact> knownFacts = FileReader.TheGameFile.KnownFacts(me.id);
+
+			foreach (Fact fact in knownFacts)
+			{
+				GameObject f = Instantiate(FactPrefab, InhabitantsList.transform);
+				f.GetComponentInChildren<Text>().text = fact.factoid;
+			}
+		}
+		else
+		{
+			FadePanel.SetActive(true);
+		}
+	}
+
+	public void SetArrestButton(Person me)
+	{
+		if (FileReader.TheGameFile.SearchSuspects(me.id) != null)
+		{
+			ArrestButton.enabled = true;
+			ArrestButton.GetComponent<Button>().onClick.RemoveAllListeners();
+			ArrestButton.GetComponent<Button>().onClick.AddListener(
+				delegate
+				{
+					ClickedArrest(me);
+				});
+		}
+		else
+		{
+			ArrestButton.enabled = false;
+		}
+
+	}
+	/// <summary>
+	/// Buildings the pressed.
+	/// </summary>
+	/// <param name="me">Me.</param>
 	public void BuildingPressed(Building me)
 	{
 		// Display what city this is in, with buttons
@@ -99,7 +155,8 @@ public class DescriptionManager : MonoBehaviour {
 		{
 			peopleList.Add(FileReader.TheGameFile.SearchPeople(i));
 		}
-
+		// change title
+		InhabitantsTitle.text = "People Here";
 		foreach (Person p in peopleList)
 		{
 			GameObject inhab = Instantiate(InhabitantPrefab, InhabitantsList.transform);
@@ -108,6 +165,10 @@ public class DescriptionManager : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Cities the pressed.
+	/// </summary>
+	/// <param name="me">Me.</param>
 	public void CityPressed(City me)
 	{
 		SetDescription(me.name, me.description);
@@ -132,7 +193,8 @@ public class DescriptionManager : MonoBehaviour {
 				peopleList.Add(FileReader.TheGameFile.SearchPeople(p));
 			}
 		}
-
+		// change title
+		InhabitantsTitle.text = "People Here";
 		foreach (Person p in peopleList)
 		{
 			GameObject inhab = Instantiate(InhabitantPrefab, InhabitantsList.transform);
@@ -147,6 +209,21 @@ public class DescriptionManager : MonoBehaviour {
 		foreach (Transform child in InhabitantsList.transform)
 		{
 			Destroy(child.gameObject);
+		}
+	}
+
+	public void ClickedArrest(Person me)
+	{
+		// check if the person is the actual culprit
+		if (me.id == FileReader.TheGameFile.crime.culprit)
+		{
+			// TODO Win the game!
+			Debug.Log("You win!");
+		}
+		else
+		{
+			// TODO Lose the game...
+			Debug.Log("You Lose!");
 		}
 	}
 	 

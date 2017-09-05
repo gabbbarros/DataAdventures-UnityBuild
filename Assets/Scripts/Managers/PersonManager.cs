@@ -28,7 +28,7 @@ public class PersonManager : MonoBehaviour {
 
 		foreach (Sprite img in GM.PeopleSprites)
 		{
-			Debug.Log(me.image.Remove(me.image.IndexOf('.')));
+			//Debug.Log(me.image.Remove(me.image.IndexOf('.')));
 			if (img.name.Contains(me.image.Remove(me.image.IndexOf('.')))) 
 			{
 				myFace = img;
@@ -44,5 +44,7 @@ public class PersonManager : MonoBehaviour {
 
 
 		DM.SetLocation(me, FileReader.TheGameFile.SearchBuildings(me.buildingid), FileReader.TheGameFile.SearchCities(FileReader.TheGameFile.SearchBuildings(me.buildingid).cityid));
+		DM.SetFacts(me);
+		DM.SetArrestButton(me);
 	}
 }

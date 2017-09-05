@@ -12,6 +12,11 @@ public class GameFile
 	public Crime crime;
 	public int ConditionSize { get; set; }
 
+	/// <summary>
+	/// Searchs the people.
+	/// </summary>
+	/// <returns>The people.</returns>
+	/// <param name="id">Identifier.</param>
 	public Person SearchPeople(int id)
 	{
 		foreach (Person p in people)
@@ -22,6 +27,11 @@ public class GameFile
 		return null;
 	}
 
+	/// <summary>
+	/// Searchs the cities.
+	/// </summary>
+	/// <returns>The cities.</returns>
+	/// <param name="id">Identifier.</param>
 	public City SearchCities(int id)
 	{
 		foreach (City c in cities)
@@ -31,7 +41,11 @@ public class GameFile
 		}
 		return null;
 	}
-
+	/// <summary>
+	/// Searchs the items.
+	/// </summary>
+	/// <returns>The items.</returns>
+	/// <param name="id">Identifier.</param>
 	public Item SearchItems(int id)
 	{
 		foreach (Item i in items)
@@ -41,7 +55,11 @@ public class GameFile
 		}
 		return null;
 	}
-
+	/// <summary>
+	/// Searchs the buildings.
+	/// </summary>
+	/// <returns>The buildings.</returns>
+	/// <param name="id">Identifier.</param>
 	public Building SearchBuildings(int id)
 	{
 		foreach (Building b in buildings)
@@ -52,6 +70,65 @@ public class GameFile
 		return null;
 	}
 
+	/// <summary>
+	/// Searchs the suspects.
+	/// </summary>
+	/// <returns>The suspects.</returns>
+	/// <param name="id">Identifier.</param>
+	public Person SearchSuspects(int id)
+	{
+		foreach (int s in crime.suspects)
+		{
+			if (s == id)
+			{
+				return SearchPeople(s);
+			}
+		}
+		return null;
+	}
+
+	/// <summary>
+	/// Knowns the facts.
+	/// </summary>
+	/// <returns>The facts.</returns>
+	/// <param name="id">Identifier.</param>
+	public List<Fact> KnownFacts(int id)
+	{
+		ConditionManager cm = ConditionManager.GetInstance();
+		Person sus = SearchSuspects(id);
+
+		List<Fact> knownFacts = new List<Fact>();
+		if (sus != null)
+		{
+			List<Fact> allFacts = SearchFacts(id);
+			foreach (Fact f in allFacts)
+			{
+				if (cm.IsSet(f.condition))
+				{
+					knownFacts.Add(f);
+				}
+			}
+		}
+		return knownFacts;
+	}
+
+	/// <summary>
+	/// Searchs the facts.
+	/// </summary>
+	/// <returns>The facts.</returns>
+	/// <param name="id">Identifier.</param>
+	public List<Fact> SearchFacts(int id)
+	{
+		List<Fact> returnMe = new List<Fact>();
+		foreach (Fact f in crime.facts)
+		{
+			if (f.pid == id)
+			{
+				returnMe.Add(f);
+			}
+		}
+		return returnMe;
+	}
 	public int InitConditions()
 	{
 		int max = -1;

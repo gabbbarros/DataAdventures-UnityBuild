@@ -36,5 +36,10 @@ public class PeopleJournalPrefabScript : MonoBehaviour
 		City city = FileReader.TheGameFile.SearchCities(building.cityid);
 		// set the location
 		DM.SetLocation(Person, building, city);
+
+		// if this is a suspect, show which facts we know
+		DM.SetFacts(Person);
+		DM.SetArrestButton(Person);
+
 	}
 }

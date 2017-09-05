@@ -24,8 +24,9 @@ public class SuspectListManager : MonoBehaviour {
 	{
 		DM.SetDescription(sus.me.name, sus.me.description);
 		DM.SetLocation(sus.me, FileReader.TheGameFile.SearchBuildings(sus.me.buildingid), FileReader.TheGameFile.SearchCities(FileReader.TheGameFile.SearchBuildings(sus.me.buildingid).cityid));
-
-
+		// if this is a suspect, show which facts we know
+		DM.SetFacts(sus.me);
+		DM.SetArrestButton(sus.me);
 	}
 
 
