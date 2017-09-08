@@ -14,4 +14,9 @@ public class ThingsJournalPrefabScript : MonoBehaviour
 		DescriptionTitle = GameObject.Find("Description Title").GetComponent<Text>();
 		DescriptionContent = GameObject.Find("Description Content").GetComponent<Text>();
 	}
+
+	public void SetUp()
+	{
+
+	}
 }

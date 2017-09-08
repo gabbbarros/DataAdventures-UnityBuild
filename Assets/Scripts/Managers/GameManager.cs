@@ -268,6 +268,11 @@ public class GameManager : MonoBehaviour {
 				{
 					InteractWith(i);
 				});
+
+				if (!i.name.Equals("Flashlight") && !i.name.Equals("Key"))
+				{
+					JM.AddItem(i, false);
+				}
 			}
 		}
 		ALM.AddLog("Traveled to " + me.name);

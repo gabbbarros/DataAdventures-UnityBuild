@@ -12,6 +12,11 @@ public class GameFile
 	public Crime crime;
 	public int ConditionSize { get; set; }
 
+
+	public List<Item> Keys;
+	public List<Item> Lights;
+	public List<Building> Locks;
+	public List<Building> Darks;
 	/// <summary>
 	/// Searchs the people.
 	/// </summary>
@@ -85,6 +90,11 @@ public class GameFile
 			}
 		}
 		return null;
+	}
+
+	public void SearchKeys(int id)
+	{
+
 	}
 
 	/// <summary>

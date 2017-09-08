@@ -109,16 +109,36 @@ public class DialogManager : MonoBehaviour {
 		IName.text = "This is " + me.name + ".";
 		IDescription.text = me.description;
 
+		// remove all prior listeners
 		Button goback = GoBackButton.GetComponent<Button>();
 		goback.onClick.RemoveAllListeners();
 
 		// find this item's building
 		Building building = FileReader.TheGameFile.SearchBuildings(me.buildingid);
-		// add the go back onlick listener for the goback button
-		goback.onClick.AddListener(delegate 
+
+		if (me.name.Equals("Key") || me.name.Equals("Flashlight"))
 		{
-			GM.TravelHere(building);
-		});
+			// name goback button "Collect"
+			goback.GetComponentInChildren<Text>().text = "Collect";
+
+			// add the Collect listener for the goback button
+			goback.onClick.AddListener(delegate 
+			{
+					
+			});
+		}
+		else
+		{
+			// name goback button "Go Back"
+			goback.GetComponentInChildren<Text>().text = "Go Back";
+
+			// add the go back onlick listener for the goback button
+			goback.onClick.AddListener(delegate
+			{
+				GM.TravelHere(building);
+			});
+
+		}
 	}
 
 	public void ClearOptions()

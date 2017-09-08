@@ -83,8 +83,17 @@ public class JournalManager : MonoBehaviour {
 		{
 			ThingsSeen.Add(me.id);
 			GameObject i = Instantiate(ThingsJournalPrefab, ThingsPanelContent.transform);
-
+			i.GetComponent<ItemJournalPrefabScript>().SetUp(me);
+			i.transform.name = "item:" + me.id;
 			i.GetComponent<Animator>().Play("NewJournalAnimation");
+			// show the blinking lights on the respective overhead tabs
+			NM.ShowThingsNotification();
+		}
+		else if(newInfo)
+		{
+			GameObject p = GameObject.Find("item:" + me.id);
+			// show the blinking light on the journal prefab
+			p.GetComponent<Animator>().Play("NewJournalAnimation");
 			// show the blinking lights on the respective overhead tabs
 			NM.ShowThingsNotification();
 		}

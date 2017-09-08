@@ -31,6 +31,10 @@ public class FileReader : MonoBehaviour {
 		//StringReader r1 = new StringReader(gF);
 		//GameFile gf = JsonUtility.FromJson<GameFile>(GameFile);
 		TheGameFile = JsonUtility.FromJson<GameFile>(gFile);
+		TheGameFile.Keys = new List<Item>();
+		TheGameFile.Lights = new List<Item>();
+		TheGameFile.Locks = new List<Building>();
+		TheGameFile.Darks = new List<Building>();
     }
 
 	public void SetUpSuspects()
@@ -47,6 +51,33 @@ public class FileReader : MonoBehaviour {
 				}
 			}
 			SLM.AddSuspect(addMe);
+		}
+	}
+
+	public void SetUpLockDarkAndKey()
+	{
+		foreach (Building b in TheGameFile.buildings)
+		{
+			if (b.locktype.Equals("dark"))
+			{
+				TheGameFile.Darks.Add(b);
+			}
+			else if (b.locktype.Equals("lock"))
+			{
+				TheGameFile.Locks.Add(b);
+			}
+		}
+
+		foreach (Item i in TheGameFile.items)
+		{
+			if (i.name.Equals("Key"))
+			{
+				TheGameFile.Keys.Add(i);
+			}
+			else if (i.name.Equals("Flashlight"))
+			{
+				TheGameFile.Lights.Add(i);
+			}
 		}
 	}
 }
