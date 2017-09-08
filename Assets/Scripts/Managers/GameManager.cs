@@ -42,12 +42,15 @@ public class GameManager : MonoBehaviour {
     public GameObject PeopleHolder;
 
     public GameObject PeoplePrefab;
+	public GameObject ItemsPrefab;
 	/** Building Panel Stuff End **/
 
 
 	/** Dialogue Panel Stuff Begin **/
 	public GameObject DialoguePanel;
 	public GameObject DialoguePanelName;
+	public GameObject InteractPanel;
+	public GameObject InteractPanelName;
 
 	public GameObject PersonImage;
 	public GameObject DialogueHolder;
@@ -58,6 +61,7 @@ public class GameManager : MonoBehaviour {
 	public List<Sprite> PeopleSprites;
 	public List<Sprite> BuildingSprites;
 	public List<Sprite> CitySprites;
+	public List<Sprite> ItemsSprites;
     // Use this for initialization
     void Start () {
 
@@ -106,6 +110,10 @@ public class GameManager : MonoBehaviour {
 			else if (me.name.Contains("CITY"))
 			{
 				CitySprites.Add(me);
+			}
+			else if (me.name.Contains("ITEM"))
+			{
+				ItemsSprites.Add(me);
 			}
 		}
 
@@ -244,6 +252,24 @@ public class GameManager : MonoBehaviour {
 				JM.AddPerson(p, false);
 			}
 		}
+		foreach (int iID in me.itemsid)
+		{
+			Item i = FileReader.TheGameFile.SearchItems(iID);
+			int[] conds = i.condition;
+			List<int> conditionsList = new List<int>(conds);
+			if (conditionsList.Count == 0 || cm.IsSet(conditionsList))
+			{
+				// spawn an item
+				GameObject item = Instantiate(ItemsPrefab, PeopleHolder.transform);
+				// change item name
+				item.GetComponent<ItemManager>().SetUp(i);
+				item.GetComponentsInChildren<Button>()[1].onClick.RemoveAllListeners();
+				item.GetComponentsInChildren<Button>()[1].onClick.AddListener(delegate 
+				{
+					InteractWith(i);
+				});
+			}
+		}
 		ALM.AddLog("Traveled to " + me.name);
     }
 
@@ -260,6 +286,22 @@ public class GameManager : MonoBehaviour {
 
 		// log it
 		ALM.AddLog("Talked to " + me.name);
+	}
+
+	public void InteractWith(Item me)
+	{
+		// uh what would this show?
+		ClearDialogueHolder();
+		// Make the dialogue panel the focus
+		InteractPanel.transform.SetAsLastSibling();
+
+		// give control to dialogue manager
+		DLM.LoadItem(me);
+
+		// log it
+		ALM.AddLog("Interacted with " + me.name);
+
+
 	}
 
     public void ChangeOverallFocus(int focus)

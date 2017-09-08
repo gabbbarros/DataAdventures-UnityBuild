@@ -18,16 +18,23 @@ public class DialogManager : MonoBehaviour {
 	/// <summary>
 	/// The name.
 	/// </summary>
-	public Text Name;
+	public Text PName;
+	public Text IName;
 	/// <summary>
 	/// The dialogue the person said.
 	/// </summary>
-	public Text Dialogue;
-
+	public Text PDialogue;
+	public Text IDescription;
     /// <summary>
     /// The image of the person.
     /// </summary>
-	public GameObject Photo;
+	public GameObject PPhoto;
+
+	/// <summary>
+	/// The image of the item
+	/// </summary>
+	public GameObject IPhoto;
+	public GameObject GoBackButton;
 
 	public Building Location;
 
@@ -46,7 +53,7 @@ public class DialogManager : MonoBehaviour {
 	public void LoadPerson(Person me)
 	{
         // display person name
-        Name.text = me.name;
+        PName.text = me.name;
 
 		// load the person building location
 		Location = FileReader.TheGameFile.SearchBuildings(me.buildingid);
@@ -63,11 +70,11 @@ public class DialogManager : MonoBehaviour {
 				break;
 			}
 		}
-		Photo.GetComponent<Image>().overrideSprite = myFace;
+		PPhoto.GetComponent<Image>().overrideSprite = myFace;
 
 
         // display dialogue line at beginning
-        Dialogue.text = me.rootnode.dialogueline;
+        PDialogue.text = me.rootnode.dialogueline;
 
         // lay down the choices
         foreach(DialogueNode child in me.rootnode.childrenNodes)
@@ -77,6 +84,42 @@ public class DialogManager : MonoBehaviour {
 		AddExitChoice();
 	}
 
+	public void LoadItem(Item me)
+	{
+		// Set these conditions
+		foreach (int cond in me.condition)
+		{
+			CM.SetAsTrue(cond);
+		}
+
+		// display item name
+        IName.text = me.name;
+		Sprite myFace = null;
+		foreach (Sprite img in GM.ItemsSprites)
+		{
+			Debug.Log(me.image.Remove(me.image.IndexOf('.')));
+			if (img.name.Contains(me.image.Remove(me.image.IndexOf('.')))) 
+			{
+				myFace = img;
+				break;
+			}
+		}
+		PPhoto.GetComponent<Image>().overrideSprite = myFace;
+
+		IName.text = "This is " + me.name + ".";
+		IDescription.text = me.description;
+
+		Button goback = GoBackButton.GetComponent<Button>();
+		goback.onClick.RemoveAllListeners();
+
+		// find this item's building
+		Building building = FileReader.TheGameFile.SearchBuildings(me.buildingid);
+		// add the go back onlick listener for the goback button
+		goback.onClick.AddListener(delegate 
+		{
+			GM.TravelHere(building);
+		});
+	}
 
 	public void ClearOptions()
 	{
@@ -125,7 +168,7 @@ public class DialogManager : MonoBehaviour {
 		Debug.Log("Node ID: " + me.id);
 
 		// change dialogue line
-		Dialogue.text = me.dialogueline;
+		PDialogue.text = me.dialogueline;
 
 		ClearOptions();
 

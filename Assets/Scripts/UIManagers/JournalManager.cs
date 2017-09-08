@@ -77,6 +77,19 @@ public class JournalManager : MonoBehaviour {
 		}
 	}
 
+	public void AddItem(Item me, bool newInfo)
+	{
+		if (!ThingsSeen.Contains(me.id))
+		{
+			ThingsSeen.Add(me.id);
+			GameObject i = Instantiate(ThingsJournalPrefab, ThingsPanelContent.transform);
+
+			i.GetComponent<Animator>().Play("NewJournalAnimation");
+			// show the blinking lights on the respective overhead tabs
+			NM.ShowThingsNotification();
+		}
+	}
+
 
 
 }

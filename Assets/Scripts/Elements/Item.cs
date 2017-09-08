@@ -28,6 +28,10 @@ public class Item
 	/// <value>The event.</value>
 	public int eventid;
 	/// <summary>
+	/// The image.
+	/// </summary>
+	public string image;
+	/// <summary>
 	/// Gets or sets the building identifier.
 	/// </summary>
 	/// <value>The building identifier.</value>

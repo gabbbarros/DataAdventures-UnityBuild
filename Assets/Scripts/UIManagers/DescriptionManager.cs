@@ -92,6 +92,39 @@ public class DescriptionManager : MonoBehaviour {
 		}
 	}
 
+	public void SetLocation(Item me, Building building, City city)
+	{
+		int[] conds = me.condition;
+		List<int> conditionsList = new List<int>(conds);
+
+		ConditionManager cm = ConditionManager.GetInstance();
+
+		// check to make sure we can find this item
+		if (conditionsList.Count == 0 || cm.IsSet(conditionsList))
+		{
+			FoundInCityButton.gameObject.SetActive(true);
+			FoundInBuildingButton.gameObject.SetActive(true);
+			FoundInCityButton.GetComponentInChildren<Text>().text = city.name;
+			FoundInBuildingButton.GetComponentInChildren<Text>().text = building.name;
+
+			// set up the button
+			FoundInCityButton.onClick.RemoveAllListeners();
+			FoundInBuildingButton.onClick.RemoveAllListeners();
+			FoundInBuildingButton.onClick.AddListener(delegate { BuildingPressed(building); });
+			FoundInCityButton.onClick.AddListener(delegate { CityPressed(city); });
+		}
+		else
+		{
+			FoundInCityButton.gameObject.SetActive(true);
+			FoundInBuildingButton.gameObject.SetActive(true);
+			FoundInCityButton.onClick.RemoveAllListeners();
+			FoundInBuildingButton.onClick.RemoveAllListeners();
+
+			FoundInCityButton.GetComponentInChildren<Text>().text = "???";
+			FoundInBuildingButton.GetComponentInChildren<Text>().text = "???";
+		}
+	}
+
 	/// <summary>
 	/// Sets the facts.
 	/// </summary>
@@ -204,6 +237,15 @@ public class DescriptionManager : MonoBehaviour {
 
 	}
 
+	public void ItemPressed(Item me)
+	{
+		SetDescription(me.name, me.description);
+
+		Building building = FileReader.TheGameFile.SearchBuildings(me.buildingid);
+		City city = FileReader.TheGameFile.SearchCities(building.cityid);
+
+
+	}
 	public void ClearInhabitantsList()
 	{
 		foreach (Transform child in InhabitantsList.transform)
