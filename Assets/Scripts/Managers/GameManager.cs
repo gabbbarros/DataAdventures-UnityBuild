@@ -278,6 +278,7 @@ public class GameManager : MonoBehaviour {
 		ALM.AddLog("Traveled to " + me.name);
     }
 
+
 	public void TalkTo(Person me)
 	{
 		// clear any dialogue

@@ -12,6 +12,8 @@ public class ItemManager : MonoBehaviour {
 
 	private DescriptionManager DM;
 	private GameManager GM;
+
+	public bool Used { get; set;}
 	// Use this for initialization
 	void Start () 
 	{

@@ -9,21 +9,50 @@ public class InventoryManager : MonoBehaviour {
 	// Inventory content box
 	public GameObject InventoryContent;
 
+	public Text KeyCounter;
+	public Text FlashlightCounter;
+
+
+	public int keycount;
+	public int flashlightcount;
 
 	public List<Item> Inventory;
 	// Use this for initialization
 	void Start () {
+		keycount = 0;
+		flashlightcount = 0;
+
 
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
 
 	}
 
 	public void AddKey()
 	{
+		keycount++;
+		KeyCounter.text = "x " + keycount;
+	}
 
+	public void AddFlashlight()
+	{
+		flashlightcount++;
+		FlashlightCounter.text = "x " + flashlightcount;
+	}
+
+	public void RemoveKey()
+	{
+		keycount--;
+		KeyCounter.text = "x " + keycount;
+	}
+
+	public void RemoveFlashlight()
+	{
+		flashlightcount--;
+		FlashlightCounter.text = "x " + flashlightcount;
 	}
 	public void AddItem(Item me)
 	{
