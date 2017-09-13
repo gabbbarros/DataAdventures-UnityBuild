@@ -55,4 +55,12 @@ public class ItemManager : MonoBehaviour {
 
 		DM.SetLocation(me, FileReader.TheGameFile.SearchBuildings(me.buildingid), FileReader.TheGameFile.SearchCities(FileReader.TheGameFile.SearchBuildings(me.buildingid).cityid));
 	}
+
+	public void UseMe()
+	{
+		if (Used == false)
+			Used = true;
+		else
+			Debug.Log("Item has already been used..");
+	}
 }

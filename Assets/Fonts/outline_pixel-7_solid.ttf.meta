@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: b747dd243c30d425fb4ae9fc1aa2bbad
+timeCreated: 1505178001
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Outline Pixel7 Solid
+  fontNames:
+  - Outline Pixel7 Solid
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

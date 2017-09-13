@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 24bf1336aa3a0284bb5ff2ce1db44c74
-timeCreated: 1505168587
+timeCreated: 1505247533
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -38,6 +38,7 @@ TextureImporter:
     21300062: basicScreenNoHole
     21300064: leftFullPanel
     21300066: leftFullPanelTop
+    21300068: Menu Button Extra
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -590,6 +591,20 @@ TextureImporter:
         height: 19
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Menu Button Extra
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 537
+        width: 56
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

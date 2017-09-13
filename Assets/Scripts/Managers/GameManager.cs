@@ -117,6 +117,10 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
+
+		// reset the counts on keys, flashlights, and crowbars
+
+
         // we want to go to the city of the first building
         Building firstBuilding = FileReader.TheGameFile.SearchBuildings(0);
         City firstCity = FileReader.TheGameFile.SearchCities(firstBuilding.cityid);
@@ -277,6 +281,7 @@ public class GameManager : MonoBehaviour {
 		}
 		ALM.AddLog("Traveled to " + me.name);
     }
+
 
 
 	public void TalkTo(Person me)
