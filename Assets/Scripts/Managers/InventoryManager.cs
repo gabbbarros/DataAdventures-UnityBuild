@@ -26,6 +26,7 @@ public class InventoryManager : MonoBehaviour {
 
 		RefreshKeyUI();
 		RefreshFlashlightUI();
+		RefreshCrowbarUI();
 	}
 
 	// Update is called once per frame

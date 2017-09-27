@@ -63,4 +63,9 @@ public class ItemManager : MonoBehaviour {
 		else
 			Debug.Log("Item has already been used..");
 	}
+	public void InventoryItemPressed(string name, string description)
+	{
+		DM.SetDescription(name, description);
+	}
+
 }

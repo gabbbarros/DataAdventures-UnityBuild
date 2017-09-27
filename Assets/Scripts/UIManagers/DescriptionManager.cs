@@ -246,6 +246,9 @@ public class DescriptionManager : MonoBehaviour {
 
 
 	}
+
+
+
 	public void ClearInhabitantsList()
 	{
 		foreach (Transform child in InhabitantsList.transform)

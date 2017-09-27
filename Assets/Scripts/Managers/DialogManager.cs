@@ -41,6 +41,7 @@ public class DialogManager : MonoBehaviour {
     public GameObject DialogueButtonPrefab;
 
 	private ConditionManager CM;
+	private InventoryManager IM;
 	// Use this for initialization
 	void Start () {
 		CM = ConditionManager.GetInstance();
