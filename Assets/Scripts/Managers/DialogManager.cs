@@ -9,6 +9,7 @@ public class DialogManager : MonoBehaviour {
 	/// The game manager.
 	/// </summary>
 	public GameManager GM;
+	public InventoryManager IM;
 
 	/// <summary>
 	/// The options.
@@ -41,7 +42,6 @@ public class DialogManager : MonoBehaviour {
     public GameObject DialogueButtonPrefab;
 
 	private ConditionManager CM;
-	private InventoryManager IM;
 	// Use this for initialization
 	void Start () {
 		CM = ConditionManager.GetInstance();
@@ -117,7 +117,7 @@ public class DialogManager : MonoBehaviour {
 		// find this item's building
 		Building building = FileReader.TheGameFile.SearchBuildings(me.buildingid);
 
-		if (me.name.Equals("Key") || me.name.Equals("Flashlight"))
+		if (me.name.Equals("Key") || me.name.Equals("Flashlight") || me.name.Equals("Crowbar"))
 		{
 			// name goback button "Collect"
 			goback.GetComponentInChildren<Text>().text = "Collect";
@@ -125,7 +125,20 @@ public class DialogManager : MonoBehaviour {
 			// add the Collect listener for the goback button
 			goback.onClick.AddListener(delegate 
 			{
-					
+				Collect(me);
+				GM.TravelHere(building);
+				if (me.name.Equals("Flashlight"))
+				{
+					IM.AddFlashlight();
+				}
+				else if (me.name.Equals("Key"))
+				{
+					IM.AddKey();
+				}
+				else if (me.name.Equals("Crowbar"))
+				{
+					IM.AddCrowbar();
+				}
 			});
 		}
 		else
@@ -140,6 +153,14 @@ public class DialogManager : MonoBehaviour {
 			});
 
 		}
+	}
+
+	/// <summary>
+	/// Collect this item.
+	/// </summary>
+	public void Collect(Item me)
+	{
+		me.isCollected = true;
 	}
 
 	public void ClearOptions()

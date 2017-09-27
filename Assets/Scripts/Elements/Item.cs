@@ -40,7 +40,7 @@ public class Item
 	/// <summary>
 	/// whether or not this item has been used. default is false.
 	/// </summary>
-	public bool used = false;
+	public bool isCollected { get; set; }
 	/// <summary>
 	/// Initializes a new instance of the <see cref="T:Item"/> class.
 	/// </summary>

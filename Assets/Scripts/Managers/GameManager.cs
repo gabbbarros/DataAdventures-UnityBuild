@@ -261,7 +261,7 @@ public class GameManager : MonoBehaviour {
 			Item i = FileReader.TheGameFile.SearchItems(iID);
 			int[] conds = i.condition;
 			List<int> conditionsList = new List<int>(conds);
-			if (conditionsList.Count == 0 || cm.IsSet(conditionsList))
+			if (!i.isCollected && (conditionsList.Count == 0 || cm.IsSet(conditionsList)))
 			{
 				// spawn an item
 				GameObject item = Instantiate(ItemsPrefab, PeopleHolder.transform);
