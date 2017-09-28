@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class PauseMenu : MonoBehaviour {
     public Transform canvas;
 
@@ -11,10 +11,13 @@ public class PauseMenu : MonoBehaviour {
     public GameObject PlaceHolder;
 
     private Animator anim;
+	private Button[] buttons;
+
 
     void Start() {
         Time.timeScale = 1;
         anim = PlaceHolder.GetComponent<Animator>();
+		buttons = PlaceHolder.GetComponentsInChildren<Button>();
         //disable it on start to stop it from playing the default animation
         anim.enabled = false;
         print("Starting");
@@ -44,7 +47,7 @@ public class PauseMenu : MonoBehaviour {
         //set back the time scale to normal time scale
         Time.timeScale = 1;
         
-        Menu.gameObject.SetActive(false);
+        //Menu.gameObject.SetActive(false);
   
     }
 
@@ -86,5 +89,21 @@ public class PauseMenu : MonoBehaviour {
                MovablePart.GetComponent<RectTransform>().transform.position,
                     new Vector3(81.04f, -124.05F, 0), 
                      5 * Time.deltaTime);*/
+	}
+
+	public void DisableButtons()
+	{
+		foreach (Button b in buttons)
+		{
+			b.enabled = false;
+		}
+	}
+
+	public void EnableButtons()
+	{
+		foreach (Button b in buttons)
+		{
+			b.enabled = true;
+		}
 	}
 }
