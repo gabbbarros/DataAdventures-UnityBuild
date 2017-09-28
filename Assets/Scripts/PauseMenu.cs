@@ -8,9 +8,21 @@ public class PauseMenu : MonoBehaviour {
     public GameObject Menu;
     public GameObject SettingsMenu;
 
+    public GameObject PlaceHolder;
+
+    private Animator anim;
+
+    void Start() {
+        Time.timeScale = 1;
+        anim = PlaceHolder.GetComponent<Animator>();
+        //disable it on start to stop it from playing the default animation
+        anim.enabled = false;
+        print("Starting");
+    }
+
 	// Update is called once per frame
 	void Update () {
-	    if (Input.GetKeyDown(KeyCode.Escape))
+	    /*if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (Menu.gameObject.activeInHierarchy == false)
             {
@@ -22,14 +34,21 @@ public class PauseMenu : MonoBehaviour {
 
             }
 
-        }
+        }*/
 	}
 
     public void Resume ()
     {
+        //play the SlideOut animation
+        anim.Play("PauseMenuSlideOut");
+        //set back the time scale to normal time scale
+        Time.timeScale = 1;
+        
         Menu.gameObject.SetActive(false);
   
     }
+
+
     public void ReturnToMainMenu ()
     {
         
@@ -52,7 +71,20 @@ public class PauseMenu : MonoBehaviour {
 
 	public void Pause()
 	{
-
         Menu.gameObject.SetActive(true);
+        //enable the animator component
+        anim.enabled = true;
+        //play the Slidein animation
+        anim.Play("PauseMenuSlideIn");
+        //set the isPaused flag to true to indicate that the game is paused
+        //freeze the timescale
+        Time.timeScale = 0;
+        
+        /* print("here");
+             //  MovablePart.GetComponent<RectTransform>().transform.Translate(Vector3.left * 100 * Time.deltaTime);
+                MovablePart.GetComponent<RectTransform>().transform.position = Vector3.MoveTowards(
+               MovablePart.GetComponent<RectTransform>().transform.position,
+                    new Vector3(81.04f, -124.05F, 0), 
+                     5 * Time.deltaTime);*/
 	}
 }
