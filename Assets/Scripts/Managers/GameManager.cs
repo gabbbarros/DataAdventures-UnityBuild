@@ -179,7 +179,7 @@ public class GameManager : MonoBehaviour {
 				});
             }
         }
-		ALM.AddLog("Traveled to " + me.name);
+		ALM.AddLog("Clicked on " + me.name);
 
 		// Add to journal
 		JM.AddPlace(me, false);
@@ -324,4 +324,6 @@ public class GameManager : MonoBehaviour {
     {
         JournalTabFocus = focus;
     }
+
+
 }
