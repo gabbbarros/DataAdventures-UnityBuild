@@ -247,8 +247,6 @@ public class DescriptionManager : MonoBehaviour {
 
 	}
 
-
-
 	public void ClearInhabitantsList()
 	{
 		foreach (Transform child in InhabitantsList.transform)
@@ -270,6 +268,5 @@ public class DescriptionManager : MonoBehaviour {
 			// TODO Lose the game...
 			Debug.Log("You Lose!");
 		}
-	}
-	 
+	} 
 }

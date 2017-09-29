@@ -10,4 +10,5 @@ public class BuildingDotPrefabScript : MonoBehaviour {
 	{
 		Name.text = name;
 	}
+
 }

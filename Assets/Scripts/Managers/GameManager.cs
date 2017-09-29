@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour {
 
     public DialogueBuilder DLB;
 
+	public InventoryManager IM;
+
     /** City Panel Stuff Begin **/
     public GameObject CityPanel;
     public GameObject CityPanelName;
@@ -32,6 +34,7 @@ public class GameManager : MonoBehaviour {
     public GameObject DotHolder;
 
     public GameObject BuildingDotPrefab;
+	public GameObject BuildingDetailsPanel;
     /** City Panel Stuff End **/
 
     /** Building Panel Stuff Begin **/
@@ -43,6 +46,8 @@ public class GameManager : MonoBehaviour {
 
     public GameObject PeoplePrefab;
 	public GameObject ItemsPrefab;
+
+	public GameObject BackButton;
 	/** Building Panel Stuff End **/
 
 
@@ -119,7 +124,7 @@ public class GameManager : MonoBehaviour {
 
 
 		// reset the counts on keys, flashlights, and crowbars
-
+		IM.ResetInventory();
 
         // we want to go to the city of the first building
         Building firstBuilding = FileReader.TheGameFile.SearchBuildings(0);
@@ -175,7 +180,8 @@ public class GameManager : MonoBehaviour {
 				// give each dot a travel too listener for buildings
 				dot.GetComponent<Button>().onClick.RemoveAllListeners();
 				dot.GetComponent<Button>().onClick.AddListener( delegate {
-					TravelHere(b);
+					PressedBuildingDot(b, dot);
+					//TravelHere(b);
 				});
             }
         }
@@ -214,6 +220,12 @@ public class GameManager : MonoBehaviour {
 		ClearPeopleHolder();
 
 		ConditionManager cm = ConditionManager.GetInstance();
+
+		// add the listener to the back button
+		BackButton.GetComponent<Button>().onClick.RemoveAllListeners();
+		BackButton.GetComponent<Button>().onClick.AddListener(delegate {
+			TravelHere(FileReader.TheGameFile.SearchCities(me.cityid));	
+		});
 
 		// Make the building panel the focus
 		BuildingPanel.transform.SetAsLastSibling();
@@ -325,5 +337,30 @@ public class GameManager : MonoBehaviour {
         JournalTabFocus = focus;
     }
 
+	public void PressedBuildingDot(Building me, GameObject dot)
+	{
+		// activate panel
+		BuildingDetailsPanel.SetActive(true);
 
+		// get texts and buttons
+		Text[] texts = BuildingDetailsPanel.GetComponentsInChildren<Text>();
+		Button[] buttons = BuildingDetailsPanel.GetComponentsInChildren<Button>();
+
+		// change title to the building name
+		texts[0].text = me.name;
+
+		// remove all past listeners
+		buttons[0].onClick.RemoveAllListeners();
+
+		// add travel here listener
+		buttons[0].onClick.AddListener(delegate {
+			BuildingDetailsPanel.SetActive(false);
+			TravelHere(me);
+		});
+	}
+
+	public void PressedBuildingPanelResume()
+	{
+		BuildingDetailsPanel.SetActive(false);
+	}
 }
