@@ -149,16 +149,8 @@ public class GameManager : MonoBehaviour {
 		CityPanelName.GetComponent<Text>().text = me.name;
 
 		// change city image
-		Sprite myFace = null;
-		foreach (Sprite img in CitySprites)
-		{
-			Debug.Log(me.image.Remove(me.image.IndexOf('.')));
-			if (img.name.Contains(me.image.Remove(me.image.IndexOf('.')))) 
-			{
-				myFace = img;
-				break;
-			}
-		}
+		Sprite myFace = SearchCitySprites(me.image);
+
 		CityMap.GetComponent<Image>().overrideSprite = myFace;
         // add building dots for all buildings that the player can see
         foreach (int bID in me.buildingid)
@@ -234,16 +226,8 @@ public class GameManager : MonoBehaviour {
 		BuildingPanelName.GetComponent<Text>().text = me.name;
 
 		// change building image
-		Sprite myFace = null;
-		foreach (Sprite img in BuildingSprites)
-		{
-			Debug.Log(me.image.Remove(me.image.IndexOf('.')));
-			if (img.name.Contains(me.image.Remove(me.image.IndexOf('.')))) 
-			{
-				myFace = img;
-				break;
-			}
-		}
+		Sprite myFace = SearchBuildingSprites(me.image);
+
 		BuildingImage.GetComponent<Image>().overrideSprite = myFace;
 
 		foreach (int pID in me.peopleid)
@@ -418,5 +402,65 @@ public class GameManager : MonoBehaviour {
 	public void PressedBuildingPanelResume()
 	{
 		BuildingDetailsPanel.SetActive(false);
+	}
+
+	public Sprite SearchCitySprites(string name)
+	{
+		// change building image
+		Sprite myFace = null;
+		foreach (Sprite img in CitySprites)
+		{
+			if (img.name.Contains(name.Remove(name.IndexOf('.')))) 
+			{
+				myFace = img;
+				break;
+			}
+		}
+		return myFace;
+	}
+
+	public Sprite SearchBuildingSprites(string name)
+	{
+		// change building image
+		Sprite myFace = null;
+		foreach (Sprite img in BuildingSprites)
+		{
+			if (img.name.Contains(name.Remove(name.IndexOf('.'))))
+			{
+				myFace = img;
+				break;
+			}
+		}
+		return myFace;	
+	}
+
+	public Sprite SearchPeopleSprites(string name)
+	{
+		// change building image
+		Sprite myFace = null;
+		foreach (Sprite img in PeopleSprites)
+		{
+			if (img.name.Contains(name.Remove(name.IndexOf('.'))))
+			{
+				myFace = img;
+				break;
+			}
+		}
+		return myFace;	
+	}
+
+	public Sprite SearchItemSprites(string name)
+	{
+		// change building image
+		Sprite myFace = null;
+		foreach (Sprite img in ItemsSprites)
+		{
+			if (img.name.Contains(name.Remove(name.IndexOf('.'))))
+			{
+				myFace = img;
+				break;
+			}
+		}
+		return myFace;	
 	}
 }

@@ -24,22 +24,15 @@ public class PersonManager : MonoBehaviour {
 
 		// set up photo
 		// seach for image
-		Sprite myFace = null;
+		Sprite myFace = GM.SearchPeopleSprites(me.image);
 
-		foreach (Sprite img in GM.PeopleSprites)
-		{
-			//Debug.Log(me.image.Remove(me.image.IndexOf('.')));
-			if (img.name.Contains(me.image.Remove(me.image.IndexOf('.')))) 
-			{
-				myFace = img;
-				break;
-			}
-		}
+
 		Photo.GetComponentInChildren<Image>().overrideSprite = myFace;
 	}
 
 	public void DescriptionTrigger()
 	{
+		Debug.Log("HERE HERE");
 		DM.SetDescription(me.name, me.description);
 
 

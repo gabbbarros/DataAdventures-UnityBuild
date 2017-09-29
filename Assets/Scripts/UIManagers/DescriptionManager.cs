@@ -146,7 +146,14 @@ public class DescriptionManager : MonoBehaviour {
 		else
 		{
 			FadePanel.SetActive(true);
+			FadePanel.GetComponent<Image>().overrideSprite = GM.SearchPeopleSprites(me.image);
 		}
+	}
+
+	public void PutUpItemPhoto(Item me)
+	{
+		FadePanel.SetActive(true);
+		FadePanel.GetComponent<Image>().overrideSprite = GM.SearchItemSprites(me.image);
 	}
 
 	public void SetArrestButton(Person me)

@@ -61,16 +61,8 @@ public class DialogManager : MonoBehaviour {
 		// display person image
 		// TODO : swap out game name
 		// search for image
-		Sprite myFace = null;
-		foreach (Sprite img in GM.PeopleSprites)
-		{
-			Debug.Log(me.image.Remove(me.image.IndexOf('.')));
-			if (img.name.Contains(me.image.Remove(me.image.IndexOf('.')))) 
-			{
-				myFace = img;
-				break;
-			}
-		}
+		Sprite myFace = GM.SearchPeopleSprites(me.image);
+
 		PPhoto.GetComponent<Image>().overrideSprite = myFace;
 
 
@@ -95,16 +87,8 @@ public class DialogManager : MonoBehaviour {
 
 		// display item name
         IName.text = me.name;
-		Sprite myFace = null;
-		foreach (Sprite img in GM.ItemsSprites)
-		{
-			Debug.Log(me.image.Remove(me.image.IndexOf('.')));
-			if (img.name.Contains(me.image.Remove(me.image.IndexOf('.')))) 
-			{
-				myFace = img;
-				break;
-			}
-		}
+		Sprite myFace = GM.SearchItemSprites(me.image);
+
 		PPhoto.GetComponent<Image>().overrideSprite = myFace;
 
 		IName.text = "This is " + me.name + ".";

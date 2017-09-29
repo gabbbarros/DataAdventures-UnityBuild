@@ -34,16 +34,8 @@ public class ItemManager : MonoBehaviour {
 
 		// set up photo
 		// search by image
-		Sprite myFace = null;
+		Sprite myFace = GM.SearchItemSprites(me.image);
 
-		foreach (Sprite img in GM.ItemsSprites)
-		{
-			if (img.name.Contains(me.image.Remove(me.image.IndexOf('.'))))
-			{
-				myFace = img;
-				break;
-			}
-		}
 		Photo.GetComponentInChildren<Image>().overrideSprite = myFace;
 
 	}
@@ -52,7 +44,7 @@ public class ItemManager : MonoBehaviour {
 	{
 		DM.SetDescription(me.name, me.description);
 
-
+		DM.PutUpItemPhoto(me);
 		DM.SetLocation(me, FileReader.TheGameFile.SearchBuildings(me.buildingid), FileReader.TheGameFile.SearchCities(FileReader.TheGameFile.SearchBuildings(me.buildingid).cityid));
 	}
 
