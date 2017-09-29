@@ -54,6 +54,7 @@ public class Building
 	/// <value>The item identifier.</value>
 	public int[] itemsid;
 
+	public bool lockBroken = false;
 	/// <summary>
 	/// The image.
 	/// </summary>

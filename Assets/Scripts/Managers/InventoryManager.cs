@@ -64,26 +64,41 @@ public class InventoryManager : MonoBehaviour {
 	/// <summary>
 	/// Removes a key.
 	/// </summary>
-	public void RemoveKey()
+	public bool RemoveKey()
 	{
-		keycount--;
-        RefreshKeyUI();
+		if (keycount > 0)
+		{
+			keycount--;
+			RefreshKeyUI();
+			return true;
+		}
+		return false;
 	}
 	/// <summary>
 	/// Removes a crowbar.
 	/// </summary>
-	public void RemoveCrowbar()
+	public bool RemoveCrowbar()
 	{
-		crowbarcount--;
-		RefreshCrowbarUI();	
+		if (crowbarcount > 0)
+		{
+			crowbarcount--;
+			RefreshCrowbarUI();
+			return true;
+		}
+		return false;
 	}
 	/// <summary>
 	/// Removes a flashlight.
 	/// </summary>
-	public void RemoveFlashlight()
+	public bool RemoveFlashlight()
 	{
-		flashlightcount--;
-		RefreshFlashlightUI();
+		if (flashlightcount > 0)
+		{
+			flashlightcount--;
+			RefreshFlashlightUI();
+			return true;
+		}
+		return false;
 	}
 
 	/// <summary>

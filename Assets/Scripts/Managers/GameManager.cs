@@ -348,15 +348,71 @@ public class GameManager : MonoBehaviour {
 
 		// change title to the building name
 		texts[0].text = me.name;
-
-		// remove all past listeners
-		buttons[0].onClick.RemoveAllListeners();
-
-		// add travel here listener
-		buttons[0].onClick.AddListener(delegate {
-			BuildingDetailsPanel.SetActive(false);
-			TravelHere(me);
-		});
+		if (me.locktype.Equals("null") || me.lockBroken)
+		{
+			// change text to entrance question
+			texts[1].text = "Do you want to enter this building?";
+			// remove all past listeners
+			buttons[0].onClick.RemoveAllListeners();
+			texts[2].text = "Go Here";
+			// add travel here event
+			buttons[0].onClick.AddListener(delegate
+			{
+				BuildingDetailsPanel.SetActive(false);
+				TravelHere(me);
+			});
+		}
+		else if (me.locktype.Equals("dark") && !me.lockBroken)
+		{
+			// change text to the flashlight question
+			texts[1].text = "It is too dark to see within. Do you wish to use a flashlight?";
+			// remove all past listeners
+			buttons[0].onClick.RemoveAllListeners();
+			texts[2].text = "Use";
+			// add a Inventory manager event
+			buttons[0].onClick.AddListener(delegate
+			{
+				if (IM.RemoveFlashlight())
+				{
+					me.lockBroken = true;
+					PressedBuildingDot(me, dot);
+				}
+			});
+		}
+		else if (me.locktype.Equals("chain"))
+		{
+			// change text to the flashlight question
+			texts[1].text = "A chain is wound tightly around the entrance. Do you wish to use a crowbar?";
+			// remove all past listeners
+			buttons[0].onClick.RemoveAllListeners();
+			texts[2].text = "Use";
+			// add a Inventory manager event
+			buttons[0].onClick.AddListener(delegate
+			{
+				if (IM.RemoveCrowbar())
+				{
+					me.lockBroken = true;
+					PressedBuildingDot(me, dot);
+				}
+			});
+		}
+		else if (me.locktype.Equals("lock"))
+		{ 
+			// change text to the flashlight question
+			texts[1].text = "A heavy padlock holds the door shut. Do you wish to use a key?";
+			// remove all past listeners
+			buttons[0].onClick.RemoveAllListeners();
+			buttons[0].gameObject.GetComponent<Text>().text = "Use";
+			// add a Inventory manager event
+			buttons[0].onClick.AddListener(delegate
+			{
+				if (IM.RemoveKey())
+				{
+					me.lockBroken = true;
+					PressedBuildingDot(me, dot);
+				}
+			});
+		}
 	}
 
 	public void PressedBuildingPanelResume()
