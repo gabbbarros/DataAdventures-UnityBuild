@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 24bf1336aa3a0284bb5ff2ce1db44c74
-timeCreated: 1506573727
+timeCreated: 1506796150
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -45,6 +45,16 @@ TextureImporter:
     21300076: buttonpausepressed
     21300078: pausebackground
     21300080: portraitBox
+    21300082: mediumSquareLight
+    21300084: squareWithBorder
+    21300086: iconKey
+    21300088: iconCrowbar
+    21300090: iconFlashlight
+    21300092: iconLetter
+    21300094: iconPhoto
+    21300096: iconTornPhoto
+    21300098: iconBook
+    21300100: BuildingPoint
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -191,7 +201,7 @@ TextureImporter:
         height: 20
       alignment: 1
       pivot: {x: 0, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 2, y: 4, z: 2, w: 2}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -205,7 +215,7 @@ TextureImporter:
         height: 20
       alignment: 1
       pivot: {x: 0, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 2, y: 4, z: 2, w: 2}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -219,7 +229,7 @@ TextureImporter:
         height: 20
       alignment: 1
       pivot: {x: 0, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 2, y: 4, z: 2, w: 2}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -382,12 +392,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 42
-        y: 448
+        y: 449
         width: 240
-        height: 111
+        height: 109
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 1, y: 0, z: 1, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -395,13 +405,13 @@ TextureImporter:
       name: mediumSquare
       rect:
         serializedVersion: 2
-        x: 325
-        y: 460
-        width: 137
-        height: 99
+        x: 315
+        y: 526
+        width: 42
+        height: 33
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 1, y: 1, z: 1, w: 1}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -494,12 +504,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 444
-        y: 418
-        width: 152
-        height: 17
+        y: 420
+        width: 150
+        height: 15
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 1, y: 0, z: 0, w: 1}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -507,13 +517,13 @@ TextureImporter:
       name: buttonHovered
       rect:
         serializedVersion: 2
-        x: 444
+        x: 445
         y: 392
-        width: 152
+        width: 151
         height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 2, z: 2, w: 1}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -524,10 +534,10 @@ TextureImporter:
         x: 444
         y: 366
         width: 152
-        height: 17
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 1, y: 2, z: 2, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -591,13 +601,13 @@ TextureImporter:
       name: leftFullPanelTop
       rect:
         serializedVersion: 2
-        x: 498
+        x: 500
         y: 241
-        width: 183
+        width: 181
         height: 19
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 0, z: 4, w: 2}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -696,6 +706,146 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 6, y: 7, z: 7, w: 14}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: mediumSquareLight
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 526
+        width: 41
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 1, y: 1, z: 0, w: 1}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: squareWithBorder
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 485
+        width: 39
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 3, y: 3, z: 0, w: 3}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: iconKey
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 493
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: iconCrowbar
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 493
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: iconFlashlight
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 492
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: iconLetter
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 474
+        width: 21
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: iconPhoto
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 471
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: iconTornPhoto
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 471
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: iconBook
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 470
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: BuildingPoint
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 587
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 3, y: 3, z: 3, w: 3}
       outline: []
       physicsShape: []
       tessellationDetail: 0
