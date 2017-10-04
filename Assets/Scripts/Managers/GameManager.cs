@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour {
 
 	public InventoryManager IM;
 
+	public SoundFXManager SFXM;
     /** City Panel Stuff Begin **/
     public GameObject CityPanel;
     public GameObject CityPanelName;
