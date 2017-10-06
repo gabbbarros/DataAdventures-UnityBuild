@@ -168,7 +168,6 @@ public class GameManager : MonoBehaviour {
                 // spawn the building on the map
                 GameObject dot = Instantiate(BuildingDotPrefab, DotHolder.transform);
 				dot.GetComponent<BuildingDotPrefabScript>().SetInfoPanel(InfoPanel);
-				// TODO: randomize this
 				dot.transform.localPosition = new Vector2(Random.Range(-250f, 250f), Random.Range(-110f, 40f));
 
 
@@ -178,6 +177,7 @@ public class GameManager : MonoBehaviour {
 				dot.GetComponent<Button>().onClick.RemoveAllListeners();
 				dot.GetComponent<Button>().onClick.AddListener( delegate {
 					PressedBuildingDot(b, dot);
+					PlaySoundFX("dooropen");
 					//TravelHere(b);
 				});
             }
@@ -221,7 +221,8 @@ public class GameManager : MonoBehaviour {
 		// add the listener to the back button
 		BackButton.GetComponent<Button>().onClick.RemoveAllListeners();
 		BackButton.GetComponent<Button>().onClick.AddListener(delegate {
-			TravelHere(FileReader.TheGameFile.SearchCities(me.cityid));	
+			TravelHere(FileReader.TheGameFile.SearchCities(me.cityid));
+			PlaySoundFX("doorshut");
 		});
 
 		// Make the building panel the focus
@@ -297,6 +298,8 @@ public class GameManager : MonoBehaviour {
 
 		// log it
 		ALM.AddLog("Talked to " + me.name);
+
+		PlaySoundFX(1);
 	}
 
 	public void InteractWith(Item me)
@@ -312,7 +315,7 @@ public class GameManager : MonoBehaviour {
 		// log it
 		ALM.AddLog("Interacted with " + me.name);
 
-
+		PlaySoundFX(1);
 	}
 
     public void ChangeOverallFocus(int focus)
@@ -328,7 +331,6 @@ public class GameManager : MonoBehaviour {
 	public void PressedBuildingDot(Building me, GameObject dot)
 	{
 
-		// TODO: Change this to just a travelHere function
 		if (me.locktype.Equals("null") || me.lockBroken)
 		{
 			TravelHere(me);
@@ -359,6 +361,8 @@ public class GameManager : MonoBehaviour {
 					{
 						me.lockBroken = true;
 						PressedBuildingDot(me, dot);
+						BuildingDetailsPanel.SetActive(false);
+
 					}
 				});
 			}
@@ -376,6 +380,7 @@ public class GameManager : MonoBehaviour {
 					{
 						me.lockBroken = true;
 						PressedBuildingDot(me, dot);
+						BuildingDetailsPanel.SetActive(false);
 					}
 				});
 			}
@@ -393,6 +398,7 @@ public class GameManager : MonoBehaviour {
 					{
 						me.lockBroken = true;
 						PressedBuildingDot(me, dot);
+						BuildingDetailsPanel.SetActive(false);
 					}
 				});
 			}
@@ -462,5 +468,15 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 		return myFace;	
+	}
+
+	public void PlaySoundFX(int id)
+	{
+		SFXM.PlaySingle(id);
+	}
+
+	public void PlaySoundFX(string type)
+	{
+		SFXM.PlaySingle(type);
 	}
 }

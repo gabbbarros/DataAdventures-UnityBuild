@@ -143,6 +143,7 @@ public class DialogManager : MonoBehaviour {
 	public void Collect(Item me)
 	{
 		me.isCollected = true;
+		GM.PlaySoundFX(0);
 	}
 
 	public void ClearOptions()

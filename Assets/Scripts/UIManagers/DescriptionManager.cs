@@ -29,11 +29,12 @@ public class DescriptionManager : MonoBehaviour {
 	public GameObject FactPrefab;
 
     public GameManager GM;
-
+	public ConditionManager CM;
 	// Use this for initialization
 	void Start () {
 		Name.text = "This is the Description Panel";
 		Description.text = "When you click on any object, place, or person in the game, a description of it will be displayed here.";
+		CM = ConditionManager.GetInstance();
 	}
 
 	/// <summary>
@@ -239,12 +240,18 @@ public class DescriptionManager : MonoBehaviour {
 		}
 		// change title
 		InhabitantsTitle.text = "People Here";
-		//TODO: dont show people we dont have the conditions to see, or buildings they are in
 		foreach (Person p in peopleList)
 		{
-			GameObject inhab = Instantiate(InhabitantPrefab, InhabitantsList.transform);
-			inhab.GetComponent<PersonManager>().me = p;
-			inhab.GetComponent<PersonManager>().Name.text = p.name;
+			List<int> conditionsList = new List<int>(p.condition);
+			Building b = FileReader.TheGameFile.SearchBuildings(p.buildingid);
+			List<int> bConditionsList = new List<int>(b.condition);
+			// if the building and the person are both visible, show this person
+			if (CM.IsSet(conditionsList) && CM.IsSet(bConditionsList))
+			{
+				GameObject inhab = Instantiate(InhabitantPrefab, InhabitantsList.transform);
+				inhab.GetComponent<PersonManager>().me = p;
+				inhab.GetComponent<PersonManager>().Name.text = p.name;
+			}
 		}
 		// Dont show the ArrestThisPerson button
 		ArrestButton.gameObject.SetActive(false);
