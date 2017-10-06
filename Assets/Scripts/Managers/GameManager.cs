@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour {
 	public InventoryManager IM;
 
 	public SoundFXManager SFXM;
+
     /** City Panel Stuff Begin **/
     public GameObject CityPanel;
     public GameObject CityPanelName;
@@ -36,6 +37,8 @@ public class GameManager : MonoBehaviour {
 
     public GameObject BuildingDotPrefab;
 	public GameObject BuildingDetailsPanel;
+
+	public GameObject InfoPanel;
     /** City Panel Stuff End **/
 
     /** Building Panel Stuff Begin **/
@@ -164,8 +167,9 @@ public class GameManager : MonoBehaviour {
             {
                 // spawn the building on the map
                 GameObject dot = Instantiate(BuildingDotPrefab, DotHolder.transform);
+				dot.GetComponent<BuildingDotPrefabScript>().SetInfoPanel(InfoPanel);
 				// TODO: randomize this
-				dot.transform.localPosition = new Vector2(Random.Range(-250f, 250f), Random.Range(-130f, 80f));
+				dot.transform.localPosition = new Vector2(Random.Range(-250f, 250f), Random.Range(-110f, 40f));
 
 
 				// Change dot name
@@ -324,7 +328,15 @@ public class GameManager : MonoBehaviour {
 
 	public void PressedBuildingDot(Building me, GameObject dot)
 	{
-		// activate panel
+
+		// TODO: Change this to just a travelHere function
+		if (me.locktype.Equals("null") || me.lockBroken)
+		{
+			TravelHere(me);
+		}
+		else
+		{
+			// activate panel
 		BuildingDetailsPanel.SetActive(true);
 
 		// get texts and buttons
@@ -333,70 +345,58 @@ public class GameManager : MonoBehaviour {
 
 		// change title to the building name
 		texts[0].text = me.name;
-		if (me.locktype.Equals("null") || me.lockBroken)
-		{
-			// change text to entrance question
-			texts[1].text = "Do you want to enter this building?";
-			// remove all past listeners
-			buttons[0].onClick.RemoveAllListeners();
-			texts[2].text = "Go Here";
-			// add travel here event
-			buttons[0].onClick.AddListener(delegate
+		if (me.locktype.Equals("dark") && !me.lockBroken)
 			{
-				BuildingDetailsPanel.SetActive(false);
-				TravelHere(me);
-			});
-		}
-		else if (me.locktype.Equals("dark") && !me.lockBroken)
-		{
-			// change text to the flashlight question
-			texts[1].text = "It is too dark to see within. Do you wish to use a flashlight?";
-			// remove all past listeners
-			buttons[0].onClick.RemoveAllListeners();
-			texts[2].text = "Use";
-			// add a Inventory manager event
-			buttons[0].onClick.AddListener(delegate
-			{
-				if (IM.RemoveFlashlight())
+
+				// change text to the flashlight question
+				texts[1].text = "It is too dark to see within. Do you wish to use a flashlight?";
+				// remove all past listeners
+				buttons[0].onClick.RemoveAllListeners();
+				texts[2].text = "Use";
+				// add a Inventory manager event
+				buttons[0].onClick.AddListener(delegate
 				{
-					me.lockBroken = true;
-					PressedBuildingDot(me, dot);
-				}
-			});
-		}
-		else if (me.locktype.Equals("chain"))
-		{
-			// change text to the flashlight question
-			texts[1].text = "A chain is wound tightly around the entrance. Do you wish to use a crowbar?";
-			// remove all past listeners
-			buttons[0].onClick.RemoveAllListeners();
-			texts[2].text = "Use";
-			// add a Inventory manager event
-			buttons[0].onClick.AddListener(delegate
+					if (IM.RemoveFlashlight())
+					{
+						me.lockBroken = true;
+						PressedBuildingDot(me, dot);
+					}
+				});
+			}
+			else if (me.locktype.Equals("chain"))
 			{
-				if (IM.RemoveCrowbar())
+				// change text to the flashlight question
+				texts[1].text = "A chain is wound tightly around the entrance. Do you wish to use a crowbar?";
+				// remove all past listeners
+				buttons[0].onClick.RemoveAllListeners();
+				texts[2].text = "Use";
+				// add a Inventory manager event
+				buttons[0].onClick.AddListener(delegate
 				{
-					me.lockBroken = true;
-					PressedBuildingDot(me, dot);
-				}
-			});
-		}
-		else if (me.locktype.Equals("lock"))
-		{ 
-			// change text to the flashlight question
-			texts[1].text = "A heavy padlock holds the door shut. Do you wish to use a key?";
-			// remove all past listeners
-			buttons[0].onClick.RemoveAllListeners();
-			buttons[0].gameObject.GetComponent<Text>().text = "Use";
-			// add a Inventory manager event
-			buttons[0].onClick.AddListener(delegate
+					if (IM.RemoveCrowbar())
+					{
+						me.lockBroken = true;
+						PressedBuildingDot(me, dot);
+					}
+				});
+			}
+			else if (me.locktype.Equals("lock"))
 			{
-				if (IM.RemoveKey())
+				// change text to the flashlight question
+				texts[1].text = "A heavy padlock holds the door shut. Do you wish to use a key?";
+				// remove all past listeners
+				buttons[0].onClick.RemoveAllListeners();
+				buttons[0].gameObject.GetComponent<Text>().text = "Use";
+				// add a Inventory manager event
+				buttons[0].onClick.AddListener(delegate
 				{
-					me.lockBroken = true;
-					PressedBuildingDot(me, dot);
-				}
-			});
+					if (IM.RemoveKey())
+					{
+						me.lockBroken = true;
+						PressedBuildingDot(me, dot);
+					}
+				});
+			}
 		}
 	}
 

@@ -4,11 +4,32 @@ using UnityEngine;
 using UnityEngine.UI;
 public class BuildingDotPrefabScript : MonoBehaviour {
 
+	public GameObject InfoPanel;
+	public string name;
 
-	public Text Name;
+	public void SetInfoPanel(GameObject IP)
+	{
+		InfoPanel = IP;
+	}
 	public void SetName(string name)
 	{
-		Name.text = name;
+		this.name = name;
 	}
 
+	public void HoveringOverEntrance()
+	{
+		// activate panel
+		InfoPanel.SetActive(true);
+
+		// get texts and buttons
+		Text[] texts = InfoPanel.GetComponentsInChildren<Text>();
+
+		// change title to the building name
+		texts[0].text = name;
+	}
+
+	public void HoveringOverExit()
+	{
+		InfoPanel.SetActive(false);
+	}
 }
