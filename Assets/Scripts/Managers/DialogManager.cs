@@ -79,11 +79,9 @@ public class DialogManager : MonoBehaviour {
 
 	public void LoadItem(Item me)
 	{
-		// Set these conditions
-		foreach (int cond in me.condition)
-		{
-			CM.SetAsTrue(cond);
-		}
+		// set the event condition
+		CM.SetAsTrue(me.eventid);
+		
 
 		// display item name
         IName.text = me.name;

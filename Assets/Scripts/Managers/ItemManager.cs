@@ -34,9 +34,12 @@ public class ItemManager : MonoBehaviour {
 
 		// set up photo
 		// search by image
+		//TODO: this will be static images
 		Sprite myFace = GM.SearchItemSprites(me.image);
 
 		Photo.GetComponentInChildren<Image>().overrideSprite = myFace;
+		TalkButton.GetComponentInChildren<Text>().text = "Interact";
+
 
 	}
 

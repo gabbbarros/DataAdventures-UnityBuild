@@ -142,6 +142,8 @@ public class DescriptionManager : MonoBehaviour {
 				GameObject f = Instantiate(FactPrefab, InhabitantsList.transform);
 				f.GetComponentInChildren<Text>().text = fact.factoid;
 			}
+			// set up the arrest button
+			ArrestButton.gameObject.SetActive(true);
 		}
 		else
 		{
@@ -203,6 +205,8 @@ public class DescriptionManager : MonoBehaviour {
 			inhab.GetComponent<PersonManager>().me = p;
 			inhab.GetComponent<PersonManager>().Name.text = p.name;
 		}
+		// Dont show the ArrestThisPerson button
+		ArrestButton.gameObject.SetActive(false);
 	}
 
 	/// <summary>
@@ -235,12 +239,15 @@ public class DescriptionManager : MonoBehaviour {
 		}
 		// change title
 		InhabitantsTitle.text = "People Here";
+		//TODO: dont show people we dont have the conditions to see, or buildings they are in
 		foreach (Person p in peopleList)
 		{
 			GameObject inhab = Instantiate(InhabitantPrefab, InhabitantsList.transform);
 			inhab.GetComponent<PersonManager>().me = p;
 			inhab.GetComponent<PersonManager>().Name.text = p.name;
 		}
+		// Dont show the ArrestThisPerson button
+		ArrestButton.gameObject.SetActive(false);
 
 	}
 

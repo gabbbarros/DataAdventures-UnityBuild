@@ -15,6 +15,8 @@ public class ActivityLogManager : MonoBehaviour {
 	// GameObject parent for Activity Logs
 	public GameObject ActivityLogContent;
 
+	public ScrollRect OverviewScrollRect;
+	public ScrollRect ActivityLogScrollRect;
 
 	void Start()
 	{
@@ -23,8 +25,10 @@ public class ActivityLogManager : MonoBehaviour {
 	// both the Overview Tab and the Activity Log Tab
 	public void AddLog(string log)
 	{
+		Canvas.ForceUpdateCanvases();
 		AddActivityLog(log);
 		AddOverviewLog(log);
+		StartCoroutine(UpdateRoutine());
 	}
 
 	public void AddActivityLog(string log)
@@ -41,6 +45,14 @@ public class ActivityLogManager : MonoBehaviour {
 		GameObject NewLog = Instantiate(OverviewLogPrefab, OverviewContent.transform);
 		// change the text to match the param input
 		NewLog.GetComponentInChildren<Text>().text = log;
+	}
+	IEnumerator UpdateRoutine()
+	{
+		yield return new WaitForEndOfFrame();
+		Canvas.ForceUpdateCanvases();
+		OverviewScrollRect.verticalScrollbar.value = 0f;
+		ActivityLogScrollRect.verticalScrollbar.value = 0f;
+		Canvas.ForceUpdateCanvases();
 	}
 
 }
