@@ -186,6 +186,8 @@ public class GameManager : MonoBehaviour {
 
 		// Add to journal
 		JM.AddPlace(me, false);
+
+		PlaySoundFX(2);
     }
 
     void ClearDotHolder()

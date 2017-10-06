@@ -52,6 +52,7 @@ public class DescriptionManager : MonoBehaviour {
 		Name.text = title;
 		Description.text = content;
 
+		GM.PlaySoundFX(5);
 	}
 
 
