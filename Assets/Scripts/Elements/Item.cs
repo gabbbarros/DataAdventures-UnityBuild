@@ -36,7 +36,10 @@ public class Item
 	/// </summary>
 	/// <value>The building identifier.</value>
 	public int buildingid;
-
+	/// <summary>
+	/// The item type.
+	/// </summary>
+	public string itemtype;
 	/// <summary>
 	/// whether or not this item has been used. default is false.
 	/// </summary>

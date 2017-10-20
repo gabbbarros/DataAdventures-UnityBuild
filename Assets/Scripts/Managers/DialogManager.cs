@@ -85,9 +85,8 @@ public class DialogManager : MonoBehaviour {
 
 		// display item name
         IName.text = me.name;
-		Sprite myFace = GM.SearchItemSprites(me.image);
 
-		PPhoto.GetComponent<Image>().overrideSprite = myFace;
+		LoadItemPhoto(me);
 
 		IName.text = "This is " + me.name + ".";
 		IDescription.text = me.description;
@@ -137,6 +136,49 @@ public class DialogManager : MonoBehaviour {
 		}
 	}
 
+
+	public void LoadItemPhoto(Item me)
+	{
+		Debug.Log("here");
+		// if item is a photo
+		if (me.itemtype.Equals("photograph"))
+		{
+			// check if an image exists
+			if (me.image == null)
+			{
+				// if it is null, then this is a torn photo. Use the torn photograph
+				IPhoto.GetComponent<Image>().overrideSprite = GM.TornPhotographImage;
+			}
+			// otherwise search for the photo
+			else
+			{
+				Sprite myFace = GM.SearchItemSprites(me.image);
+				IPhoto.GetComponent<Image>().overrideSprite = myFace;
+			}
+		}
+		else if (me.itemtype.Equals("key"))
+		{
+			IPhoto.GetComponent<Image>().overrideSprite = GM.KeyImage;
+		}
+		else if (me.itemtype.Equals("book"))
+		{
+			IPhoto.GetComponent<Image>().overrideSprite = GM.BookImage;
+			Debug.Log("here");
+		}
+		else if (me.itemtype.Equals("flashlight"))
+		{
+			IPhoto.GetComponent<Image>().overrideSprite = GM.FlashlightImage;
+		}
+		else if (me.itemtype.Equals("crowbar"))
+		{
+			IPhoto.GetComponent<Image>().overrideSprite = GM.CrowbarImage;
+		}
+		else if (me.itemtype.Equals("letter"))
+		{
+			IPhoto.GetComponent<Image>().overrideSprite = GM.LetterImage;			
+		}
+
+	}
 	/// <summary>
 	/// Collect this item.
 	/// </summary>

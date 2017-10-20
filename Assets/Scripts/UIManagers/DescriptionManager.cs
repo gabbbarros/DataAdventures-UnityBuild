@@ -22,6 +22,7 @@ public class DescriptionManager : MonoBehaviour {
 	public GameObject InhabitantsList;
 
 	public GameObject FadePanel;
+	public GameObject FadePanelParent;
 
 	// prefab objects
 	public GameObject InhabitantPrefab;
@@ -44,11 +45,12 @@ public class DescriptionManager : MonoBehaviour {
 	/// <param name="content">Content.</param>
 	public void SetDescription(string title, string content)
 	{
+		Debug.Log("boop");
 		FoundInCityButton.gameObject.SetActive(false);
 		FoundInBuildingButton.gameObject.SetActive(false);
 		TravelHereButton.gameObject.SetActive(false);
 		ClearInhabitantsList();
-		FadePanel.SetActive(false);
+		FadePanelParent.SetActive(false);
 		Name.text = title;
 		Description.text = content;
 
@@ -149,17 +151,51 @@ public class DescriptionManager : MonoBehaviour {
 		}
 		else
 		{
-			FadePanel.SetActive(true);
+			FadePanelParent.SetActive(true);
 			FadePanel.GetComponent<Image>().overrideSprite = GM.SearchPeopleSprites(me.image);
 		}
 	}
 
-	public void PutUpItemPhoto(Item me)
+	public void LoadItemPhoto(Item me)
 	{
-		FadePanel.SetActive(true);
-		FadePanel.GetComponent<Image>().overrideSprite = GM.SearchItemSprites(me.image);
+		FadePanelParent.SetActive(true);
+		if (me.itemtype.Equals("photograph"))
+		{
+			// check if an image exists
+			if (me.image.Equals("null"))
+			{
+				// if it is null, then this is a torn photo. Use the torn photograph
+				FadePanel.GetComponent<Image>().overrideSprite = GM.TornPhotographImage;
+			}
+			// otherwise search for the photo
+			else
+			{
+				Sprite myFace = GM.SearchItemSprites(me.image);
+				FadePanel.GetComponent<Image>().overrideSprite = myFace;
+			}
+		}
+		else if (me.itemtype.Equals("key"))
+		{
+			FadePanel.GetComponent<Image>().overrideSprite = GM.KeyImage;
+			Debug.Log("Key Reached");
+		}
+		else if (me.itemtype.Equals("book"))
+		{
+			FadePanel.GetComponent<Image>().overrideSprite = GM.BookImage;
+		}
+		else if (me.itemtype.Equals("flashlight"))
+		{
+			FadePanel.GetComponent<Image>().overrideSprite = GM.FlashlightImage;
+		}
+		else if (me.itemtype.Equals("crowbar"))
+		{
+			FadePanel.GetComponent<Image>().overrideSprite = GM.CrowbarImage;
+		}
+		else if (me.itemtype.Equals("letter"))
+		{
+			FadePanel.GetComponent<Image>().overrideSprite = GM.LetterImage;
+		}	
 	}
-
 	public void SetArrestButton(Person me)
 	{
 		if (FileReader.TheGameFile.SearchSuspects(me.id) != null)

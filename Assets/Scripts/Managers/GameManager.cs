@@ -71,6 +71,18 @@ public class GameManager : MonoBehaviour {
 	public List<Sprite> BuildingSprites;
 	public List<Sprite> CitySprites;
 	public List<Sprite> ItemsSprites;
+
+
+	/** Static Image **/
+	public Sprite KeyImage;
+	public Sprite PhotographImage;
+	public Sprite TornPhotographImage;
+	public Sprite CrowbarImage;
+	public Sprite BookImage;
+	public Sprite FlashlightImage;
+	public Sprite LetterImage;
+	/** Static Image End **/
+
     // Use this for initialization
     void Start () {
 
@@ -276,7 +288,7 @@ public class GameManager : MonoBehaviour {
 				{
 					InteractWith(i);
 				});
-				if (!i.name.Equals("Flashlight") && !i.name.Equals("Key"))
+				if (!i.name.Equals("Flashlight") && !i.name.Equals("Key") && !i.name.Equals("Crowbar"))
 				{
 					JM.AddItem(i, false);
 				}

@@ -33,8 +33,10 @@ public class FileReader : MonoBehaviour {
 		TheGameFile = JsonUtility.FromJson<GameFile>(gFile);
 		TheGameFile.Keys = new List<Item>();
 		TheGameFile.Lights = new List<Item>();
+		TheGameFile.Crowbars = new List<Item>();
 		TheGameFile.Locks = new List<Building>();
 		TheGameFile.Darks = new List<Building>();
+		TheGameFile.Chains = new List<Building>();
     }
 
 	public void SetUpSuspects()
@@ -66,6 +68,10 @@ public class FileReader : MonoBehaviour {
 			{
 				TheGameFile.Locks.Add(b);
 			}
+			else if (b.locktype.Equals("chain"))
+			{
+				TheGameFile.Chains.Add(b);
+			}
 		}
 
 		foreach (Item i in TheGameFile.items)
@@ -77,6 +83,10 @@ public class FileReader : MonoBehaviour {
 			else if (i.name.Equals("Flashlight"))
 			{
 				TheGameFile.Lights.Add(i);
+			}
+			else if (i.name.Equals("Crowbar"))
+			{
+				TheGameFile.Crowbars.Add(i);
 			}
 		}
 	}
