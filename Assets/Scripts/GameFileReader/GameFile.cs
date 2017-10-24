@@ -15,8 +15,10 @@ public class GameFile
 
 	public List<Item> Keys;
 	public List<Item> Lights;
+	public List<Item> Crowbars;
 	public List<Building> Locks;
 	public List<Building> Darks;
+	public List<Building> Chains;
 	/// <summary>
 	/// Searchs the people.
 	/// </summary>

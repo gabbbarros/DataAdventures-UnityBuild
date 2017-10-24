@@ -10,14 +10,14 @@ public class ItemManager : MonoBehaviour {
 	public Text Name;
 	public Button TalkButton;
 
-	private DescriptionManager DM;
-	private GameManager GM;
+	public DescriptionManager DM;
+	public GameManager GM;
 
 	public bool Used { get; set;}
 	// Use this for initialization
 	void Start () 
 	{
-		DM = GameObject.FindWithTag("UI Manager").GetComponent<DescriptionManager>();
+
 	}
 	
 	// Update is called once per frame
@@ -26,18 +26,18 @@ public class ItemManager : MonoBehaviour {
 	}
 
 	public void SetUp(Item i)
-	{
+	{		
+		DM = GameObject.FindWithTag("UI Manager").GetComponent<DescriptionManager>();
 		GM = GameObject.FindWithTag("UI Manager").GetComponent<GameManager>();
+
 		me = i;
 
 		Name.text = me.name;
+        LoadItemPhoto(me);
 
 		// set up photo
 		// search by image
 		//TODO: this will be static images
-		Sprite myFace = GM.SearchItemSprites(me.image);
-
-		Photo.GetComponentInChildren<Image>().overrideSprite = myFace;
 		TalkButton.GetComponentInChildren<Text>().text = "Interact";
 
 
@@ -46,11 +46,36 @@ public class ItemManager : MonoBehaviour {
 	public void DescriptionTrigger()
 	{
 		DM.SetDescription(me.name, me.description);
-
-		DM.PutUpItemPhoto(me);
+		DM.LoadItemPhoto(me);
 		DM.SetLocation(me, FileReader.TheGameFile.SearchBuildings(me.buildingid), FileReader.TheGameFile.SearchCities(FileReader.TheGameFile.SearchBuildings(me.buildingid).cityid));
 	}
-
+	public void LoadItemPhoto(Item me)
+	{
+		if (me.itemtype.Equals("photograph"))
+		{
+			Photo.GetComponent<Image>().overrideSprite = GM.TornPhotographImage;
+		}
+		else if (me.itemtype.Equals("key"))
+		{
+			Photo.GetComponent<Image>().overrideSprite = GM.KeyImage;
+		}
+		else if (me.itemtype.Equals("book"))
+		{
+			Photo.GetComponent<Image>().overrideSprite = GM.BookImage;
+		}
+		else if (me.itemtype.Equals("flashlight"))
+		{
+			Photo.GetComponent<Image>().overrideSprite = GM.FlashlightImage;
+		}
+		else if (me.itemtype.Equals("crowbar"))
+		{
+			Photo.GetComponent<Image>().overrideSprite = GM.CrowbarImage;
+		}
+		else if (me.itemtype.Equals("letter"))
+		{
+			Photo.GetComponent<Image>().overrideSprite = GM.LetterImage;
+		}
+	}
 
 
 }
