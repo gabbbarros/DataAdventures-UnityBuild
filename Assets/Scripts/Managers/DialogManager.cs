@@ -252,6 +252,7 @@ public class DialogManager : MonoBehaviour {
 		int eventID = me.eventid;
 		if (eventID != -1)
 		{
+			GM.PlaySoundFX(7);
 			CM.SetAsTrue(eventID);
 		}
 

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class JournalManager : MonoBehaviour {
 
+	public GameManager GM;
+
 	public GameObject PeoplePanelContent;
 	public GameObject PlacesPanelContent;
 	public GameObject ThingsPanelContent;
@@ -37,6 +39,8 @@ public class JournalManager : MonoBehaviour {
 			p.GetComponent<Animator>().Play("NewJournalAnimation");
 			// show the blinking lights on the respective overhead tabs
 			NM.ShowPeopleNotification();
+
+			GM.PlaySoundFX(6);
 		}
 		else
 		{
@@ -63,6 +67,7 @@ public class JournalManager : MonoBehaviour {
 			p.GetComponent<Animator>().Play("NewJournalAnimation");
 			// show the blinking lights on the respective overhead tabs
 			NM.ShowPlacesNotification();
+			GM.PlaySoundFX(6);
 		}
 		else
 		{
@@ -88,6 +93,7 @@ public class JournalManager : MonoBehaviour {
 			i.GetComponent<Animator>().Play("NewJournalAnimation");
 			// show the blinking lights on the respective overhead tabs
 			NM.ShowThingsNotification();
+			GM.PlaySoundFX(6);
 		}
 		else if(newInfo)
 		{
