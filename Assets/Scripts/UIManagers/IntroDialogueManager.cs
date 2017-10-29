@@ -65,17 +65,17 @@ public class IntroDialogueManager : MonoBehaviour
 
 	public void HideBox(int numDBox)
 	{
-		GameObject DBox;
+		Animator DBoxAnimator;
 		if (numDBox == 1)
 		{
-			DBox = DBox1;
+			DBoxAnimator = DBoxAnimator1;
 		}
 		else
 		{
-			DBox = DBox2;
+			DBoxAnimator = DBoxAnimator2;
 		}
 
-		DBox.SetActive(false);
+		DBoxAnimator.Play("IdleDialogue");
 		//TODO smooth fade?
 	}
 }
