@@ -8,6 +8,7 @@ public class IntroManager : MonoBehaviour
 	public GameObject Fan;
 	public Image Background;
 	public IntroDialogueManager IDM;
+	public SoundFXManager SFXM;
 	public Animator EyeballAnimator;
 	public Animator PhoneRingAnimator;
 	public Animator FadeAnimator;
@@ -19,6 +20,7 @@ public class IntroManager : MonoBehaviour
 		EyeballAnimator.Play("EyeballWakeup");
 		// start ringing
 		PhoneRingAnimator.Play("RingRingAnimation");
+		SFXM.PlaySingle(0);
 	}
 
 	public void AfterEyeballWakeup()
@@ -34,10 +36,11 @@ public class IntroManager : MonoBehaviour
 		yield return new WaitForSeconds(5);
 		PhoneRingAnimator.Play("IdlePhone");
 		IDM.ShowBox("Me:", "*pick up the phone* \nHello?", 1, 1);
+		SFXM.PlayLongTerm(1);
 		yield return new WaitForSeconds(2);
 		IDM.ShowBox("Operator:", "Agent, you are needed at the station. A code 616 has been issued.", 2, 2);
 		yield return new WaitForSeconds(5);
-		IDM.ShowBox("Me:", "Alright, I'll be there in twenty... *hang up*", 1, 1);
+		IDM.ShowBox("Me:", "<Crap I'm late for work again!> \nYep, I'm already on my way! *hang up*", 1, 1);
 		yield return new WaitForSeconds(2);
 		IDM.HideBox(2);
 		yield return new WaitForSeconds(3);
@@ -68,8 +71,8 @@ public class IntroManager : MonoBehaviour
 	IEnumerator IntroDialogue2()
 	{
 		yield return new WaitForSeconds(3);
-		IDM.ShowBox("Seargent RobotFace:", "Special Agent, you are late...\n I trust you do remember what the " 
-		            + "Inter-Dimensional Detective Agency is for and what it stands for?", 2, 2);
+		IDM.ShowBox("Seargent RobotFace:", "Special Agent, you are late...\nI trust you do remember why the " 
+		            + "Inter-Dimensional Detective Agency exists and what it stands for?", 2, 2);
 		yield return new WaitForSeconds(4);
 		IDM.ShowBox("Me:", "Yes, Seargent. The IDDA is here to safeguard our universe from interdimensional paradoxes "
 					+ "and time fallacies.", 1, 1);

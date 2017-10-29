@@ -8,16 +8,17 @@ public class SoundFXManager : MonoBehaviour {
 	public List<AudioClip> dooropen;
 	public List<AudioClip> doorshut;
 	public AudioSource soundJukebox;
+	public AudioSource longTermSound;
 	public static SoundFXManager instance = null;
 
 	void Awake()
 	{
-		// check to see if an instance exists
-		if (instance == null)
-		{
-			// if not set it to this
-			instance = this;
-		}
+		//// check to see if an instance exists
+		//if (instance == null)
+		//{
+		//	// if not set it to this
+		//	instance = this;
+		//}
 	}
 	public void PlaySingle(int clipID)
 	{
@@ -28,6 +29,11 @@ public class SoundFXManager : MonoBehaviour {
 		soundJukebox.Play();
 	}
 
+	public void PlayLongTerm(int clipID)
+	{
+		longTermSound.clip = sounds[clipID];
+		longTermSound.Play();
+	}
 	public void PlaySingle(string type)
 	{
 		// set clip to whatever we want to play
