@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class IntroManager : MonoBehaviour
 {
 	public GameObject Fan;
@@ -12,6 +13,10 @@ public class IntroManager : MonoBehaviour
 	public Animator EyeballAnimator;
 	public Animator PhoneRingAnimator;
 	public Animator FadeAnimator;
+	public Animator MurderTextAnimator;
+	public Animator MurderTextFlyManager;
+	public GameObject SkipButton;
+
 
 	public List<Sprite> Backgrounds;
 	public void Start()
@@ -36,7 +41,6 @@ public class IntroManager : MonoBehaviour
 		yield return new WaitForSeconds(5);
 		PhoneRingAnimator.Play("IdlePhone");
 		IDM.ShowBox("Me:", "*pick up the phone* \n\n\"Hello?\"", 1, 1);
-		SFXM.PlayLongTerm(1);
 		yield return new WaitForSeconds(2);
 		IDM.ShowBox("Operator:", "\"Agent, you are needed at the station. A code 616 has been issued.\"", 2, 2);
 		yield return new WaitForSeconds(5);
@@ -44,10 +48,20 @@ public class IntroManager : MonoBehaviour
 		yield return new WaitForSeconds(2);
 		IDM.HideBox(2);
 		yield return new WaitForSeconds(3);
-		IDM.ShowBox("Me:", "\'A code 616...? That can only mean one thing...\n\n...Murder\'", 1, 1);
+		IDM.ShowBox("Me:", "\'A code 616...? That can only mean one thing...", 1, 1);
+		yield return new WaitForSeconds(3);
+		//IDM.ShowBox("Me:", "MURDER", 1, 1);
+		IDM.HideBox(1);
+		SFXM.PlayLongTerm(1);
+		// TODO show murder animation
+		FadeAnimator.Play("Murder");
+		MurderTextAnimator.Play("MurderText");
+		MurderTextFlyManager.Play("MurderFly");
 		yield return new WaitForSeconds(5);
 		//fade to black while travelling to work
 		FadeAnimator.Play("FadeOut");
+		MurderTextAnimator.gameObject.SetActive(false);
+		MurderTextFlyManager.gameObject.SetActive(false);
 		//TODO play some sort of travel sound here
 
 		//TODO change scene to office background
@@ -85,8 +99,31 @@ public class IntroManager : MonoBehaviour
 		yield return new WaitForSeconds(4);
 		IDM.HideBox(1);
 		IDM.HideBox(2);
+		FadeAnimator.gameObject.SetActive(false);
 		// TODO : Now show the menu selection
 
+	}
+
+	public void SkipIntro()
+	{
+		IDM.HideBox(1);
+		IDM.HideBox(2);
+
+		StopAllCoroutines();
+		Fan.SetActive(false);
+		PhoneRingAnimator.gameObject.SetActive(false);
+		EyeballAnimator.gameObject.SetActive(false);
+		FadeAnimator.gameObject.SetActive(false);
+		SFXM.soundJukebox.Stop();
+
+		SkipButton.SetActive(false);
+		SFXM.PlayLongTerm(1);
+	}
+
+	// TODO take an input to load the game file for this guy
+	public void PlayGame()
+	{
+		SceneManager.LoadScene("WikiMystery");
 	}
 
 }
