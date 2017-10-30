@@ -32,19 +32,19 @@ public class IntroManager : MonoBehaviour
 	IEnumerator IntroDialogue1()
 	{
 		// AT HOME SECTION
-		IDM.ShowBox("Me", "Deja vu...\n\nI better pick that up. It could be important.", 1, 1);
+		IDM.ShowBox("Me", "\'Mm... Deja vu...\'", 1, 1);//\n\nI better pick that up. It could be important.", 1, 1);
 		yield return new WaitForSeconds(5);
 		PhoneRingAnimator.Play("IdlePhone");
-		IDM.ShowBox("Me:", "*pick up the phone* \n\nHello?", 1, 1);
+		IDM.ShowBox("Me:", "*pick up the phone* \n\n\"Hello?\"", 1, 1);
 		SFXM.PlayLongTerm(1);
 		yield return new WaitForSeconds(2);
-		IDM.ShowBox("Operator:", "Agent, you are needed at the station. A code 616 has been issued.", 2, 2);
+		IDM.ShowBox("Operator:", "\"Agent, you are needed at the station. A code 616 has been issued.\"", 2, 2);
 		yield return new WaitForSeconds(5);
-		IDM.ShowBox("Me:", "<Crap I'm late for work again!> \n\nYep, I'm already on my way! *hang up*", 1, 1);
+		IDM.ShowBox("Me:", "<Crap!> \n\n\"Okay, I'm on my way!\" *hang up*", 1, 1);
 		yield return new WaitForSeconds(2);
 		IDM.HideBox(2);
 		yield return new WaitForSeconds(3);
-		IDM.ShowBox("Me:", "A code 616...? That can only mean one thing...\n\n...Murder", 1, 1);
+		IDM.ShowBox("Me:", "\'A code 616...? That can only mean one thing...\n\n...Murder\'", 1, 1);
 		yield return new WaitForSeconds(5);
 		//fade to black while travelling to work
 		FadeAnimator.Play("FadeOut");
@@ -71,17 +71,17 @@ public class IntroManager : MonoBehaviour
 	IEnumerator IntroDialogue2()
 	{
 		yield return new WaitForSeconds(3);
-		IDM.ShowBox("Seargent RobotFace:", "Special Agent, you are late...\nI trust you do remember why the " 
-		            + "Inter-Dimensional Detective Agency exists and what it stands for?", 2, 2);
+		IDM.ShowBox("Seargent:", "\"Agent, you are late...\nI trust you do remember why the " 
+		            + "Inter-Dimensional Detective Agency exists and what it stands for?\"", 2, 2);
 		yield return new WaitForSeconds(4);
 		IDM.ShowBox("Me:", "Yes, Seargent. The IDDA is here to safeguard our universe from interdimensional paradoxes "
 					+ "and time fallacies.", 1, 1);
 		yield return new WaitForSeconds(4);
-		IDM.ShowBox("Seargent RobotFace:", "AND as a TIME-SENSITIVE Agency, I will remind you to not be late again, is that clear?", 2, 2);
+		IDM.ShowBox("Seargent:", "AND as a TIME-SENSITIVE Agency, I will remind you to not be late again, is that clear?", 2, 2);
 		yield return new WaitForSeconds(4);
 		IDM.ShowBox("Me:", "Understood loud and clear. What's the case I was called in for?", 1, 1);
 		yield return new WaitForSeconds(4);
-		IDM.ShowBox("Seargent RobotFace:", "I think you are going to like this one. It's...unique...", 2, 2);
+		IDM.ShowBox("Seargent:", "I think you are going to like this one. It's...unique...", 2, 2);
 		yield return new WaitForSeconds(4);
 		IDM.HideBox(1);
 		IDM.HideBox(2);
