@@ -150,8 +150,16 @@ public class GameManager : MonoBehaviour {
 		// reset the counts on keys, flashlights, and crowbars
 		IM.ResetInventory();
 
-        // we want to go to the city of the first building
-        Building firstBuilding = FileReader.TheGameFile.SearchBuildings(0);
+		// we want to go to the city of the first building
+		Building firstBuilding = null;
+		foreach (Building b in FileReader.TheGameFile.buildings)
+		{
+			if (b.condition.Length == 0)
+			{
+				firstBuilding = b;
+			}
+		}
+        //firstBuilding = FileReader.TheGameFile.SearchBuildings(0);
         City firstCity = FileReader.TheGameFile.SearchCities(firstBuilding.cityid);
         TravelHere(firstCity);
        // DM.SetDescription(firstCity.name, firstCity.description);
@@ -277,6 +285,7 @@ public class GameManager : MonoBehaviour {
 		foreach (int pID in me.peopleid)
 		{
 			Person p = FileReader.TheGameFile.SearchPeople(pID);
+			Debug.Log(pID);
 			int[] conds = p.condition;
 			List<int> conditionsList = new List<int>(conds);
 			if (conditionsList.Count == 0 || cm.IsSet(conditionsList))

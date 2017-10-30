@@ -27,6 +27,8 @@ public class FileReader : MonoBehaviour {
     public void ReadSaveFile()
     {
 		string gFile = File.ReadAllText("Assets/Albert_Einstein-0.json");
+
+
 		//Debug.Log(gFile);
 		//StringReader r1 = new StringReader(gF);
 		//GameFile gf = JsonUtility.FromJson<GameFile>(GameFile);
@@ -37,6 +39,11 @@ public class FileReader : MonoBehaviour {
 		TheGameFile.Locks = new List<Building>();
 		TheGameFile.Darks = new List<Building>();
 		TheGameFile.Chains = new List<Building>();
+
+		foreach (Person p in TheGameFile.people)
+		{
+			Debug.Log(p.name);
+		}
     }
 
 	public void SetUpSuspects()
