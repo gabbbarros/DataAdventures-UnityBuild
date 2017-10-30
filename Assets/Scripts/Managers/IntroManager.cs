@@ -118,6 +118,8 @@ public class IntroManager : MonoBehaviour
 
 		SkipButton.SetActive(false);
 		SFXM.PlayLongTerm(1);
+		MurderTextAnimator.gameObject.SetActive(false);
+		MurderTextFlyManager.gameObject.SetActive(false);
 	}
 
 	// TODO take an input to load the game file for this guy
