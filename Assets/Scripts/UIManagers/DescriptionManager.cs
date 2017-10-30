@@ -320,11 +320,15 @@ public class DescriptionManager : MonoBehaviour {
 		{
 			// TODO Win the game!
 			Debug.Log("You win!");
+			GM.ShowArrestScreen(me, true);
 		}
 		else
 		{
 			// TODO Lose the game...
 			Debug.Log("You Lose!");
+			GM.ShowArrestScreen(me, false);
 		}
+
+
 	} 
 }

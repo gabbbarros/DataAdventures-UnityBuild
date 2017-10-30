@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
 
@@ -27,6 +28,13 @@ public class GameManager : MonoBehaviour {
 	public InventoryManager IM;
 
 	public SoundFXManager SFXM;
+
+	/** WinLose Panel Begin **/
+	public GameObject WinLosePanel;
+	public Text WinLoseDescription;
+	public Text WinLoseResult;
+	public Animator FadePanel;
+	/** WinLose Panel End **/
 
     /** City Panel Stuff Begin **/
     public GameObject CityPanel;
@@ -508,5 +516,35 @@ public class GameManager : MonoBehaviour {
 	public void PlaySoundFX(string type)
 	{
 		SFXM.PlaySingle(type);
+	}
+
+	public void ShowArrestScreen(Person arrestedPerson, bool isWin)
+	{
+		WinLosePanel.SetActive(true);
+		//TODO show animation or something
+		if (isWin)
+		{
+			WinLoseResult.text = "Mission Success!";
+			WinLoseDescription.text = "You arrested " + arrestedPerson.name + " which was the correct call. As the timeline returns "
+				+ "to normal, the world around you begins to fade. You always hated this part...";
+		}
+		else
+		{
+			WinLoseResult.text = "Mission Failure...";
+			WinLoseDescription.text = "You arrested " + arrestedPerson.name + ", which was the wrong call. The catastrophic ripples "
+				+ "through time shake the universal foundations of your world. As the timeline falls apart, "
+				+ "you wonder who the real culprit was, and what will happen to you now. The world around you begins to fade...";
+		}
+	}
+
+	public void PlayFadeout()
+	{
+		FadePanel.gameObject.SetActive(true);
+		FadePanel.Play("FadeOut2");
+	}
+
+	public void ReturnToIntroScene()
+	{
+		SceneManager.LoadScene("Intro");
 	}
 }
