@@ -39,8 +39,6 @@ public class JournalManager : MonoBehaviour {
 			p.GetComponent<Animator>().Play("NewJournalAnimation");
 			// show the blinking lights on the respective overhead tabs
 			NM.ShowPeopleNotification();
-
-			GM.PlaySoundFX(6);
 		}
 		else
 		{

@@ -252,8 +252,15 @@ public class DialogManager : MonoBehaviour {
 		int eventID = me.eventid;
 		if (eventID != -1)
 		{
-			GM.PlaySoundFX(7);
-			CM.SetAsTrue(eventID);
+			//GM.PlaySoundFX(7);
+			if (!CM.IsSet(eventID)) {
+				CM.SetAsTrue(eventID);
+				// also if this is a suspect fact node, then play a special sound
+				if (me.dialoguetype == 616)
+				{
+					GM.SFXM.PlaySingle(7);
+				}
+			}
 		}
 
 	}

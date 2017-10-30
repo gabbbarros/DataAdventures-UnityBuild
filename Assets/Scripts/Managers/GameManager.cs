@@ -168,7 +168,14 @@ public class GameManager : MonoBehaviour {
 		Sprite myFace = SearchCitySprites(me.image);
 
 		CityMap.GetComponent<Image>().overrideSprite = myFace;
-        // add building dots for all buildings that the player can see
+
+		// if the coordinate list doesn't exists, make one
+		if (me.coordinates == null)
+		{
+			me.coordinates = new List<Pair>();
+		}
+		// add building dots for all buildings that the player can see
+		int count = 0;
         foreach (int bID in me.buildingid)
         {
             Building b = FileReader.TheGameFile.SearchBuildings(bID);
@@ -180,8 +187,16 @@ public class GameManager : MonoBehaviour {
                 // spawn the building on the map
                 GameObject dot = Instantiate(BuildingDotPrefab, DotHolder.transform);
 				dot.GetComponent<BuildingDotPrefabScript>().SetInfoPanel(InfoPanel);
-				dot.transform.localPosition = new Vector2(Random.Range(-250f, 250f), Random.Range(-110f, 40f));
 
+				if (me.coordinates.Count <= count)
+				{
+					dot.transform.localPosition = new Vector2(Random.Range(-250f, 250f), Random.Range(-110f, 40f));
+					me.coordinates.Add(new Pair(dot.transform.localPosition.x, dot.transform.localPosition.y));
+				}
+				else
+				{	
+					dot.transform.localPosition = new Vector2(me.coordinates[count].coordX, me.coordinates[count].coordY);
+				}
 
 				// Change dot name
 				dot.GetComponentInChildren<BuildingDotPrefabScript>().SetName(b.name);
@@ -193,6 +208,7 @@ public class GameManager : MonoBehaviour {
 					//TravelHere(b);
 				});
             }
+			count++;
         }
 		ALM.AddLog("Clicked on " + me.name);
 

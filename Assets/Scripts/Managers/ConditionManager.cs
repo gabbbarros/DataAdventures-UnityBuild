@@ -66,9 +66,10 @@ public class ConditionManager : Singleton<ConditionManager> {
 		if (bitIndex >= 0)
 		{
 			Debug.Log("Index:" + bitIndex);
-
+			bool wasFalse = !IsSet(bitIndex);
 			conditions.Set(bitIndex, true);
-			TrollEverything(bitIndex);
+			if(wasFalse)
+				TrollEverything(bitIndex);
 		}
 	}
 	
@@ -100,5 +101,6 @@ public class ConditionManager : Singleton<ConditionManager> {
 			}
 
 		}
+
 	}
 }

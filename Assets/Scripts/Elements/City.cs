@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 [System.Serializable]
 
 public class City
@@ -48,6 +49,8 @@ public class City
 	/// The image.
 	/// </summary>
 	public string image;
+
+	public List<Pair> coordinates;
 	/// <summary>
 	/// Initializes a new instance of the <see cref="T:City"/> class.
 	/// </summary>
