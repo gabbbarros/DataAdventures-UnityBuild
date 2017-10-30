@@ -5,6 +5,7 @@ using UnityEngine;
 public class NotificationAnimationScript : MonoBehaviour {
 
     public Animator A;
+	public GameObject Point;
     void Start()
     {
         A = gameObject.GetComponent<Animator>();
@@ -13,4 +14,14 @@ public class NotificationAnimationScript : MonoBehaviour {
     {
         A.Play("Static");
     }
+
+	public void NewInformation()
+	{
+		Point.SetActive(true);
+	}
+
+	public void StopInformation()
+	{
+		Point.SetActive(false);
+	}
 }

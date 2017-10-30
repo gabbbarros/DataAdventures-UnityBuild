@@ -14,5 +14,5 @@ public class DialogueNode {
 	public bool isroot;
 	public List<DialogueNode> childrenNodes;
 	public int[] children;
-
+	public bool isVisited = false;
 }

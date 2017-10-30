@@ -36,7 +36,7 @@ public class JournalManager : MonoBehaviour {
 			p.GetComponent<PeopleJournalPrefabScript>().SetUp(me);
 			p.transform.name = "person:" + me.id;
 			// show the blinking light on the journal prefab
-			p.GetComponent<Animator>().Play("NewJournalAnimation");
+			p.GetComponent<NotificationAnimationScript>().NewInformation();
 			// show the blinking lights on the respective overhead tabs
 			NM.ShowPeopleNotification();
 		}
@@ -45,7 +45,7 @@ public class JournalManager : MonoBehaviour {
 			if (newInfo)
 			{
 				GameObject p = GameObject.Find("person:" + me.id);
-				p.GetComponent<Animator>().Play("NewJournalAnimation");
+				p.GetComponent<NotificationAnimationScript>().NewInformation();
 				// show the blinking lights on the respective overhead tabs
 				NM.ShowPeopleNotification();
 				Debug.Log("hmm");
@@ -62,7 +62,7 @@ public class JournalManager : MonoBehaviour {
 			p.GetComponent<PlaceJournalPrefabScript>().SetUp(me);
 			p.transform.name = "city:" + me.id;
 			// show the blinking light on the journal prefab
-			p.GetComponent<Animator>().Play("NewJournalAnimation");
+			p.GetComponent<NotificationAnimationScript>().NewInformation();
 			// show the blinking lights on the respective overhead tabs
 			NM.ShowPlacesNotification();
 			GM.PlaySoundFX(6);
@@ -73,7 +73,7 @@ public class JournalManager : MonoBehaviour {
 			{
 				GameObject p = GameObject.Find("city:" + me.id);
 				// show the blinking light on the journal prefab
-				p.GetComponent<Animator>().Play("NewJournalAnimation");
+				p.GetComponent<NotificationAnimationScript>().NewInformation();
 				// show the blinking lights on the respective overhead tabs
 				NM.ShowPlacesNotification();
 			}
@@ -88,7 +88,7 @@ public class JournalManager : MonoBehaviour {
 			GameObject i = Instantiate(ThingsJournalPrefab, ThingsPanelContent.transform);
 			i.GetComponent<ItemJournalPrefabScript>().SetUp(me);
 			i.transform.name = "item:" + me.id;
-			i.GetComponent<Animator>().Play("NewJournalAnimation");
+			i.GetComponent<NotificationAnimationScript>().NewInformation();
 			// show the blinking lights on the respective overhead tabs
 			NM.ShowThingsNotification();
 			GM.PlaySoundFX(6);
@@ -97,7 +97,7 @@ public class JournalManager : MonoBehaviour {
 		{
 			GameObject p = GameObject.Find("item:" + me.id);
 			// show the blinking light on the journal prefab
-			p.GetComponent<Animator>().Play("NewJournalAnimation");
+			p.GetComponent<NotificationAnimationScript>().NewInformation();
 			// show the blinking lights on the respective overhead tabs
 			NM.ShowThingsNotification();
 		}

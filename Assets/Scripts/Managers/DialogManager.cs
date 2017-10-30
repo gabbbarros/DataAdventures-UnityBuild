@@ -201,8 +201,15 @@ public class DialogManager : MonoBehaviour {
         GameObject choice = Instantiate(DialogueButtonPrefab, Options.transform);
         DialogueButtonPrefabScript DBPS = choice.GetComponent<DialogueButtonPrefabScript>();
 
-        DBPS.SetLine(me.option);
-        DBPS.me = me;
+		if (!me.isVisited || me.dialoguetype != 100)
+		{
+			DBPS.SetLine(me.option);
+		}
+		else
+		{
+			DBPS.SetLine("Thanks. I have a few more questions.");
+		}
+		DBPS.me = me;
 
         choice.GetComponent<Button>().onClick.AddListener(
             delegate {
@@ -233,6 +240,11 @@ public class DialogManager : MonoBehaviour {
 	public void Clicked(DialogueNode me)
 	{
 		Debug.Log("Node ID: " + me.id);
+		Debug.Log(me.visited);
+		if (!me.isVisited)
+		{
+			me.isVisited = true;
+		}
 
 		// change dialogue line
 		PDialogue.text = me.dialogueline;
@@ -247,7 +259,7 @@ public class DialogManager : MonoBehaviour {
 
 		// add a goodbye exit option
 		AddExitChoice();
-
+		Debug.Log(me.dialoguetype);
 		// trigger a condition if one exists
 		int eventID = me.eventid;
 		if (eventID != -1)
