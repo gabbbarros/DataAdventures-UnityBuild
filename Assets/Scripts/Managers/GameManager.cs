@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour {
 
 	public SoundFXManager SFXM;
 
+	public FactSoundtrackManager FSM;
 	/** WinLose Panel Begin **/
 	public GameObject WinLosePanel;
 	public Text WinLoseDescription;
@@ -150,6 +151,14 @@ public class GameManager : MonoBehaviour {
 		// reset the counts on keys, flashlights, and crowbars
 		IM.ResetInventory();
 
+		// add all cities with no conditions to the journal
+		foreach (City c in FileReader.TheGameFile.cities)
+		{
+			if (c.condition.Length == 0)
+			{
+				JM.AddPlace(c, false);
+			}
+		}
 		// we want to go to the city of the first building
 		Building firstBuilding = null;
 		foreach (Building b in FileReader.TheGameFile.buildings)
@@ -164,6 +173,8 @@ public class GameManager : MonoBehaviour {
         TravelHere(firstCity);
        // DM.SetDescription(firstCity.name, firstCity.description);
         DM.CityPressed(firstCity);
+
+		FSM.CheckFactCount();
 	}
 
 
@@ -194,6 +205,7 @@ public class GameManager : MonoBehaviour {
 		int count = 0;
         foreach (int bID in me.buildingid)
         {
+			Debug.Log("Building: " + bID);
             Building b = FileReader.TheGameFile.SearchBuildings(bID);
             int[] conds = b.condition;
             List<int> conditionsList = new List<int>(conds);
@@ -285,7 +297,7 @@ public class GameManager : MonoBehaviour {
 		foreach (int pID in me.peopleid)
 		{
 			Person p = FileReader.TheGameFile.SearchPeople(pID);
-			Debug.Log(pID);
+//			Debug.Log(pID);
 			int[] conds = p.condition;
 			List<int> conditionsList = new List<int>(conds);
 			if (conditionsList.Count == 0 || cm.IsSet(conditionsList))

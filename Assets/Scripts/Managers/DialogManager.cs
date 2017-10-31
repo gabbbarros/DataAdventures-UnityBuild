@@ -271,6 +271,7 @@ public class DialogManager : MonoBehaviour {
 				if (me.dialoguetype == 616)
 				{
 					GM.SFXM.PlaySingle(7);
+					GM.FSM.CheckFactCount();
 				}
 			}
 		}
