@@ -88,7 +88,7 @@ public class IntroManager : MonoBehaviour
 		}
 		else if (dialogueAdvance == 7)
 		{
-			IDM.ShowBox("Sergent:", "\"Agent, you are late.\nThis is a is a time agency. Tardiness will not be tolerated.\"", 2, 2);
+			IDM.ShowBox("Sergent:", "\"Agent, you are late.\nThis is a time agency. Tardiness will not be tolerated.\"", 2, 2);
 			FadeAnimator.gameObject.GetComponent<Button>().enabled = true;
 		}
 		else if (dialogueAdvance == 8)
@@ -98,26 +98,27 @@ public class IntroManager : MonoBehaviour
 		else if (dialogueAdvance == 9)
 		{
 			IDM.ShowBox("Sergent:", "While you were away, multiple anomalies have been spotted. "+
-			"People are being murdered and the culprits are disguising themselves as regular people.", 2, 2);
+			"Murders. The culprits disguise themselves as regular people.", 2, 2);
 		}
 		else if (dialogueAdvance == 10)
 		{
-			IDM.ShowBox("Sergent:", "These anomalies have corrupted our information system, and we cannot identify who are the culprits. "+
-			"However, we can identify a few people of interest.", 2, 2);
-			yield return new WaitForSeconds(4);
-		}
-		else if (dialogueAdvance == 11)
+			IDM.ShowBox("Sergent:", "These anomalies have corrupted our information system, and we cannot identify who are the culprits. ", 2, 2);
+		} else if (dialogueAdvance == 11)
 		{
-			IDM.ShowBox("Sergent:", "Investigate these people's lives. The culprit is disguised, "+
-			"but they do not possess all information about the person they are impersonating.", 2, 2);
+			IDM.ShowBox("Sergent:", "However, we can identify a few people of interest. Investigate these people's lives.", 2, 2);
 		}
 		else if (dialogueAdvance == 12)
 		{
+			IDM.ShowBox("Sergent:", "The culprit is disguised, "+
+			"but do not possess all information about the person they are impersonating.", 2, 2);
+		}
+		else if (dialogueAdvance == 13)
+		{
 			IDM.ShowBox("Me:", "So find inconsistencies, right? Understood loud and clear.", 1, 1);
-		}else if (dialogueAdvance == 13)
+		}else if (dialogueAdvance == 14)
 		{
 			IDM.ShowBox("Sergent:", "Good luck, agent.", 2, 2);
-		}else if (dialogueAdvance == 14)
+		}else if (dialogueAdvance == 15)
 		{
 			IDM.HideBox(1);
 			IDM.HideBox(2);
