@@ -71,7 +71,7 @@ public class IntroManager : MonoBehaviour
 			MurderTextAnimator.gameObject.SetActive(true);
 			MurderTextFlyManager.gameObject.SetActive(true);
 			IDM.HideBox(1);
-			SFXM.PlayLongTerm(1);
+			SFXM.PlayLongTerm(1, 1.0f);
 			// TODO show murder animation
 			FadeAnimator.Play("Murder");
 			MurderTextAnimator.Play("MurderText");
@@ -161,7 +161,7 @@ public class IntroManager : MonoBehaviour
 		SFXM.soundJukebox.Stop();
 
 		SkipButton.SetActive(false);
-		SFXM.PlayLongTerm(1);
+		SFXM.PlayLongTerm(1, 1.0f);
 		MurderTextAnimator.gameObject.SetActive(false);
 		MurderTextFlyManager.gameObject.SetActive(false);
 	}

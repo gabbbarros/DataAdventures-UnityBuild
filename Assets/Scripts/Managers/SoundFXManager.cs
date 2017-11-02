@@ -29,9 +29,10 @@ public class SoundFXManager : MonoBehaviour {
 		soundJukebox.Play();
 	}
 
-	public void PlayLongTerm(int clipID)
+	public void PlayLongTerm(int clipID, float volume)
 	{
 		longTermSound.clip = sounds[clipID];
+		longTermSound.volume = volume;
 		longTermSound.Play();
 	}
 	public void PlaySingle(string type)

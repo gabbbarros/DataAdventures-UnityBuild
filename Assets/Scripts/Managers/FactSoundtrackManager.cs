@@ -37,7 +37,7 @@ public class FactSoundtrackManager : MonoBehaviour
 			if (currentThreshold != 1)
 			{
 				currentThreshold = 1;
-				GM.SFXM.PlayLongTerm(8);
+				GM.SFXM.PlayLongTerm(8, 1.0f);
 			}
 		}
 		else if (factPercent < ThresholdTwo)
@@ -46,7 +46,7 @@ public class FactSoundtrackManager : MonoBehaviour
 			if (currentThreshold != 2)
 			{
 				currentThreshold = 2;
-				GM.SFXM.PlayLongTerm(9);
+				GM.SFXM.PlayLongTerm(9, 1.0f);
 			}
 		}
 		else if (factPercent < ThresholdThree)
@@ -55,7 +55,7 @@ public class FactSoundtrackManager : MonoBehaviour
 			if (currentThreshold != 3)
 			{
 				currentThreshold = 3;
-				GM.SFXM.PlayLongTerm(10);
+				GM.SFXM.PlayLongTerm(10, 0.5f);
 			}
 		}
 		else if (factPercent < ThresholdFour)
@@ -64,7 +64,7 @@ public class FactSoundtrackManager : MonoBehaviour
 			if (currentThreshold != 4)
 			{
 				currentThreshold = 4;
-				GM.SFXM.PlayLongTerm(11);
+				GM.SFXM.PlayLongTerm(11, 0.5f);
 			}
 		}
 		else
@@ -73,7 +73,7 @@ public class FactSoundtrackManager : MonoBehaviour
 			if (currentThreshold != 5)
 			{
 				currentThreshold = 5;
-				GM.SFXM.PlayLongTerm(12);
+				GM.SFXM.PlayLongTerm(12, 0.5f);
 			}
 		}
 
