@@ -6,7 +6,7 @@ public class IntroFadeManager : MonoBehaviour
 	public void CanIGoToWorkNow()
 	{
 		IM.ChangeToOffice();
-		this.gameObject.SetActive(false);
+		//this.gameObject.SetActive(false);
 	}
 }
 

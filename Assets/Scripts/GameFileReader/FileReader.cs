@@ -26,7 +26,7 @@ public class FileReader : MonoBehaviour {
 	/// </summary>
     public void ReadSaveFile()
     {
-		string gFile = File.ReadAllText("Assets/Albert_Einstein-0.json");
+		string gFile = File.ReadAllText("Games/Albert_Einstein-0.json");
 
 
 		//Debug.Log(gFile);
