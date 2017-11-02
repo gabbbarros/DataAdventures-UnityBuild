@@ -26,7 +26,7 @@ public class IntroManager : MonoBehaviour
 		Fan.SetActive(true);
 		EyeballAnimator.Play("EyeballWakeup");
 		FadeAnimator.gameObject.GetComponent<Button>().enabled = false;
-		//MurderTextAnimator.gameObject.GetComponent<Button>().enabled = false;
+		MurderTextAnimator.gameObject.GetComponent<Button>().enabled = false;
 		// start ringing
 		PhoneRingAnimator.Play("RingRingAnimation");
 		SFXM.PlaySingle(0);
@@ -39,7 +39,7 @@ public class IntroManager : MonoBehaviour
 		//StartCoroutine(IntroDialogue1());
 		IntroDialogueAdvance();
 		FadeAnimator.gameObject.GetComponent<Button>().enabled = true;
-		//MurderTextAnimator.gameObject.GetComponent<Button>().enabled = false;
+		MurderTextAnimator.gameObject.GetComponent<Button>().enabled = true;
 	}
 
 	public void IntroDialogueAdvance()
@@ -76,12 +76,12 @@ public class IntroManager : MonoBehaviour
 			FadeAnimator.Play("Murder");
 			MurderTextAnimator.Play("MurderText");
 			MurderTextFlyManager.Play("MurderFly");
+			FadeAnimator.gameObject.GetComponent<Button>().enabled = false;
+			MurderTextAnimator.gameObject.GetComponent<Button>().enabled = false;
 		}
 		else if (dialogueAdvance == 6)
 		{
 			//fade to black while travelling to work
-			FadeAnimator.gameObject.GetComponent<Button>().enabled = false;
-			MurderTextAnimator.gameObject.GetComponent<Button>().enabled = false;
 			FadeAnimator.Play("FadeOut");
 			MurderTextAnimator.gameObject.SetActive(false);
 			MurderTextFlyManager.gameObject.SetActive(false);
@@ -99,6 +99,7 @@ public class IntroManager : MonoBehaviour
 		{
 			IDM.ShowBox("Sergent:", "While you were away, multiple anomalies have been spotted. "+
 			"Murders. The culprits disguise themselves as regular people.", 2, 2);
+			IDM.HideBox(1);
 		}
 		else if (dialogueAdvance == 10)
 		{
