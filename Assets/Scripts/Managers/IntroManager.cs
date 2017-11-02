@@ -88,28 +88,36 @@ public class IntroManager : MonoBehaviour
 		}
 		else if (dialogueAdvance == 7)
 		{
-			IDM.ShowBox("Seargent:", "\"Agent, you are late...\nI trust you do remember why the "
-					+ "Detective Agency of Time Anomalies exists and what it stands for?\"", 2, 2);
+			IDM.ShowBox("Sergent:", "\"Agent, you are late.\nThis is a is a time agency. Tardiness will not be tolerated.\"", 2, 2);
 			FadeAnimator.gameObject.GetComponent<Button>().enabled = true;
 		}
 		else if (dialogueAdvance == 8)
 		{
-			IDM.ShowBox("Me:", "Yes, Seargent. DATA is here to safeguard our universe from interdimensional paradoxes "
-					+ "and time fallacies.", 1, 1);
+			IDM.ShowBox("Me:", "*sigh* Yes, Sergent.", 1, 1);
 		}
 		else if (dialogueAdvance == 9)
 		{
-			IDM.ShowBox("Seargent:", "AND as a TIME-SENSITIVE Agency, I will remind you to not be late again, is that clear?", 2, 2);
+			IDM.ShowBox("Sergent:", "While you were away, multiple anomalies have been spotted. "+
+			"People are being murdered and the culprits are disguising themselves as regular people.", 2, 2);
 		}
 		else if (dialogueAdvance == 10)
 		{
-			IDM.ShowBox("Me:", "Understood loud and clear. What's the case I was called in for?", 1, 1);
+			IDM.ShowBox("Sergent:", "These anomalies have corrupted our information system, and we cannot identify who are the culprits. "+
+			"However, we can identify a few people of interest.", 2, 2);
+			yield return new WaitForSeconds(4);
 		}
 		else if (dialogueAdvance == 11)
 		{
-			IDM.ShowBox("Seargent:", "I think you are going to like this one. It's...unique...", 2, 2);
+			IDM.ShowBox("Sergent:", "Investigate these people's lives. The culprit is disguised, "+
+			"but they do not possess all information about the person they are impersonating.", 2, 2);
 		}
 		else if (dialogueAdvance == 12)
+		{
+			IDM.ShowBox("Me:", "So find inconsistencies, right? Understood loud and clear.", 1, 1);
+		}else if (dialogueAdvance == 13)
+		{
+			IDM.ShowBox("Sergent:", "Good luck, agent.", 2, 2);
+		}else if (dialogueAdvance == 14)
 		{
 			IDM.HideBox(1);
 			IDM.HideBox(2);
