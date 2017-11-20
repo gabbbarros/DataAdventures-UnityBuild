@@ -39,7 +39,7 @@ public class PeopleJournalPrefabScript : MonoBehaviour
 
 		// if this is a suspect, show which facts we know
 		DM.SetFacts(Person);
-		DM.SetArrestButton(Person);
+		//DM.SetArrestButton(Person);
 
 	}
 }

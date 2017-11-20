@@ -27,7 +27,7 @@ public class ActivityLogManager : MonoBehaviour {
 	{
 		Canvas.ForceUpdateCanvases();
 		AddActivityLog(log);
-		AddOverviewLog(log);
+		//AddOverviewLog(log);
 		StartCoroutine(UpdateRoutine());
 	}
 
@@ -50,7 +50,7 @@ public class ActivityLogManager : MonoBehaviour {
 	{
 		yield return new WaitForEndOfFrame();
 		Canvas.ForceUpdateCanvases();
-		OverviewScrollRect.verticalScrollbar.value = 0f;
+//		OverviewScrollRect.verticalScrollbar.value = 0f;
 		ActivityLogScrollRect.verticalScrollbar.value = 0f;
 		Canvas.ForceUpdateCanvases();
 	}

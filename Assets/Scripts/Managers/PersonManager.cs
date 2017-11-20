@@ -38,6 +38,6 @@ public class PersonManager : MonoBehaviour {
 
 		DM.SetLocation(me, FileReader.TheGameFile.SearchBuildings(me.buildingid), FileReader.TheGameFile.SearchCities(FileReader.TheGameFile.SearchBuildings(me.buildingid).cityid));
 		DM.SetFacts(me);
-		DM.SetArrestButton(me);
+		//DM.SetArrestButton(me);
 	}
 }

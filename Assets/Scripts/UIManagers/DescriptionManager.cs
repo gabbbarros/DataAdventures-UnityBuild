@@ -20,6 +20,8 @@ public class DescriptionManager : MonoBehaviour {
 	public Button ArrestButton;
 
 	public GameObject InhabitantsList;
+	public GameObject FactsList;
+	public GameObject FactsListParent;
 
 	public GameObject FadePanel;
 	public GameObject FadePanelParent;
@@ -45,6 +47,7 @@ public class DescriptionManager : MonoBehaviour {
 	/// <param name="content">Content.</param>
 	public void SetDescription(string title, string content)
 	{
+		Description.gameObject.SetActive(true);
 		Debug.Log("boop");
 		FoundInCityButton.gameObject.SetActive(false);
 		FoundInBuildingButton.gameObject.SetActive(false);
@@ -55,6 +58,11 @@ public class DescriptionManager : MonoBehaviour {
 		Description.text = content;
 
 		GM.PlaySoundFX(5);
+	}
+
+	public void InactivateDescription()
+	{
+		Description.gameObject.SetActive(false);
 	}
 
 
@@ -135,25 +143,52 @@ public class DescriptionManager : MonoBehaviour {
 	/// <param name="me">Me.</param>
 	public void SetFacts(Person me)
 	{
-		if (FileReader.TheGameFile.SearchSuspects(me.id) != null)
+
+		FactsListParent.SetActive(true);
+		Suspect s = FileReader.TheGameFile.SearchSuspects(me.id);
+		Debug.Log("Suspect Facts" + s);
+		if (s != null)
 		{
-			InhabitantsTitle.text = "Facts Known";
+			Debug.Log("Set up facts!");
+			FactsListParent.SetActive(true);
+			ClearFactsList();
+			InactivateDescription();
+			//InhabitantsTitle.text = "Facts Known";
 			// if this is a suspect, show which facts we know
 			List<Fact> knownFacts = FileReader.TheGameFile.KnownFacts(me.id);
-
+			int counter = 0;
+			Suspect sus = FileReader.TheGameFile.SearchSuspects(me.id);
 			foreach (Fact fact in knownFacts)
 			{
-				GameObject f = Instantiate(FactPrefab, InhabitantsList.transform);
+				GameObject f = Instantiate(FactPrefab, FactsList.transform);
+				Debug.Log("Speculating: " + sus.factSpeculation[counter]);
+
+				if (sus.factSpeculation[counter] == 0)
+				{
+					Debug.Log("Red!");
+					f.GetComponent<Image>().color = Color.red;
+
+				}
+				else if (sus.factSpeculation[counter] == 1)
+				{
+					Debug.Log("Green!");
+					f.GetComponent<Image>().color = Color.green;
+				}
 				f.GetComponentInChildren<Text>().text = fact.factoid;
+				counter++;
 			}
 			// set up the arrest button
-			ArrestButton.gameObject.SetActive(true);
+			//ArrestButton.gameObject.SetActive(true);
 		}
 		else
 		{
+			FactsListParent.SetActive(false);
+		}
+		//else
+		//{
 			FadePanelParent.SetActive(true);
 			FadePanel.GetComponent<Image>().overrideSprite = GM.SearchPeopleSprites(me.image);
-		}
+		//}
 	}
 
 	public void LoadItemPhoto(Item me)
@@ -226,6 +261,7 @@ public class DescriptionManager : MonoBehaviour {
 		FoundInCityButton.gameObject.SetActive(true);
 		FoundInCityButton.onClick.RemoveAllListeners();
 		FoundInCityButton.onClick.AddListener(delegate { CityPressed(FileReader.TheGameFile.SearchCities(me.cityid)); });
+		FactsListParent.SetActive(false);
 
 		// List who is here, complete with buttons
 		int[] pIDs = me.peopleid;
@@ -254,7 +290,7 @@ public class DescriptionManager : MonoBehaviour {
 	public void CityPressed(City me)
 	{
 		SetDescription(me.name, me.description);
-
+		FactsListParent.SetActive(false);
 		// activate the "Travel Here!" Button
 		TravelHereButton.SetActive(true);
 		TravelHereButton.GetComponent<Button>().onClick.RemoveAllListeners();
@@ -298,7 +334,7 @@ public class DescriptionManager : MonoBehaviour {
 	public void ItemPressed(Item me)
 	{
 		SetDescription(me.name, me.description);
-
+		FactsListParent.SetActive(false);
 		Building building = FileReader.TheGameFile.SearchBuildings(me.buildingid);
 		City city = FileReader.TheGameFile.SearchCities(building.cityid);
 
@@ -308,6 +344,14 @@ public class DescriptionManager : MonoBehaviour {
 	public void ClearInhabitantsList()
 	{
 		foreach (Transform child in InhabitantsList.transform)
+		{
+			Destroy(child.gameObject);
+		}
+	}
+
+	public void ClearFactsList()
+	{
+		foreach (Transform child in FactsList.transform)
 		{
 			Destroy(child.gameObject);
 		}

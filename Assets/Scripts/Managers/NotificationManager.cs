@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NotificationManager : MonoBehaviour {
 
@@ -10,6 +11,12 @@ public class NotificationManager : MonoBehaviour {
 	public Animator PeopleTabAnimator;
 	public Animator PlacesTabAnimator;
 
+	public Animator NotificationDude;
+	public GameObject NotificationProfileImage;
+	public Text NotificationText;
+
+
+	public Sprite Exclaim;
 	public void ShowPeopleNotification()
 	{
         // play animations if it's the right time
@@ -35,5 +42,24 @@ public class NotificationManager : MonoBehaviour {
             JournalTabAnimator.Play("NewJournalAnimation");
         if(GM.JournalTabFocus != 3)
             PlacesTabAnimator.Play("NewJournalAnimation");
+	}
+
+	public void ShowNewFactNotification(Person me)
+	{
+		NotificationText.text = "New Fact Revealed!";
+		Sprite myFace = GM.SearchPeopleSprites(me.image);
+
+		// change the face
+		NotificationProfileImage.GetComponent<Image>().overrideSprite = myFace;
+		NotificationDude.Play("NotifyPlayer");
+	}
+
+	public void ShowNewClueNotification()
+	{
+		NotificationText.text = "New Clue Discovered!";
+		NotificationProfileImage.GetComponent<Image>().overrideSprite = Exclaim;
+
+		// Show animation
+		NotificationDude.Play("NotifyPlayer");
 	}
 }

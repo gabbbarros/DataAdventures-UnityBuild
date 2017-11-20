@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour {
 	public SoundFXManager SFXM;
 
 	public FactSoundtrackManager FSM;
+
+	public InquisitionManager IQM;
 	/** WinLose Panel Begin **/
 	public GameObject WinLosePanel;
 	public Text WinLoseDescription;
@@ -75,6 +77,11 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject DialoguePrefab;
 	/** Dialogue Panel Stuff End **/
+
+	/** Inquisition Panel Stuff Begin **/
+	public GameObject InquisitionPanel;
+	/** Inquisition Panel Stuff End **/
+
 
 	public List<Sprite> PeopleSprites;
 	public List<Sprite> BuildingSprites;
@@ -171,6 +178,7 @@ public class GameManager : MonoBehaviour {
         //firstBuilding = FileReader.TheGameFile.SearchBuildings(0);
         City firstCity = FileReader.TheGameFile.SearchCities(firstBuilding.cityid);
         TravelHere(firstCity);
+		IQM.StopEverything();
        // DM.SetDescription(firstCity.name, firstCity.description);
         DM.CityPressed(firstCity);
 
@@ -242,7 +250,7 @@ public class GameManager : MonoBehaviour {
 
 		// Add to journal
 		JM.AddPlace(me, false);
-
+		IQM.StopEverything();
 		PlaySoundFX(2);
     }
 
@@ -339,6 +347,7 @@ public class GameManager : MonoBehaviour {
 				}
 			}
 		}
+		IQM.StopEverything();
 		ALM.AddLog("Traveled to " + me.name);
     }
 
@@ -349,15 +358,25 @@ public class GameManager : MonoBehaviour {
 		// clear any dialogue
 		ClearDialogueHolder();
 
-		// Make the dialogue panel the focus
-		DialoguePanel.transform.SetAsLastSibling();
+		if (FileReader.TheGameFile.SearchSuspects(me.id) != null)
+		{
+			// Make the inquisition panel the focus
+			InquisitionPanel.transform.SetAsLastSibling();
 
-        // give control to dialogue manager
-        DLM.LoadPerson(me);
+			// give control to the inquisition manager
+			IQM.Initialize(FileReader.TheGameFile.SearchSuspects(me.id).me);
+		}
+		else
+		{
+			// Make the dialogue panel the focus
+			DialoguePanel.transform.SetAsLastSibling();
 
-		// log it
-		ALM.AddLog("Talked to " + me.name);
+			// give control to dialogue manager
+			DLM.LoadPerson(me);
 
+			// log it
+			ALM.AddLog("Talked to " + me.name);
+		}
 		PlaySoundFX(1);
 	}
 

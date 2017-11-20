@@ -27,8 +27,9 @@ public class FileReader : MonoBehaviour {
     public void ReadSaveFile()
     {
 		string gFile = File.ReadAllText("Games/Albert_Einstein-0.json");
-
-
+		//TextAsset gAsset = Resources.Load("Albert_Einstein") as TextAsset;
+		//Debug.Log
+		//string gFile = gAsset.text;
 		//Debug.Log(gFile);
 		//StringReader r1 = new StringReader(gF);
 		//GameFile gf = JsonUtility.FromJson<GameFile>(GameFile);
@@ -40,10 +41,19 @@ public class FileReader : MonoBehaviour {
 		TheGameFile.Darks = new List<Building>();
 		TheGameFile.Chains = new List<Building>();
 
-		foreach (Person p in TheGameFile.people)
+		// setup keywords list
+		foreach (DialogueNode p in TheGameFile.dialoguenodes)
 		{
-			Debug.Log(p.name);
+			Debug.Log(p.keywords);
+
 		}
+		//// setup keywords list
+		//foreach (DialogueNode p in TheGameFile.dialoguenodes)
+		//{
+		//	Debug.Log(p.keywords);
+		//	p.SetUpKeywordsList();
+		//	Debug.Log(p.keywordsList);
+		//}
     }
 
 	public void SetUpSuspects()
@@ -61,6 +71,8 @@ public class FileReader : MonoBehaviour {
 			}
 			SLM.AddSuspect(addMe);
 		}
+
+		TheGameFile.SetUpSuspects();
 	}
 
 	public void SetUpLockDarkAndKey()

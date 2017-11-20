@@ -14,19 +14,20 @@ public class SuspectListManager : MonoBehaviour {
 		Text[] TextArray = s.GetComponentsInChildren<Text>();
 		TextArray[0].text = me.name;
 		Button button = s.GetComponent<Button>();
-		s.AddComponent(typeof(Suspect));
+		//s.AddComponent(typeof(Suspect));
 
-		Suspect sus = s.GetComponent<Suspect>();
-		sus.me = me;
-		button.onClick.AddListener(delegate { SuspectClicked(sus); });
+		//Suspect sus = s.GetComponent<Suspect>();
+		//sus.me = me;
+		button.onClick.AddListener(delegate { SuspectClicked(me); });
 	}
-	public void SuspectClicked(Suspect sus)
+	public void SuspectClicked(Person me)
 	{
-		DM.SetDescription(sus.me.name, sus.me.description);
-		DM.SetLocation(sus.me, FileReader.TheGameFile.SearchBuildings(sus.me.buildingid), FileReader.TheGameFile.SearchCities(FileReader.TheGameFile.SearchBuildings(sus.me.buildingid).cityid));
+		// suspects dont get a description
+		DM.SetDescription(me.name, "");
+		DM.SetLocation(me, FileReader.TheGameFile.SearchBuildings(me.buildingid), FileReader.TheGameFile.SearchCities(FileReader.TheGameFile.SearchBuildings(me.buildingid).cityid));
 		// if this is a suspect, show which facts we know
-		DM.SetFacts(sus.me);
-		DM.SetArrestButton(sus.me);
+		DM.SetFacts(me);
+		//DM.SetArrestButton(sus.me);
 	}
 
 

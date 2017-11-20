@@ -39,6 +39,7 @@ public class JournalManager : MonoBehaviour {
 			p.GetComponent<NotificationAnimationScript>().NewInformation();
 			// show the blinking lights on the respective overhead tabs
 			NM.ShowPeopleNotification();
+			NM.ShowNewClueNotification();
 		}
 		else
 		{
@@ -48,6 +49,7 @@ public class JournalManager : MonoBehaviour {
 				p.GetComponent<NotificationAnimationScript>().NewInformation();
 				// show the blinking lights on the respective overhead tabs
 				NM.ShowPeopleNotification();
+				NM.ShowNewClueNotification();
 				Debug.Log("hmm");
 			}
 		}
@@ -55,6 +57,7 @@ public class JournalManager : MonoBehaviour {
 
 	public void AddPlace(City me, bool newInfo)
 	{
+		Debug.Log(PlacesSeen.Contains(me.id));
 		if (!PlacesSeen.Contains(me.id))
 		{
 			PlacesSeen.Add(me.id);
@@ -65,6 +68,7 @@ public class JournalManager : MonoBehaviour {
 			p.GetComponent<NotificationAnimationScript>().NewInformation();
 			// show the blinking lights on the respective overhead tabs
 			NM.ShowPlacesNotification();
+			NM.ShowNewClueNotification();
 			GM.PlaySoundFX(6);
 		}
 		else
@@ -76,6 +80,8 @@ public class JournalManager : MonoBehaviour {
 				p.GetComponent<NotificationAnimationScript>().NewInformation();
 				// show the blinking lights on the respective overhead tabs
 				NM.ShowPlacesNotification();
+				NM.ShowNewClueNotification();
+				GM.PlaySoundFX(6);
 			}
 		}
 	}
@@ -100,6 +106,7 @@ public class JournalManager : MonoBehaviour {
 			p.GetComponent<NotificationAnimationScript>().NewInformation();
 			// show the blinking lights on the respective overhead tabs
 			NM.ShowThingsNotification();
+			GM.PlaySoundFX(6);
 		}
 	}
 

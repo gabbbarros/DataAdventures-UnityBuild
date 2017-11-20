@@ -41,6 +41,8 @@ public class DialogManager : MonoBehaviour {
 
     public GameObject DialogueButtonPrefab;
 
+
+	private Person currentPerson;
 	private ConditionManager CM;
 	// Use this for initialization
 	void Start () {
@@ -55,7 +57,7 @@ public class DialogManager : MonoBehaviour {
 	{
         // display person name
         PName.text = me.name;
-
+		currentPerson = me;
 		// load the person building location
 		Location = FileReader.TheGameFile.SearchBuildings(me.buildingid);
 		// display person image
@@ -239,15 +241,14 @@ public class DialogManager : MonoBehaviour {
 	/// </summary>
 	public void Clicked(DialogueNode me)
 	{
-		Debug.Log("Node ID: " + me.id);
-		Debug.Log(me.visited);
 		if (!me.isVisited)
 		{
 			me.isVisited = true;
 		}
 
 		// change dialogue line
-		PDialogue.text = me.dialogueline;
+		//PDialogue.text = me.dialogueline;
+		SetDialogueLine(me);
 
 		ClearOptions();
 
@@ -271,11 +272,39 @@ public class DialogManager : MonoBehaviour {
 				if (me.dialoguetype == 616)
 				{
 					GM.SFXM.PlaySingle(7);
-					GM.FSM.CheckFactCount();
+					Person p = GM.FSM.CheckFactCount();
+
+					GM.JM.NM.ShowNewFactNotification(p);
 				}
 			}
 		}
 
+	}
+
+	public void SetDialogueLine(DialogueNode me)
+	{
+		string line = me.dialogueline;
+
+		Debug.Log("Keywords");
+		foreach (string keyword in me.keywords)
+		{
+			Debug.Log(keyword);
+			// if the line contains this keyword
+			if (line.Contains(keyword))
+			{
+				// then find the position, replace this specific part with a rich text version with tags
+				int index = line.IndexOf(keyword);
+				Debug.Log(index);
+				Debug.Log(line);
+				//line.Remove(index, keyword.Length);
+				line = line.Replace(keyword, "<color=lime>" + keyword + "</color>");
+				//	line.Insert(index, "<b>" + keyword + "</b>");
+				Debug.Log(line);
+
+			}
+		}
+
+		PDialogue.text = line;
 	}
 	
 }

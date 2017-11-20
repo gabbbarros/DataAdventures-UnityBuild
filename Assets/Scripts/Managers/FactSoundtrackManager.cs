@@ -12,22 +12,37 @@ public class FactSoundtrackManager : MonoBehaviour
 
 	public int currentThreshold;
 
+	private int[] factsKnownCounter = null;
+
 	/// <summary>
 	/// Checks the fact count, and if we are above a new threshold, will play a new theme
 	/// </summary>
-	public void CheckFactCount()
+	public Person CheckFactCount()
 	{
+		if (factsKnownCounter == null)
+		{
+			factsKnownCounter = new int[FileReader.TheGameFile.GetSuspectCount()];
+		}
+		Person changed = null;
 		float knownFactCount = 0;
 		float totalFactCount = 0;
-		foreach (Person p in FileReader.TheGameFile.people)
+		int counter = 0;
+		foreach (Suspect s in FileReader.TheGameFile.Suspects)
 		{
-			if (FileReader.TheGameFile.SearchSuspects(p.id) != null)
+
+			Debug.Log(s.me.name);
+			List<Fact> knownFacts = FileReader.TheGameFile.KnownFacts(s.me.id);
+			knownFactCount += knownFacts.Count;
+			List<Fact> totalFacts = FileReader.TheGameFile.SearchFacts(s.me.id);
+			totalFactCount += totalFacts.Count;
+			// check to see if we changed here
+			if (factsKnownCounter[counter] < knownFacts.Count)
 			{
-				List<Fact> knownFacts = FileReader.TheGameFile.KnownFacts(p.id);
-				knownFactCount += knownFacts.Count;
-				List<Fact> totalFacts = FileReader.TheGameFile.SearchFacts(p.id);
-				totalFactCount += totalFacts.Count;
+				changed = s.me;
+				factsKnownCounter[counter] = knownFacts.Count;
 			}
+			counter++;
+
 		}
 
 		float factPercent = knownFactCount / totalFactCount;
@@ -76,7 +91,7 @@ public class FactSoundtrackManager : MonoBehaviour
 				GM.SFXM.PlayLongTerm(12, 0.5f);
 			}
 		}
-
+		return changed;
 	}
 }
 

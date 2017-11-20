@@ -20,6 +20,7 @@ public class GameFile
 	public List<Building> Locks;
 	public List<Building> Darks;
 	public List<Building> Chains;
+	public List<Suspect> Suspects;
 	/// <summary>
 	/// Searchs the people.
 	/// </summary>
@@ -34,6 +35,8 @@ public class GameFile
 		}
 		return null;
 	}
+
+
 
 	/// <summary>
 	/// Searchs the cities.
@@ -83,22 +86,23 @@ public class GameFile
 	/// </summary>
 	/// <returns>The suspects.</returns>
 	/// <param name="id">Identifier.</param>
-	public Person SearchSuspects(int id)
+	public Suspect SearchSuspects(int id)
 	{
-		foreach (int s in crime.suspects)
+		for (int i = 0; i < Suspects.Count; i++)
 		{
-			if (s == id)
+			Debug.Log(id + " vs " + Suspects[i].me.id + " = " + (Suspects[i].me.id == id));
+			Debug.Log(Suspects[i].me.name);
+			Debug.Log(Suspects[i].me);
+			Debug.Log(Suspects[i]);
+			if (Suspects[i].me.id == id)
 			{
-				return SearchPeople(s);
+				
+				return Suspects[i];
 			}
 		}
 		return null;
 	}
 
-	public void SearchKeys(int id)
-	{
-
-	}
 
 	/// <summary>
 	/// Knowns the facts.
@@ -108,7 +112,7 @@ public class GameFile
 	public List<Fact> KnownFacts(int id)
 	{
 		ConditionManager cm = ConditionManager.GetInstance();
-		Person sus = SearchSuspects(id);
+		Person sus = SearchSuspects(id).me;
 
 		List<Fact> knownFacts = new List<Fact>();
 		if (sus != null)
@@ -142,6 +146,7 @@ public class GameFile
 		}
 		return returnMe;
 	}
+
 	public int InitConditions()
 	{
 		int max = -1;
@@ -197,6 +202,43 @@ public class GameFile
 		}
 		ConditionSize = max;
 		return max;
+	}
+
+	public int GetSuspectCount()
+	{
+		//int counter = 0;
+		//foreach (Person p in people)
+		//{
+		//	if (FileReader.TheGameFile.SearchSuspects(p.id) != null)
+		//	{
+		//		counter++;
+		//	}
+			   
+		//}
+
+		return Suspects.Count;
+	}
+
+	public void SetUpSuspects()
+	{
+		List<Fact> returnMe = new List<Fact>();
+		Suspects = new List<Suspect>();
+		int counter = 0;
+		foreach (Fact f in crime.facts)
+		{
+			if (f.pid == crime.culprit)
+			{
+				counter++;
+			}
+		}
+
+		foreach (int s in crime.suspects)
+		{
+			Debug.Log("Added: " + SearchPeople(s).name);
+			Suspect t = new Suspect(counter, SearchPeople(s));
+			Debug.Log("Thus Added: " + t);
+			Suspects.Add(t);
+		}
 	}
 }
 
