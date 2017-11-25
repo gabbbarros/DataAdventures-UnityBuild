@@ -1,7 +1,7 @@
 ﻿using System;
 [System.Serializable]
 
-public class Building
+public class Building : Entity
 {
 	/// <summary>
 	/// Gets or sets the identifier.

@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
+		StartGame();
 	}
 	
 	// Update is called once per frame
@@ -111,10 +111,13 @@ public class GameManager : MonoBehaviour {
 
 	public void StartGame()
 	{
-        // play some sort of loading animation here
+		// play some sort of loading animation here
 		// TODO: Loading Animation
 
-
+		if (StaticGameInfo.GameName.Equals(""))
+		{
+			StaticGameInfo.GameName = "Albert_Einstein";
+		}
 		FileReaderManager.ReadSaveFile();
 
 		int max = FileReader.TheGameFile.InitConditions();
@@ -130,10 +133,10 @@ public class GameManager : MonoBehaviour {
         // connect roots and people
         List<Person> peeps = new List<Person>(FileReader.TheGameFile.people);
         DLB.AddDialogueRootToPeople(peeps, roots);
-
+		FileReader.TheGameFile.SetCityConditions();
 		// Load all images into their respective lists
 		// load people list
-		Sprite[] Images = Resources.LoadAll<Sprite>("Albert_Einstein/");
+		Sprite[] Images = Resources.LoadAll<Sprite>(StaticGameInfo.GameName+"/");
 		foreach (Sprite me in Images)
 		{
 			if (me.name.Contains("PERSON"))

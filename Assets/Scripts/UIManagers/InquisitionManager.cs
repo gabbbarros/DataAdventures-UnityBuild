@@ -87,7 +87,7 @@ public class InquisitionManager : MonoBehaviour
 			Dialogue.GetComponent<Text>().text = FactList[Counter];
 			TrueChoice.GetComponent<Button>().enabled = true;
 			FalseChoice.GetComponent<Button>().enabled = true;
-			StartCoroutine(WaitForPlayerChoice());
+			//StartCoroutine(WaitForPlayerChoice());
 
 
 		}

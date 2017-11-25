@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 [System.Serializable]
 
-public class City
+public class City : Entity
 {
 	/// <summary>
 	/// Gets or sets the identifier.
@@ -51,6 +51,12 @@ public class City
 	public string image;
 
 	public List<Pair> coordinates;
+
+	public int totalConditionCount;
+	public int currentConditionCount;
+
+	public HashSet<int> eventConditions;
+	public HashSet<int> discoveredEventConditions;
 	/// <summary>
 	/// Initializes a new instance of the <see cref="T:City"/> class.
 	/// </summary>

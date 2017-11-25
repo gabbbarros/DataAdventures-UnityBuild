@@ -42,6 +42,7 @@ public class DialogManager : MonoBehaviour {
     public GameObject DialogueButtonPrefab;
 
 
+
 	private Person currentPerson;
 	private ConditionManager CM;
 	// Use this for initialization
@@ -83,7 +84,20 @@ public class DialogManager : MonoBehaviour {
 	{
 		// set the event condition
 		CM.SetAsTrue(me.eventid);
-		
+
+		// set the event for the city this item is in
+		// add this event to the city events
+		City city = FileReader.TheGameFile.SearchCities(FileReader.TheGameFile.SearchBuildings(me.buildingid).cityid);
+		Debug.Log(me.eventid);
+
+		city.discoveredEventConditions.Add(me.eventid);
+		Debug.Log(city.discoveredEventConditions);
+		city.currentConditionCount = city.discoveredEventConditions.Count;
+
+		if (city.Equals(GM.DM.LoadedThing))
+		{
+			GM.DM.SetFactDiscoveryCounters(city);
+		}
 
 		// display item name
         IName.text = me.name;
@@ -268,6 +282,18 @@ public class DialogManager : MonoBehaviour {
 			//GM.PlaySoundFX(7);
 			if (!CM.IsSet(eventID)) {
 				CM.SetAsTrue(eventID);
+				// add this event to the city events
+				City city = FileReader.TheGameFile.SearchCities(FileReader.TheGameFile.SearchBuildings(currentPerson.buildingid).cityid);
+				Debug.Log(eventID);
+
+				city.discoveredEventConditions.Add(eventID);
+				Debug.Log(city.discoveredEventConditions);
+				city.currentConditionCount = city.discoveredEventConditions.Count;
+
+				if (city.Equals(GM.DM.LoadedThing))
+				{
+					GM.DM.SetFactDiscoveryCounters(city);
+				}
 				// also if this is a suspect fact node, then play a special sound
 				if (me.dialoguetype == 616)
 				{
@@ -285,17 +311,17 @@ public class DialogManager : MonoBehaviour {
 	{
 		string line = me.dialogueline;
 
-		Debug.Log("Keywords");
+		//Debug.Log("Keywords");
 		foreach (string keyword in me.keywords)
 		{
-			Debug.Log(keyword);
+			//Debug.Log(keyword);
 			// if the line contains this keyword
 			if (line.Contains(keyword))
 			{
 				// then find the position, replace this specific part with a rich text version with tags
 				int index = line.IndexOf(keyword);
-				Debug.Log(index);
-				Debug.Log(line);
+				//Debug.Log(index);
+				//Debug.Log(line);
 				//line.Remove(index, keyword.Length);
 				line = line.Replace(keyword, "<color=lime>" + keyword + "</color>");
 				//	line.Insert(index, "<b>" + keyword + "</b>");

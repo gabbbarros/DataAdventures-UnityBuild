@@ -103,7 +103,7 @@ public class IntroManager : MonoBehaviour
 		}
 		else if (dialogueAdvance == 10)
 		{
-			IDM.ShowBox("Sergent:", "These anomalies have corrupted our information system, and we cannot identify who are the culprits. ", 2, 2);
+			IDM.ShowBox("Sergent:", "These anomalies have corrupted our D.A.T.A. systems, and we cannot identify who the culprits are. ", 2, 2);
 		} else if (dialogueAdvance == 11)
 		{
 			IDM.ShowBox("Sergent:", "However, we can identify a few people of interest. Investigate these people's lives.", 2, 2);
@@ -111,7 +111,7 @@ public class IntroManager : MonoBehaviour
 		else if (dialogueAdvance == 12)
 		{
 			IDM.ShowBox("Sergent:", "The culprit is disguised, "+
-			"but do not possess all information about the person they are impersonating.", 2, 2);
+			"although they do not possess all the information about the person they are impersonating.", 2, 2);
 		}
 		else if (dialogueAdvance == 13)
 		{
@@ -169,6 +169,7 @@ public class IntroManager : MonoBehaviour
 	// TODO take an input to load the game file for this guy
 	public void PlayGame()
 	{
+		StaticGameInfo.GameName = "Albert_Einstein";
 		SceneManager.LoadScene("WikiMystery");
 	}
 

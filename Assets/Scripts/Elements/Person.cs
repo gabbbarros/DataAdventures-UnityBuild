@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 [System.Serializable]
 
-public class Person
+public class Person : Entity
 {
 	/// <summary>
 	/// Gets or sets the identifier.
@@ -39,6 +40,8 @@ public class Person
 	public string image;
 	/// <summary>
 	public DialogueNode rootnode;
+
+	public List<DialogueNode> allNodes;
 	/// Initializes a new instance of the <see cref="T:Person"/> class.
 	/// </summary>
 	public Person()

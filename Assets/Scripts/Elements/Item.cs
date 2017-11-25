@@ -1,6 +1,6 @@
 ﻿using System;
 [System.Serializable]
-public class Item
+public class Item : Entity
 {
 	/// <summary>
 	/// Gets or sets the identifier.

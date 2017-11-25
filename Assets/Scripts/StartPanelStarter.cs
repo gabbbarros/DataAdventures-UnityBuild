@@ -7,7 +7,7 @@ public class StartPanelStarter : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		panelobject.SetActive(true);	
+		//panelobject.SetActive(true);	
 	}
 	
 	// Update is called once per frame

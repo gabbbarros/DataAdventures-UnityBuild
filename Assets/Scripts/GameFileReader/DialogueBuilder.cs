@@ -42,7 +42,6 @@ public class DialogueBuilder : MonoBehaviour {
 				roots.Add(d);
 			}
 		}
-
 		return roots;
 	}
 
@@ -51,9 +50,34 @@ public class DialogueBuilder : MonoBehaviour {
 			foreach(DialogueNode root in roots) {
 				if(root.id == p.drootid) {
 					p.rootnode = root;
+					List<DialogueNode> nodes = BFS(root);
+					p.allNodes = nodes;
 					break;
 				}
 			}
 		}
+	}
+
+	public List<DialogueNode> BFS(DialogueNode root)
+	{
+		List<DialogueNode> nodes = new List<DialogueNode>();
+
+		List<DialogueNode> queue = new List<DialogueNode>();
+		queue.Add(root);
+		while (queue.Count > 0)
+		{
+			DialogueNode current = queue[0];
+			nodes.Add(current);
+			queue.RemoveAt(0);
+			foreach (DialogueNode child in current.childrenNodes)
+			{
+				if (!nodes.Contains(child))
+				{
+					queue.Add(child);
+				}
+			}
+		}
+
+		return nodes;
 	}
 }

@@ -33,6 +33,14 @@ public class DescriptionManager : MonoBehaviour {
 
     public GameManager GM;
 	public ConditionManager CM;
+
+
+	/// <summary>
+	/// The loaded thing in the description manager. sO sLOpPy.
+	/// </summary>
+	public Entity LoadedThing;
+
+	public Text FactsDiscoveredCounter;
 	// Use this for initialization
 	void Start () {
 		Name.text = "This is the Description Panel";
@@ -255,6 +263,8 @@ public class DescriptionManager : MonoBehaviour {
 	/// <param name="me">Me.</param>
 	public void BuildingPressed(Building me)
 	{
+		FactsDiscoveredCounter.gameObject.SetActive(false);
+		LoadedThing = me;
 		// Display what city this is in, with buttons
 		SetDescription(me.name, me.description);
 		// enable the city button & set up	
@@ -289,6 +299,8 @@ public class DescriptionManager : MonoBehaviour {
 	/// <param name="me">Me.</param>
 	public void CityPressed(City me)
 	{
+		FactsDiscoveredCounter.gameObject.SetActive(true);
+		LoadedThing = me;
 		SetDescription(me.name, me.description);
 		FactsListParent.SetActive(false);
 		// activate the "Travel Here!" Button
@@ -297,7 +309,7 @@ public class DescriptionManager : MonoBehaviour {
 		TravelHereButton.GetComponent<Button>().onClick.AddListener(delegate {
 			GM.TravelHere(me);
 		});
-
+		SetFactDiscoveryCounters(me);
 		// List who is here, complete with buttons
 		int[] bIDs = me.buildingid;
 		List<Person> peopleList = new List<Person>();
@@ -333,6 +345,8 @@ public class DescriptionManager : MonoBehaviour {
 
 	public void ItemPressed(Item me)
 	{
+		LoadedThing = me;
+
 		SetDescription(me.name, me.description);
 		FactsListParent.SetActive(false);
 		Building building = FileReader.TheGameFile.SearchBuildings(me.buildingid);
@@ -374,5 +388,14 @@ public class DescriptionManager : MonoBehaviour {
 		}
 
 
-	} 
+	}
+
+	/// <summary>
+	/// Sets the fact discovery counters.
+	/// </summary>
+	/// <param name="me">Me.</param>
+	public void SetFactDiscoveryCounters(City me)
+	{
+		FactsDiscoveredCounter.text = "" + me.currentConditionCount + "//" + me.totalConditionCount;
+	}
 }

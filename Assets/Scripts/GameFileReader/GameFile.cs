@@ -90,10 +90,10 @@ public class GameFile
 	{
 		for (int i = 0; i < Suspects.Count; i++)
 		{
-			Debug.Log(id + " vs " + Suspects[i].me.id + " = " + (Suspects[i].me.id == id));
-			Debug.Log(Suspects[i].me.name);
-			Debug.Log(Suspects[i].me);
-			Debug.Log(Suspects[i]);
+			//Debug.Log(id + " vs " + Suspects[i].me.id + " = " + (Suspects[i].me.id == id));
+			//Debug.Log(Suspects[i].me.name);
+			//Debug.Log(Suspects[i].me);
+			//Debug.Log(Suspects[i]);
 			if (Suspects[i].me.id == id)
 			{
 				
@@ -238,6 +238,53 @@ public class GameFile
 			Suspect t = new Suspect(counter, SearchPeople(s));
 			Debug.Log("Thus Added: " + t);
 			Suspects.Add(t);
+		}
+	}
+
+	public void SetCityConditions()
+	{
+		foreach (City city in cities)
+		{
+			Debug.Log(city.name);
+			city.eventConditions = new HashSet<int>();
+			city.discoveredEventConditions = new HashSet<int>();
+			foreach (int buildingid in city.buildingid)
+			{
+				Building building = SearchBuildings(buildingid);
+				foreach (int personid in building.peopleid)
+				{
+					Person person = SearchPeople(personid);
+					foreach(DialogueNode node in person.allNodes)
+					{
+						if (node.eventid != -1)
+						{
+							city.eventConditions.Add(node.eventid);
+							Debug.Log(node.eventid);
+						}
+						//foreach (int condition in node.condition)
+						//{
+						//	if (condition != -1)
+						//	{
+						//		city.eventConditions.Add(condition);
+						//		Debug.Log(condition);
+						//	}
+						//}
+					}
+				}
+				foreach (int itemid in building.itemsid)
+				{
+					
+					Item item = SearchItems(itemid);
+					Debug.Log(item.name + " : " + item.eventid);
+					if (item.eventid != -1)
+					{
+						city.eventConditions.Add(item.eventid);
+						Debug.Log(item.eventid);
+					}
+				}
+			}
+			city.totalConditionCount = city.eventConditions.Count;
+			city.currentConditionCount = 0;
 		}
 	}
 }

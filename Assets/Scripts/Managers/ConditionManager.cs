@@ -101,6 +101,5 @@ public class ConditionManager : Singleton<ConditionManager> {
 			}
 
 		}
-
 	}
 }

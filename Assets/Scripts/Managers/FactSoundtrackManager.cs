@@ -30,7 +30,7 @@ public class FactSoundtrackManager : MonoBehaviour
 		foreach (Suspect s in FileReader.TheGameFile.Suspects)
 		{
 
-			Debug.Log(s.me.name);
+			//Debug.Log(s.me.name);
 			List<Fact> knownFacts = FileReader.TheGameFile.KnownFacts(s.me.id);
 			knownFactCount += knownFacts.Count;
 			List<Fact> totalFacts = FileReader.TheGameFile.SearchFacts(s.me.id);

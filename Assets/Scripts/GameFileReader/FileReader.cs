@@ -26,7 +26,7 @@ public class FileReader : MonoBehaviour {
 	/// </summary>
     public void ReadSaveFile()
     {
-		string gFile = File.ReadAllText("Games/Albert_Einstein-0.json");
+		string gFile = File.ReadAllText("Games/" + StaticGameInfo.GameName + ".json");
 		//TextAsset gAsset = Resources.Load("Albert_Einstein") as TextAsset;
 		//Debug.Log
 		//string gFile = gAsset.text;
@@ -45,7 +45,6 @@ public class FileReader : MonoBehaviour {
 		foreach (DialogueNode p in TheGameFile.dialoguenodes)
 		{
 			Debug.Log(p.keywords);
-
 		}
 		//// setup keywords list
 		//foreach (DialogueNode p in TheGameFile.dialoguenodes)
