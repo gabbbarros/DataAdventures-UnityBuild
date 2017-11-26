@@ -155,7 +155,7 @@ public class DialogManager : MonoBehaviour {
 
 	public void LoadItemPhoto(Item me)
 	{
-		Debug.Log("here");
+		Debug.Log("Item ID is : " + me.id);
 		// if item is a photo
 		if (me.itemtype.Equals("photograph"))
 		{

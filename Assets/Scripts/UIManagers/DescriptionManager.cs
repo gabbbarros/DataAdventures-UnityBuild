@@ -396,6 +396,6 @@ public class DescriptionManager : MonoBehaviour {
 	/// <param name="me">Me.</param>
 	public void SetFactDiscoveryCounters(City me)
 	{
-		FactsDiscoveredCounter.text = "" + me.currentConditionCount + "//" + me.totalConditionCount;
+		FactsDiscoveredCounter.text = "" + me.currentConditionCount + "::" + me.totalConditionCount;
 	}
 }
