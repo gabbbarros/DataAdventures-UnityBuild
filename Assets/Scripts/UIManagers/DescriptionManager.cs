@@ -202,6 +202,8 @@ public class DescriptionManager : MonoBehaviour {
 	public void LoadItemPhoto(Item me)
 	{
 		FadePanelParent.SetActive(true);
+		Debug.Log("Item ID is : " + me.id);
+		Debug.Log("Item type is : " + me.itemtype);
 		if (me.itemtype.Equals("photograph"))
 		{
 			// check if an image exists

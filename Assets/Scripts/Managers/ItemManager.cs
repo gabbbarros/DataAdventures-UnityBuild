@@ -53,7 +53,18 @@ public class ItemManager : MonoBehaviour {
 	{
 		if (me.itemtype.Equals("photograph"))
 		{
-			Photo.GetComponent<Image>().overrideSprite = GM.TornPhotographImage;
+			// check if an image exists
+			if (me.image.Equals("null"))
+			{
+				// if it is null, then this is a torn photo. Use the torn photograph
+				Photo.GetComponent<Image>().overrideSprite = GM.TornPhotographImage;
+			}
+			// otherwise search for the photo
+			else
+			{
+				Sprite myFace = GM.SearchItemSprites(me.image);
+				Photo.GetComponent<Image>().overrideSprite = myFace;
+			}
 		}
 		else if (me.itemtype.Equals("key"))
 		{

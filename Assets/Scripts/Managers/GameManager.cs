@@ -151,7 +151,7 @@ public class GameManager : MonoBehaviour {
 			{
 				CitySprites.Add(me);
 			}
-			else if (me.name.Contains("ITEM"))
+			else if (me.name.Contains("PHOTO"))
 			{
 				ItemsSprites.Add(me);
 			}
@@ -540,8 +540,10 @@ public class GameManager : MonoBehaviour {
 	{
 		// change building image
 		Sprite myFace = null;
+		Debug.Log("Name : " + name);
 		foreach (Sprite img in ItemsSprites)
 		{
+			Debug.Log("Image searched : " + img.name);
 			if (img.name.Contains(name.Remove(name.IndexOf('.'))))
 			{
 				myFace = img;
