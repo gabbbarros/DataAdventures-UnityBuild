@@ -160,7 +160,7 @@ public class DialogManager : MonoBehaviour {
 		if (me.itemtype.Equals("photograph"))
 		{
 			// check if an image exists
-			if (me.image == null)
+			if (me.image.Equals("null"))
 			{
 				// if it is null, then this is a torn photo. Use the torn photograph
 				IPhoto.GetComponent<Image>().overrideSprite = GM.TornPhotographImage;

@@ -67,36 +67,33 @@ public class InquisitionManager : MonoBehaviour
 	public void DisplayFact()
 	{
 		// check to see if we are done checking
-		bool checkChecker = true;
-		for (int i = 0; i < checker.Length; i++)
+		//bool checkChecker = true;
+		//for (int i = 0; i < checker.Length; i++)
+		//{
+		//	if (checker[i] == -1)
+		//	{
+		//		checkChecker = false;
+		//		break;
+		//	}
+		//}
+		Debug.Log(FactList.Count);
+		Counter++;
+		if (Counter >= FactList.Count)
 		{
-			if (checker[i] == -1)
-			{
-				checkChecker = false;
-				break;
-			}
+			Counter = 0;
 		}
-		if (!checkChecker)
-		{
-			Counter++;
-			if (Counter >= FactList.Count)
-			{
-				Counter = 0;
-			}
-			InquisitionAnimator.Play("Fly1");
-			Dialogue.GetComponent<Text>().text = FactList[Counter];
-			TrueChoice.GetComponent<Button>().enabled = true;
-			FalseChoice.GetComponent<Button>().enabled = true;
-			//StartCoroutine(WaitForPlayerChoice());
+		InquisitionAnimator.Play("Fly1");
+		Dialogue.GetComponent<Text>().text = FactList[Counter];
+		TrueChoice.GetComponent<Button>().enabled = true;
+		FalseChoice.GetComponent<Button>().enabled = true;
+		//StartCoroutine(WaitForPlayerChoice());
 
-
-		}
-		else
-		{
-			Location = FileReader.TheGameFile.SearchBuildings(s.buildingid);
-			GM.TravelHere(Location);
-			// TODO display some sort of end to this
-		}
+		//else
+		//{
+		//	Location = FileReader.TheGameFile.SearchBuildings(s.buildingid);
+		//	GM.TravelHere(Location);
+		//	// TODO display some sort of end to this
+		//}
 	}
 
 	/// <summary>
