@@ -357,6 +357,16 @@ public class DescriptionManager : MonoBehaviour {
 
 	}
 
+	public void PersonPressed(Person me)
+	{
+		GM.DM.SetDescription(me.name, me.description);
+
+
+		GM.DM.SetLocation(me, FileReader.TheGameFile.SearchBuildings(me.buildingid), FileReader.TheGameFile.SearchCities(FileReader.TheGameFile.SearchBuildings(me.buildingid).cityid));
+		GM.DM.SetFacts(me);
+		GM.DM.FactsDiscoveredCounter.gameObject.SetActive(false);
+	}
+
 	public void ClearInhabitantsList()
 	{
 		foreach (Transform child in InhabitantsList.transform)

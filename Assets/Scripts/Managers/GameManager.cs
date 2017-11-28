@@ -368,6 +368,9 @@ public class GameManager : MonoBehaviour {
 
 			// give control to the inquisition manager
 			IQM.Initialize(FileReader.TheGameFile.SearchSuspects(me.id).me);
+
+			DM.PersonPressed(me);
+
 		}
 		else
 		{
