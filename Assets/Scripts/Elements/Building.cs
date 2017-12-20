@@ -59,12 +59,6 @@ public class Building : Entity
 	/// The image.
 	/// </summary>
 	public string image;
-	/// <summary>
-	/// Initializes a new instance of the <see cref="T:Building"/> class.
-	/// </summary>
-	public Building()
-	{
-		
-	}
+
 }
 

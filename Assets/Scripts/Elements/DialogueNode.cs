@@ -15,7 +15,6 @@ public class DialogueNode {
 	public bool isroot;
 	public string[] keywords;
 	public string[] keywordsList;
-	public List<DialogueNode> childrenNodes;
 	public int[] children;
 	public bool isVisited = false;
 

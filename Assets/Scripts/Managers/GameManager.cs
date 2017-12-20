@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour {
 		cm.Initialize(FileReader.TheGameFile.ConditionSize);
 
         // build the list of roots and dialogue trees
-        List<DialogueNode> roots = DLB.BuildTrees(FileReader.TheGameFile.dialoguenodes);
+        List<DNode> roots = DLB.BuildTrees(FileReader.TheGameFile.dialoguenodes);
 
         // connect roots and people
         List<Person> peeps = new List<Person>(FileReader.TheGameFile.people);

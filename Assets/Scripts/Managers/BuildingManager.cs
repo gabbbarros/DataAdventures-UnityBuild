@@ -9,9 +9,6 @@ public class BuildingManager
 
 	private DescriptionManager DM;
 
-	public BuildingManager()
-	{
-	}
 
 	void Start()
 	{

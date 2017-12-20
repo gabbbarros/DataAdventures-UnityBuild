@@ -7,7 +7,7 @@ public class DialogueButtonPrefabScript : MonoBehaviour
 
     public DialogManager DLM;
     public Text Line;
-    public DialogueNode me;
+    public DNode me;
     // Use this for initialization
     void Start()
     {

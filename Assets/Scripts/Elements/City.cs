@@ -57,11 +57,6 @@ public class City : Entity
 
 	public HashSet<int> eventConditions;
 	public HashSet<int> discoveredEventConditions;
-	/// <summary>
-	/// Initializes a new instance of the <see cref="T:City"/> class.
-	/// </summary>
-	public City()
-	{
-	}
+
 }
 

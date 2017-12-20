@@ -39,14 +39,11 @@ public class Person : Entity
 	/// </summary>
 	public string image;
 	/// <summary>
-	public DialogueNode rootnode;
+	public DNode rootnode;
+	//public DialogueNode rootnode;
+	public List<DNode> allNodes;
+	//public List<DialogueNode> allNodes;
 
-	public List<DialogueNode> allNodes;
-	/// Initializes a new instance of the <see cref="T:Person"/> class.
-	/// </summary>
-	public Person()
-	{
-	}
 
 }
 

@@ -15,18 +15,12 @@ public class FileReader : MonoBehaviour {
 	public SuspectListManager SLM;
 
 	/// <summary>
-	/// Reads a SaveGame file. SaveGame files are saved in JSON format
-	/// </summary>
-    public FileReader()
-    {
-
-    }
-	/// <summary>
 	/// Reads the save file.
 	/// </summary>
     public void ReadSaveFile()
     {
-		string gFile = File.ReadAllText("Games/" + StaticGameInfo.GameName + ".json");
+		Debug.Log(Application.streamingAssetsPath + StaticGameInfo.GameName + ".json");
+		string gFile = File.ReadAllText(System.IO.Path.Combine(Application.streamingAssetsPath, StaticGameInfo.GameName + ".json"));
 		//TextAsset gAsset = Resources.Load("Albert_Einstein") as TextAsset;
 		//Debug.Log
 		//string gFile = gAsset.text;

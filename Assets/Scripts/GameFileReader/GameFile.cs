@@ -11,6 +11,7 @@ public class GameFile
 	public City[] cities;
 	public DialogueNode[] dialoguenodes;
 	public Crime crime;
+	public Fact[] facts;
 	public int ConditionSize { get; set; }
 
 
@@ -137,7 +138,7 @@ public class GameFile
 	public List<Fact> SearchFacts(int id)
 	{
 		List<Fact> returnMe = new List<Fact>();
-		foreach (Fact f in crime.facts)
+		foreach (Fact f in facts)
 		{
 			if (f.pid == id)
 			{
@@ -193,7 +194,7 @@ public class GameFile
 				}
 			}
 		}*/
-		foreach (Fact f in crime.facts)
+		foreach (Fact f in facts)
 		{
 			if (f.condition > max)
 			{
@@ -224,7 +225,7 @@ public class GameFile
 		List<Fact> returnMe = new List<Fact>();
 		Suspects = new List<Suspect>();
 		int counter = 0;
-		foreach (Fact f in crime.facts)
+		foreach (Fact f in facts)
 		{
 			if (f.pid == crime.culprit)
 			{
@@ -254,7 +255,7 @@ public class GameFile
 				foreach (int personid in building.peopleid)
 				{
 					Person person = SearchPeople(personid);
-					foreach(DialogueNode node in person.allNodes)
+					foreach(DNode node in person.allNodes)
 					{
 						if (node.eventid != -1)
 						{

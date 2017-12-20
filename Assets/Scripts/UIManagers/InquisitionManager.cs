@@ -154,17 +154,17 @@ public class InquisitionManager : MonoBehaviour
 	public List<String> BFS()
 	{
 		List<String> myFacts = new List<String>();
-		List<DialogueNode> explored = new List<DialogueNode>();
-		List<DialogueNode> frontier = new List<DialogueNode>();
+		List<DNode> explored = new List<DNode>();
+		List<DNode> frontier = new List<DNode>();
 		frontier.Add(s.rootnode);
 		// while the frontier is not empty
 		while (frontier.Count > 0)
 		{
-			DialogueNode current = frontier[0];
+			DNode current = frontier[0];
 			frontier.RemoveAt(0);
 			explored.Add(current);
 
-			foreach (DialogueNode child in current.childrenNodes)
+			foreach (DNode child in current.childrenNodes)
 			{
 				if (!explored.Contains(child))
 				{

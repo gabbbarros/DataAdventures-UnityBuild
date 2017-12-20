@@ -22,7 +22,7 @@ public class ConditionManager : Singleton<ConditionManager> {
 		//Debug.Log(test.conditions.ToString());	
 		JM = GameObject.FindWithTag("UI Manager").GetComponent<JournalManager>();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		

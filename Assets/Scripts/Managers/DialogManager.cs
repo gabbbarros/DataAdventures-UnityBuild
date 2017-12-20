@@ -73,7 +73,7 @@ public class DialogManager : MonoBehaviour {
         PDialogue.text = me.rootnode.dialogueline;
 
         // lay down the choices
-        foreach(DialogueNode child in me.rootnode.childrenNodes)
+        foreach(DNode child in me.rootnode.childrenNodes)
         {
 			AddChoice(child);
         }
@@ -213,7 +213,7 @@ public class DialogManager : MonoBehaviour {
 		}
 	}
 
-	public GameObject AddChoice(DialogueNode me)
+	public GameObject AddChoice(DNode me)
 	{
         GameObject choice = Instantiate(DialogueButtonPrefab, Options.transform);
         DialogueButtonPrefabScript DBPS = choice.GetComponent<DialogueButtonPrefabScript>();
@@ -254,7 +254,7 @@ public class DialogManager : MonoBehaviour {
 	/// <summary>
 	/// Populates the list with all dialogue choice children when pressed
 	/// </summary>
-	public void Clicked(DialogueNode me)
+	public void Clicked(DNode me)
 	{
 		if (!me.isVisited)
 		{
@@ -268,7 +268,7 @@ public class DialogManager : MonoBehaviour {
 		ClearOptions();
 
 		// loop through all children and add to dialogue choices
-		foreach (DialogueNode child in me.childrenNodes)
+		foreach (DNode child in me.childrenNodes)
 		{
 			AddChoice(child);
 		}
@@ -308,7 +308,7 @@ public class DialogManager : MonoBehaviour {
 
 	}
 
-	public void SetDialogueLine(DialogueNode me)
+	public void SetDialogueLine(DNode me)
 	{
 		string line = me.dialogueline;
 

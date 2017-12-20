@@ -45,6 +45,9 @@ public class DescriptionManager : MonoBehaviour {
 	void Start () {
 		Name.text = "This is the Description Panel";
 		Description.text = "When you click on any object, place, or person in the game, a description of it will be displayed here.";
+	}
+	void Awake()
+	{
 		CM = ConditionManager.GetInstance();
 	}
 

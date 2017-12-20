@@ -25,11 +25,20 @@ public class DialogueBuilder : MonoBehaviour {
 	/*
 	Builds all dialogue trees. Return a list of root nodes
  	*/
-	public List<DialogueNode> BuildTrees(DialogueNode[] nodes) {
-		List<DialogueNode> roots = new List<DialogueNode>();
+	public List<DNode> BuildTrees(DialogueNode[] nodesList) {
+		List<DNode> roots = new List<DNode>();
+		List<DNode> tempList = new List<DNode>();
+		DNode[] nodes = new DNode[nodesList.Length];
+		foreach(DialogueNode node in nodesList)
+		{
+			DNode nodee = new DNode(node.id, node.dialoguetype, node.eventid, node.condition, node.visited, node.dialogueline, node.option, node.isroot, node.keywords, node.keywordsList, node.children, node.isVisited);
+			tempList.Add(nodee);
+		}
+		nodes = tempList.ToArray();
 
 		for(int i = 0; i < nodes.Length; i++) {
-			DialogueNode node = nodes[i];
+			DNode node = nodes[i];
+			// turn every DialogueNode into a DNode
 			for(int j = 0; j < nodes.Length; j++) {
 				if(Contains(node.children, nodes[j].id)) {
 					node.childrenNodes.Add(nodes[j]);
@@ -37,7 +46,7 @@ public class DialogueBuilder : MonoBehaviour {
 			}
 		}
 
-		foreach(DialogueNode d in nodes) {
+		foreach(DNode d in nodes) {
 			if(d.isroot) {
 				roots.Add(d);
 			}
@@ -45,12 +54,12 @@ public class DialogueBuilder : MonoBehaviour {
 		return roots;
 	}
 
-	public void AddDialogueRootToPeople(List<Person> people, List<DialogueNode> roots) {
+	public void AddDialogueRootToPeople(List<Person> people, List<DNode> roots) {
 		foreach(Person p in people) {
-			foreach(DialogueNode root in roots) {
+			foreach(DNode root in roots) {
 				if(root.id == p.drootid) {
 					p.rootnode = root;
-					List<DialogueNode> nodes = BFS(root);
+					List<DNode> nodes = BFS(root);
 					p.allNodes = nodes;
 					break;
 				}
@@ -58,18 +67,18 @@ public class DialogueBuilder : MonoBehaviour {
 		}
 	}
 
-	public List<DialogueNode> BFS(DialogueNode root)
+	public List<DNode> BFS(DNode root)
 	{
-		List<DialogueNode> nodes = new List<DialogueNode>();
+		List<DNode> nodes = new List<DNode>();
 
-		List<DialogueNode> queue = new List<DialogueNode>();
+		List<DNode> queue = new List<DNode>();
 		queue.Add(root);
 		while (queue.Count > 0)
 		{
-			DialogueNode current = queue[0];
+			DNode current = queue[0];
 			nodes.Add(current);
 			queue.RemoveAt(0);
-			foreach (DialogueNode child in current.childrenNodes)
+			foreach (DNode child in current.childrenNodes)
 			{
 				if (!nodes.Contains(child))
 				{
