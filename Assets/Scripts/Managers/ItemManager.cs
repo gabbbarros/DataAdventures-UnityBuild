@@ -47,7 +47,9 @@ public class ItemManager : MonoBehaviour {
 	{
 		DM.SetDescription(me.name, me.description);
 		DM.LoadItemPhoto(me);
+		DM.FadePanelParent.SetActive(true);
 		DM.SetLocation(me, FileReader.TheGameFile.SearchBuildings(me.buildingid), FileReader.TheGameFile.SearchCities(FileReader.TheGameFile.SearchBuildings(me.buildingid).cityid));
+		DM.HideFacts();
 	}
 	public void LoadItemPhoto(Item me)
 	{

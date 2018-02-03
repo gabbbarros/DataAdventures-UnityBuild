@@ -10,6 +10,7 @@ public class InventoryItemManager : MonoBehaviour
 	public void Pressed()
 	{
 		DM.SetDescription(Name, Description);
+		DM.HideFacts();
 		DM.LoadItemPhoto(me);
 	}
 

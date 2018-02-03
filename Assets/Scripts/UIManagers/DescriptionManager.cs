@@ -147,7 +147,11 @@ public class DescriptionManager : MonoBehaviour {
 			FoundInBuildingButton.GetComponentInChildren<Text>().text = "???";
 		}
 	}
-
+	public void HideFacts()
+	{
+		FactsListParent.SetActive(false);
+		Debug.Log("Hidden");
+	}
 	/// <summary>
 	/// Sets the facts.
 	/// </summary>

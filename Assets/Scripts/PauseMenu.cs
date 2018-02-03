@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 public class PauseMenu : MonoBehaviour {
@@ -10,6 +11,7 @@ public class PauseMenu : MonoBehaviour {
 
     public GameObject PlaceHolder;
 
+	public TutorialManager TM;
     private Animator anim;
 	private Button[] buttons;
 
@@ -48,14 +50,18 @@ public class PauseMenu : MonoBehaviour {
         Time.timeScale = 1;
         
         //Menu.gameObject.SetActive(false);
-  
     }
-
 
     public void ReturnToMainMenu ()
     {
-        
+		SceneManager.LoadScene("Intro");
     }
+
+	public void StartTutorial()
+	{
+		Resume();
+		TM.RestartTutorial();
+	}
     public void Settings ()
     {
         Menu.gameObject.SetActive(false);
