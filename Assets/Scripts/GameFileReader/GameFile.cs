@@ -193,21 +193,28 @@ public class GameFile
 	{
 		foreach (City city in cities)
 		{
-			// Debug.Log(city.name);
-			city.eventConditions = new HashSet<int>();
+            Debug.Log(city.name);
+            city.eventConditions = new HashSet<int>();
 			city.discoveredEventConditions = new HashSet<int>();
+            city.conditions = new List<int>();
+
+            foreach(int cond in city.condition)
+            {
+                city.conditions.Add(cond);
+            }
 			foreach (int buildingid in city.buildingid)
 			{
 				Building building = SearchBuildings(buildingid);
 				foreach (int personid in building.peopleid)
 				{
 					Person person = SearchPeople(personid);
+                    Debug.Log("**" + person.name);
 					foreach(DNode node in person.allNodes)
 					{
 						if (node.eventid != -1)
 						{
 							city.eventConditions.Add(node.eventid);
-							// Debug.Log(node.eventid);
+							Debug.Log(node.eventid);
 						}
 						//foreach (int condition in node.condition)
 						//{
@@ -217,18 +224,26 @@ public class GameFile
 						//		Debug.Log(condition);
 						//	}
 						//}
+                        foreach(int c in node.condition)
+                        {
+                            city.conditions.Add(c);
+                        }
 					}
 				}
 				foreach (int itemid in building.itemsid)
 				{
 					
 					Item item = SearchItems(itemid);
-					// Debug.Log(item.name + " : " + item.eventid);
+					Debug.Log("**" + item.name + " : " + item.eventid);
 					if (item.eventid != -1)
 					{
 						city.eventConditions.Add(item.eventid);
-						// Debug.Log(item.eventid);
+						Debug.Log(item.eventid);
 					}
+                    foreach(int c in item.condition)
+                    {
+                        city.conditions.Add(c);
+                    }
 				}
 			}
 			city.totalConditionCount = city.eventConditions.Count;

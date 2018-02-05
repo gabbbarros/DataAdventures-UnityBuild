@@ -90,10 +90,12 @@ public class DialogManager : MonoBehaviour {
 		City city = FileReader.TheGameFile.SearchCities(FileReader.TheGameFile.SearchBuildings(me.buildingid).cityid);
 		Debug.Log(me.eventid);
 
-		city.discoveredEventConditions.Add(me.eventid);
-		Debug.Log(city.discoveredEventConditions);
-		city.currentConditionCount = city.discoveredEventConditions.Count;
-
+        if (me.eventid != -1)
+        {
+            city.discoveredEventConditions.Add(me.eventid);
+            Debug.Log(city.discoveredEventConditions);
+            city.currentConditionCount = city.discoveredEventConditions.Count;
+        }
 		if (city.Equals(GM.DM.LoadedThing))
 		{
 			GM.DM.SetFactDiscoveryCounters(city);
@@ -275,7 +277,7 @@ public class DialogManager : MonoBehaviour {
 
 		// add a goodbye exit option
 		AddExitChoice();
-		Debug.Log(me.dialoguetype);
+		Debug.Log(me.eventid + " : " + me.dialogueline);
 		// trigger a condition if one exists
 		int eventID = me.eventid;
 		if (eventID != -1)

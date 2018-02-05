@@ -67,6 +67,7 @@ public class ConditionManager : Singleton<ConditionManager> {
 		{
 			Debug.Log("Index:" + bitIndex);
 			bool wasFalse = !IsSet(bitIndex);
+            Debug.Log("New Condition Encountered: " + wasFalse);
 			conditions.Set(bitIndex, true);
 			if(wasFalse)
 				TrollEverything(bitIndex);
@@ -89,17 +90,18 @@ public class ConditionManager : Singleton<ConditionManager> {
 		City[] cities = FileReader.TheGameFile.cities;
 		foreach (City me in cities)
 		{
-			int[] conditions = me.condition;
-			foreach (int cond in conditions)
+			foreach (int cond in me.conditions)
 			{
+                
 				if (cond == condition)
 				{
+                    Debug.Log("Found city to make notification");
 					// this is one of the cities we must make a notification for
 					JM.AddPlace(me, true);
 					break;
 				}
 			}
-
+            
 		}
 	}
 }

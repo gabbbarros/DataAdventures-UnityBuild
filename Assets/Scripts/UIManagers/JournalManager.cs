@@ -74,7 +74,7 @@ public class JournalManager : MonoBehaviour {
 		else
 		{
 			if (newInfo)
-			{
+			{         
 				GameObject p = GameObject.Find("city:" + me.id);
 				// show the blinking light on the journal prefab
 				p.GetComponent<NotificationAnimationScript>().NewInformation();

@@ -29,7 +29,9 @@ public class City : Entity
 	/// </summary>
 	/// <value>The condition.</value>
 	public int[] condition;
-	/// <summary>
+
+    public List<int> conditions;
+    /// <summary>
 	/// Gets or sets the coordinate x.
 	/// </summary>
 	/// <value>The coordinate x.</value>
