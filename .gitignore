@@ -29,3 +29,5 @@ sysinfo.txt
 *.apk
 *.unitypackage
 /.vscode/settings.json
+*.lock
+.vs/DataAdventures-UnityBuild/v15/Server/sqlite3/storage.ide

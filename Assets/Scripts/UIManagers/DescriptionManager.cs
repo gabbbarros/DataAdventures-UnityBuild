@@ -350,6 +350,8 @@ public class DescriptionManager : MonoBehaviour {
 		// Dont show the ArrestThisPerson button
 		ArrestButton.gameObject.SetActive(false);
 
+        
+
 	}
 
 	public void ItemPressed(Item me)

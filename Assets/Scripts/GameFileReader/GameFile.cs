@@ -151,49 +151,6 @@ public class GameFile
 	public int InitConditions()
 	{
 		int max = -1;
-		/*foreach (Person p in people)
-		{
-			foreach (int cond in p.condition)
-			{
-				if (cond > max)
-				{
-					max = cond;
-				}
-			}
-		}
-		foreach (Building b in buildings)
-		{
-			foreach (int cond in b.condition)
-			{
-
-				if (cond > max)
-				{
-					max = cond;
-				}
-			}
-		}
-		foreach (City c in cities)
-		{
-			foreach (int cond in c.condition)
-			{
-
-				if (cond > max)
-				{
-					max = cond;
-				}
-			}
-		}
-		foreach (Item i in items)
-		{
-			foreach (int cond in i.condition)
-			{
-
-				if (cond > max)
-				{
-					max = cond;
-				}
-			}
-		}*/
 		foreach (Fact f in facts)
 		{
 			if (f.condition > max)
@@ -207,16 +164,6 @@ public class GameFile
 
 	public int GetSuspectCount()
 	{
-		//int counter = 0;
-		//foreach (Person p in people)
-		//{
-		//	if (FileReader.TheGameFile.SearchSuspects(p.id) != null)
-		//	{
-		//		counter++;
-		//	}
-			   
-		//}
-
 		return Suspects.Count;
 	}
 
@@ -235,9 +182,9 @@ public class GameFile
 
 		foreach (int s in crime.suspects)
 		{
-			Debug.Log("Added: " + SearchPeople(s).name);
+			// Debug.Log("Added: " + SearchPeople(s).name);
 			Suspect t = new Suspect(counter, SearchPeople(s));
-			Debug.Log("Thus Added: " + t);
+			// Debug.Log("Thus Added: " + t);
 			Suspects.Add(t);
 		}
 	}
@@ -246,7 +193,7 @@ public class GameFile
 	{
 		foreach (City city in cities)
 		{
-			Debug.Log(city.name);
+			// Debug.Log(city.name);
 			city.eventConditions = new HashSet<int>();
 			city.discoveredEventConditions = new HashSet<int>();
 			foreach (int buildingid in city.buildingid)
@@ -260,7 +207,7 @@ public class GameFile
 						if (node.eventid != -1)
 						{
 							city.eventConditions.Add(node.eventid);
-							Debug.Log(node.eventid);
+							// Debug.Log(node.eventid);
 						}
 						//foreach (int condition in node.condition)
 						//{
@@ -276,11 +223,11 @@ public class GameFile
 				{
 					
 					Item item = SearchItems(itemid);
-					Debug.Log(item.name + " : " + item.eventid);
+					// Debug.Log(item.name + " : " + item.eventid);
 					if (item.eventid != -1)
 					{
 						city.eventConditions.Add(item.eventid);
-						Debug.Log(item.eventid);
+						// Debug.Log(item.eventid);
 					}
 				}
 			}

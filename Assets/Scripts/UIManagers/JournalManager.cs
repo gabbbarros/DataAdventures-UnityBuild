@@ -111,5 +111,8 @@ public class JournalManager : MonoBehaviour {
 	}
 
 
+    public void PollPlaces()
+    {
 
+    }
 }
