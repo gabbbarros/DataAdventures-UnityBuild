@@ -491,7 +491,7 @@ public class GameManager : MonoBehaviour {
 
 		// change title to the building name
 		texts[0].text = me.name;
-		if (me.locktype.Equals("dark") && !me.lockBroken)
+		if (me.locktype.Equals("flashlight") && !me.lockBroken)
 			{
 
 				// change text to the flashlight question
@@ -511,7 +511,7 @@ public class GameManager : MonoBehaviour {
 					}
 				});
 			}
-			else if (me.locktype.Equals("chain"))
+			else if (me.locktype.Equals("crowbar") && !me.lockBroken)
 			{
 				// change text to the flashlight question
 				texts[1].text = "A chain is wound tightly around the entrance. Do you wish to use a crowbar?";
@@ -530,7 +530,7 @@ public class GameManager : MonoBehaviour {
 					}
 				});
 			}
-			else if (me.locktype.Equals("key"))
+			else if (me.locktype.Equals("key") && !me.lockBroken)
 			{
 				// change text to the flashlight question
 				texts[1].text = "A heavy padlock holds the door shut. Do you wish to use a key?";
