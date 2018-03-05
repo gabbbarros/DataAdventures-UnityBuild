@@ -40,6 +40,8 @@ public class ActivityLogManager : MonoBehaviour {
 	/// </summary>
 	public static List<string> logAllDis;
 
+
+	private bool logging = false;
 	void Start()
 	{
 		BuildingVisitCount = 0;
@@ -53,12 +55,15 @@ public class ActivityLogManager : MonoBehaviour {
 	/// </summary>
 	public void InitLogging()
 	{
-		DateTime localDate = DateTime.Now;
-		uniqueFileName = string.Format(@"{0}.txt", localDate.ToString("s"));
-		string path = "Assets/Resources/" + uniqueFileName;
+		if (logging)
+		{
+			DateTime localDate = DateTime.Now;
+			uniqueFileName = string.Format(@"{0}.txt", localDate.ToString("s"));
+			string path = "Assets/Resources/" + uniqueFileName;
 
-		logAllDis = new List<string>();
-		File.Create(uniqueFileName);
+			logAllDis = new List<string>();
+			File.Create(uniqueFileName);
+		}
 	}
 
 	[MenuItem("Tools/Write file")]
@@ -79,10 +84,13 @@ public class ActivityLogManager : MonoBehaviour {
 	/// <param name="log">Log.</param>
 	public void AddFileLog(string log)
 	{
-		logAllDis.Add(log);
-		if (logAllDis.Count > 20)
+		if (logging)
 		{
-			FlushLog();
+			logAllDis.Add(log);
+			if (logAllDis.Count > 20)
+			{
+				FlushLog();
+			}
 		}
 	}
 
@@ -91,8 +99,11 @@ public class ActivityLogManager : MonoBehaviour {
 	/// </summary>
 	public void FlushLog()
 	{
-		LogMe(logAllDis);
-		logAllDis.Clear();
+		if (logging)
+		{
+			LogMe(logAllDis);
+			logAllDis.Clear();
+		}
 	}
 
 	/// <summary>
