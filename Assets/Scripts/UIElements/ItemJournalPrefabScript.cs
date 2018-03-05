@@ -31,5 +31,8 @@ public class ItemJournalPrefabScript : MonoBehaviour {
 	{
 		// set up an item pressed
 		DM.ItemPressed(Item);
+		DM.GM.ALM.AddFileLog("JOURNAL_QUERY_ITEM:{" + Item.id + ":" + Item.name + "}");
+		DM.GM.ALM.JournalItemQueryCount++;
+		DM.GM.ALM.JournalQueryCount++;
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 [System.Serializable]
 
 public class Building : Entity
@@ -59,6 +60,22 @@ public class Building : Entity
 	/// The image.
 	/// </summary>
 	public string image;
+
+
+	public int totalConditionCount;
+	public int currentConditionCount;
+
+	/// <summary>
+	/// The event conditions that exist in this building.
+	/// </summary>
+	public HashSet<int> eventConditions;
+	/// <summary>
+	/// The discovered event conditions in this building.
+	/// </summary>
+	public HashSet<int> discoveredEventConditions;
+
+	public List<int> conditions;
+
 
 }
 

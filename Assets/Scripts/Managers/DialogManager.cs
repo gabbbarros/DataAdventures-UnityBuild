@@ -86,21 +86,25 @@ public class DialogManager : MonoBehaviour {
 		CM.SetAsTrue(me.eventid);
 
 		// set the event for the city this item is in
-		// add this event to the city events
+		// add this event to the city events and building events
 		City city = FileReader.TheGameFile.SearchCities(FileReader.TheGameFile.SearchBuildings(me.buildingid).cityid);
-		Debug.Log(me.eventid);
+		Building building = FileReader.TheGameFile.SearchBuildings(me.buildingid);
+		//Debug.Log(me.eventid);
 
         if (me.eventid != -1)
         {
             city.discoveredEventConditions.Add(me.eventid);
-            Debug.Log(city.discoveredEventConditions);
+            //Debug.Log(city.discoveredEventConditions);
             city.currentConditionCount = city.discoveredEventConditions.Count;
+
+			building.discoveredEventConditions.Add(me.eventid);
+			building.currentConditionCount = building.discoveredEventConditions.Count;
         }
 		if (city.Equals(GM.DM.LoadedThing))
 		{
 			GM.DM.SetFactDiscoveryCounters(city);
 		}
-
+		CheckCity(city);
 		// display item name
         IName.text = me.name;
 
@@ -112,9 +116,6 @@ public class DialogManager : MonoBehaviour {
 		// remove all prior listeners
 		Button goback = GoBackButton.GetComponent<Button>();
 		goback.onClick.RemoveAllListeners();
-
-		// find this item's building
-		Building building = FileReader.TheGameFile.SearchBuildings(me.buildingid);
 
 		if (me.name.Equals("Key") || me.name.Equals("Flashlight") || me.name.Equals("Crowbar"))
 		{
@@ -138,6 +139,7 @@ public class DialogManager : MonoBehaviour {
 				{
 					IM.AddCrowbar();
 				}
+				GM.ALM.AddFileLog("ITEM_COLLECTED:{" + me.id + ":" + me.name + "}");
 			});
 		}
 		else
@@ -258,6 +260,10 @@ public class DialogManager : MonoBehaviour {
 	/// </summary>
 	public void Clicked(DNode me)
 	{
+		// Log this choice
+		GM.ALM.AddFileLog("DIALOGUE_CHOSEN:{" + me.id + ":" + me.option + "}");
+		GM.ALM.DialogueCount++;
+
 		if (!me.isVisited)
 		{
 			me.isVisited = true;
@@ -277,21 +283,27 @@ public class DialogManager : MonoBehaviour {
 
 		// add a goodbye exit option
 		AddExitChoice();
-		Debug.Log(me.eventid + " : " + me.dialogueline);
+		//Debug.Log(me.eventid + " : " + me.dialogueline);
 		// trigger a condition if one exists
 		int eventID = me.eventid;
 		if (eventID != -1)
 		{
 			//GM.PlaySoundFX(7);
-			if (!CM.IsSet(eventID)) {
+			if (!CM.IsSet(eventID))
+			{
 				CM.SetAsTrue(eventID);
 				// add this event to the city events
 				City city = FileReader.TheGameFile.SearchCities(FileReader.TheGameFile.SearchBuildings(currentPerson.buildingid).cityid);
+				Building building = FileReader.TheGameFile.SearchBuildings(currentPerson.buildingid);
 				Debug.Log(eventID);
 
 				city.discoveredEventConditions.Add(eventID);
-				Debug.Log(city.discoveredEventConditions);
+				//Debug.Log(city.discoveredEventConditions);
 				city.currentConditionCount = city.discoveredEventConditions.Count;
+
+				building.discoveredEventConditions.Add(eventID);
+				Debug.Log(building.discoveredEventConditions);
+				building.currentConditionCount = building.discoveredEventConditions.Count;
 
 				if (city.Equals(GM.DM.LoadedThing))
 				{
@@ -306,73 +318,81 @@ public class DialogManager : MonoBehaviour {
 					GM.JM.NM.ShowNewFactNotification(p);
 				}
 
-                // check to see if every discoverable condition has been met in this city so far
-                HashSet<int> tempConds = new HashSet<int>();
-                Debug.Log("Events");
-
-                // check every building in this city, if they are discoverable, then poll for items and people
-                foreach (int bID in city.buildingid)
-                {
-                    Debug.Log("Building: " + bID);
-                    Building b = FileReader.TheGameFile.SearchBuildings(bID);
-                    int[] conds = b.condition;
-                    List<int> conditionsList = new List<int>(conds);
-                    if (conditionsList.Count == 0 || CM.IsSet(conditionsList))
-                    {
-                        foreach (int pID in b.peopleid)
-                        {
-                            Person p = FileReader.TheGameFile.SearchPeople(pID);
-                            Debug.Log("Person: " + pID);
-                            int[] conds2 = p.condition;
-                            List<int> conditionsList2 = new List<int>(conds2);
-                            if (conditionsList2.Count == 0 || CM.IsSet(conditionsList2))
-                            {
-                                // go through all person conditions
-                                foreach (DNode node in p.allNodes)
-                                {
-                                    if (node.eventid != -1)
-                                    {
-                                       tempConds.Add(node.eventid);
-                                    }
-                                    //foreach (int condition in node.condition)
-                                    //{
-                                    //	if (condition != -1)
-                                    //	{
-                                    //		city.eventConditions.Add(condition);
-                                    //		Debug.Log(condition);
-                                    //	}
-                                    //}
-                                }
-                            }
-                        }
-                        foreach (int iID in b.itemsid)
-                        {
-                            Item i = FileReader.TheGameFile.SearchItems(iID);
-                            int[] conds2 = i.condition;
-                            List<int> conditionsList2 = new List<int>(conds2);
-                            if (!i.isCollected && (conditionsList2.Count == 0 || CM.IsSet(conditionsList2)))
-                            {
-                                if (i.eventid != -1)
-                                {
-                                    tempConds.Add(i.eventid);
-                                }
-                            }
-                        }
-                    }
-                }
-                Debug.Log("TempConds size : " + tempConds.Count);
-                Debug.Log("Current Discovered Cond Count : " + city.currentConditionCount);
-                if(tempConds.Count == city.currentConditionCount)
-                {
-                    GameObject p = GameObject.Find("city:" + city.id);
-                    // show the blinking light on the journal prefab
-                    p.GetComponent<NotificationAnimationScript>().StopInformation();
-                }
+				CheckCity(city);
 			}
 		}
-
 	}
 
+
+	public void CheckCity(City city)
+	{
+		// check to see if every discoverable condition has been met in this city so far
+		HashSet<int> tempConds = new HashSet<int>();
+		Debug.Log("Events");
+
+		// check every building in this city, if they are discoverable, then poll for items and people
+		foreach (int bID in city.buildingid)
+		{
+			Debug.Log("Building: " + bID);
+			Building b = FileReader.TheGameFile.SearchBuildings(bID);
+			int[] conds = b.condition;
+			List<int> conditionsList = new List<int>(conds);
+			if (conditionsList.Count == 0 || CM.IsSet(conditionsList))
+			{
+				foreach (int pID in b.peopleid)
+				{
+					Person p = FileReader.TheGameFile.SearchPeople(pID);
+					Suspect s = FileReader.TheGameFile.SearchSuspects(pID);
+					if (s == null)
+					{
+						//Debug.Log("Person: " + pID);
+						int[] conds2 = p.condition;
+						List<int> conditionsList2 = new List<int>(conds2);
+						if (conditionsList2.Count == 0 || CM.IsSet(conditionsList2))
+						{
+							// go through all person conditions
+							foreach (DNode node in p.allNodes)
+							{
+								if (node.eventid != -1)
+								{
+									tempConds.Add(node.eventid);
+								}
+								//foreach (int condition in node.condition)
+								//{
+								//	if (condition != -1)
+								//	{
+								//		city.eventConditions.Add(condition);
+								//		Debug.Log(condition);
+								//	}
+								//}
+							}
+						}
+					}
+				}
+				foreach (int iID in b.itemsid)
+				{
+					Item i = FileReader.TheGameFile.SearchItems(iID);
+					int[] conds2 = i.condition;
+					List<int> conditionsList2 = new List<int>(conds2);
+					if (!i.isCollected && (conditionsList2.Count == 0 || CM.IsSet(conditionsList2)))
+					{
+						if (i.eventid != -1)
+						{
+							tempConds.Add(i.eventid);
+						}
+					}
+				}
+			}
+		}
+		Debug.Log("TempConds size : " + tempConds.Count);
+		Debug.Log("Current Discovered Cond Count : " + city.currentConditionCount);
+		if (tempConds.Count == city.currentConditionCount)
+		{
+			GameObject p = GameObject.Find("city:" + city.id);
+			// show the blinking light on the journal prefab
+			p.GetComponent<NotificationAnimationScript>().StopInformation();
+		}
+	}
 	public void SetDialogueLine(DNode me)
 	{
 		string line = me.dialogueline;

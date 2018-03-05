@@ -31,5 +31,9 @@ public class PlaceJournalPrefabScript : MonoBehaviour
 	{
 		// set up a city pressed
 		DM.CityPressed(City);
+		DM.GM.ALM.AddFileLog("JOURNAL_QUERY_CITY:{" + City.id + ":" + City.name + "}");
+		DM.GM.ALM.JournalCityQueryCount++;
+		DM.GM.ALM.JournalQueryCount++;
+
 	}
 }

@@ -316,6 +316,8 @@ public class DescriptionManager : MonoBehaviour {
 		TravelHereButton.SetActive(true);
 		TravelHereButton.GetComponent<Button>().onClick.RemoveAllListeners();
 		TravelHereButton.GetComponent<Button>().onClick.AddListener(delegate {
+			GM.ALM.AddFileLog("CITY_TRAVEL:{" + me.id + ":" + me.name + "}");
+			GM.ALM.CityTravelCount++;
 			GM.TravelHere(me);
 		});
 		SetFactDiscoveryCounters(me);
@@ -363,6 +365,7 @@ public class DescriptionManager : MonoBehaviour {
 		Building building = FileReader.TheGameFile.SearchBuildings(me.buildingid);
 		City city = FileReader.TheGameFile.SearchCities(building.cityid);
 
+		FactsDiscoveredCounter.gameObject.SetActive(false);
 
 	}
 

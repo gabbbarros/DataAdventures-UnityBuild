@@ -193,7 +193,7 @@ public class GameFile
 	{
 		foreach (City city in cities)
 		{
-            Debug.Log(city.name);
+            //Debug.Log(city.name);
             city.eventConditions = new HashSet<int>();
 			city.discoveredEventConditions = new HashSet<int>();
             city.conditions = new List<int>();
@@ -208,26 +208,30 @@ public class GameFile
 				foreach (int personid in building.peopleid)
 				{
 					Person person = SearchPeople(personid);
-                    Debug.Log("**" + person.name);
-					foreach(DNode node in person.allNodes)
+					//Debug.Log("**" + person.name);
+					Suspect s = SearchSuspects(personid);
+					if (s == null)
 					{
-						if (node.eventid != -1)
+						foreach (DNode node in person.allNodes)
 						{
-							city.eventConditions.Add(node.eventid);
-							Debug.Log(node.eventid);
+							if (node.eventid != -1)
+							{
+								city.eventConditions.Add(node.eventid);
+								Debug.Log(node.eventid);
+							}
+							//foreach (int condition in node.condition)
+							//{
+							//	if (condition != -1)
+							//	{
+							//		city.eventConditions.Add(condition);
+							//		Debug.Log(condition);
+							//	}
+							//}
+							foreach (int c in node.condition)
+							{
+								city.conditions.Add(c);
+							}
 						}
-						//foreach (int condition in node.condition)
-						//{
-						//	if (condition != -1)
-						//	{
-						//		city.eventConditions.Add(condition);
-						//		Debug.Log(condition);
-						//	}
-						//}
-                        foreach(int c in node.condition)
-                        {
-                            city.conditions.Add(c);
-                        }
 					}
 				}
 				foreach (int itemid in building.itemsid)
@@ -248,6 +252,55 @@ public class GameFile
 			}
 			city.totalConditionCount = city.eventConditions.Count;
 			city.currentConditionCount = 0;
+		}
+	}
+
+	public void SetBuildingConditions()
+	{
+		foreach (Building building in buildings)
+		{
+			Debug.Log(building.name);
+			building.eventConditions = new HashSet<int>();
+			building.discoveredEventConditions = new HashSet<int>();
+			building.conditions = new List<int>();
+
+			foreach (int cond in building.condition)
+			{
+				building.conditions.Add(cond);
+			}
+
+			foreach (int personid in building.peopleid)
+			{
+				Person person = SearchPeople(personid);
+				Suspect s = SearchSuspects(personid);
+				Debug.Log("**" + person.name);
+				if (s == null)
+				{
+					foreach (DNode node in person.allNodes)
+					{
+						if (node.eventid != -1)
+						{
+							building.eventConditions.Add(node.eventid);
+							Debug.Log(node.eventid);
+						}
+						//foreach (int condition in node.condition)
+						//{
+						//	if (condition != -1)
+						//	{
+						//		city.eventConditions.Add(condition);
+						//		Debug.Log(condition);
+						//	}
+						//}
+						foreach (int c in node.condition)
+						{
+							building.conditions.Add(c);
+						}
+					}
+				}
+			}
+
+			building.totalConditionCount = building.eventConditions.Count;
+			building.currentConditionCount = 0;
 		}
 	}
 }

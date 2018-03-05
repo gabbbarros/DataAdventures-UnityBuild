@@ -57,7 +57,13 @@ public class City : Entity
 	public int totalConditionCount;
 	public int currentConditionCount;
 
+	/// <summary>
+	/// The event conditions in this city.
+	/// </summary>
 	public HashSet<int> eventConditions;
+	/// <summary>
+	/// The discovered event conditions in this city.
+	/// </summary>
 	public HashSet<int> discoveredEventConditions;
 
 }

@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour {
     public GameObject DotHolder;
 
     public GameObject BuildingDotPrefab;
+	public GameObject BuildingDotPrefabFinished;
 	public GameObject BuildingDetailsPanel;
 
 	public GameObject InfoPanel;
@@ -127,6 +128,13 @@ public class GameManager : MonoBehaviour {
 
 		cm.Initialize(FileReader.TheGameFile.ConditionSize);
 
+		// start up the logger
+		ALM.InitLogging();
+		ALM.AddFileLog("Begin Logging Game");
+		ALM.AddFileLog(StaticGameInfo.GameName);
+		ALM.AddFileLog("******************");
+		ALM.FlushLog();
+
         // build the list of roots and dialogue trees
         List<DNode> roots = DLB.BuildTrees(FileReader.TheGameFile.dialoguenodes);
 
@@ -134,6 +142,7 @@ public class GameManager : MonoBehaviour {
         List<Person> peeps = new List<Person>(FileReader.TheGameFile.people);
         DLB.AddDialogueRootToPeople(peeps, roots);
 		FileReader.TheGameFile.SetCityConditions();
+		FileReader.TheGameFile.SetBuildingConditions();
 		// Load all images into their respective lists
 		// load people list
 		Sprite[] Images = Resources.LoadAll<Sprite>(StaticGameInfo.GameName+"/");
@@ -186,6 +195,8 @@ public class GameManager : MonoBehaviour {
         DM.CityPressed(firstCity);
 
 		FSM.CheckFactCount();
+
+
 	}
 
 
@@ -221,10 +232,56 @@ public class GameManager : MonoBehaviour {
             int[] conds = b.condition;
             List<int> conditionsList = new List<int>(conds);
 
+			// used to check if we have discovered all discoverable conditions in this building
+			HashSet<int> tempConds = new HashSet<int>();
+			if (conditionsList.Count == 0 || cm.IsSet(conditionsList))
+			{
+				foreach (int pID in b.peopleid)
+				{
+					Person p = FileReader.TheGameFile.SearchPeople(pID);
+					Debug.Log("Person: " + pID);
+					int[] conds2 = p.condition;
+					List<int> conditionsList2 = new List<int>(conds2);
+					if (conditionsList2.Count == 0 || cm.IsSet(conditionsList2))
+					{
+						// go through all person conditions
+						foreach (DNode node in p.allNodes)
+						{
+							if (node.eventid != -1)
+							{
+								tempConds.Add(node.eventid);
+							}
+						}
+					}
+				}
+
+				foreach (int iID in b.itemsid)
+				{
+					Item i = FileReader.TheGameFile.SearchItems(iID);
+					int[] conds2 = i.condition;
+					List<int> conditionsList2 = new List<int>(conds2);
+					if (!i.isCollected && (conditionsList2.Count == 0 || cm.IsSet(conditionsList2)))
+					{
+						if (i.eventid != -1)
+						{
+							tempConds.Add(i.eventid);
+						}
+					}
+				}
+			}
+
             if (conditionsList.Count == 0 || cm.IsSet(conditionsList))
             {
-                // spawn the building on the map
-                GameObject dot = Instantiate(BuildingDotPrefab, DotHolder.transform);
+				// spawn the building on the map
+				GameObject dot = null;
+				if (b.currentConditionCount == tempConds.Count)
+				{
+					dot = Instantiate(BuildingDotPrefabFinished, DotHolder.transform);
+				}
+				else
+				{
+					dot = Instantiate(BuildingDotPrefab, DotHolder.transform);
+				}
 				dot.GetComponent<BuildingDotPrefabScript>().SetInfoPanel(InfoPanel);
 
 				if (me.coordinates.Count <= count)
@@ -250,7 +307,6 @@ public class GameManager : MonoBehaviour {
 			count++;
         }
 		ALM.AddLog("Clicked on " + me.name);
-
 		// Add to journal
 		JM.AddPlace(me, false);
 		IQM.StopEverything();
@@ -382,6 +438,8 @@ public class GameManager : MonoBehaviour {
 
 			// log it
 			ALM.AddLog("Talked to " + me.name);
+			ALM.AddFileLog("PERSON_TALK-TO:{" + me.id + ":" + me.name + "}");
+			ALM.PersonVisitCount++;
 		}
 		PlaySoundFX(1);
 	}
@@ -398,7 +456,8 @@ public class GameManager : MonoBehaviour {
 
 		// log it
 		ALM.AddLog("Interacted with " + me.name);
-
+		ALM.AddFileLog("ITEM_INTERACTION:{" + me.id + ":" + me.name + "}");
+		ALM.ItemInteractionCount++;
 		PlaySoundFX(1);
 	}
 
@@ -418,6 +477,8 @@ public class GameManager : MonoBehaviour {
 		if (me.locktype.Equals("null") || me.lockBroken)
 		{
 			TravelHere(me);
+			ALM.AddFileLog("BUILDING_TRAVEL:{" + me.id + ":" + me.name + "}");
+			ALM.BuildingVisitCount++;
 		}
 		else
 		{
@@ -446,7 +507,7 @@ public class GameManager : MonoBehaviour {
 						me.lockBroken = true;
 						PressedBuildingDot(me, dot);
 						BuildingDetailsPanel.SetActive(false);
-
+						ALM.AddFileLog("BUILDING_LIGHT:{" + me.id + ":" + me.name + "}");
 					}
 				});
 			}
@@ -465,6 +526,7 @@ public class GameManager : MonoBehaviour {
 						me.lockBroken = true;
 						PressedBuildingDot(me, dot);
 						BuildingDetailsPanel.SetActive(false);
+						ALM.AddFileLog("BUILDING_UNCHAIN:{" + me.id + ":" + me.name + "}");
 					}
 				});
 			}
@@ -483,6 +545,7 @@ public class GameManager : MonoBehaviour {
 						me.lockBroken = true;
 						PressedBuildingDot(me, dot);
 						BuildingDetailsPanel.SetActive(false);
+						ALM.AddFileLog("BUILDING_UNLOCKED:{" + me.id + ":" + me.name + "}");
 					}
 				});
 			}
@@ -569,12 +632,15 @@ public class GameManager : MonoBehaviour {
 	public void ShowArrestScreen(Person arrestedPerson, bool isWin)
 	{
 		WinLosePanel.SetActive(true);
+		ALM.AddFileLog("SUSPECT_ARREST:{" + arrestedPerson.id + ":" + arrestedPerson.name + "}");
 		//TODO show animation or something
 		if (isWin)
 		{
 			WinLoseResult.text = "Mission Success!";
 			WinLoseDescription.text = "You arrested " + arrestedPerson.name + " which was the correct call. As the timeline returns "
 				+ "to normal, the world around you begins to fade. You always hated this part...";
+			ALM.AddFileLog("PLAYER_WINS");
+			
 		}
 		else
 		{
@@ -582,7 +648,13 @@ public class GameManager : MonoBehaviour {
 			WinLoseDescription.text = "You arrested " + arrestedPerson.name + ", which was the wrong call. The catastrophic ripples "
 				+ "through time shake the universal foundations of your world. As the timeline falls apart, "
 				+ "you wonder who the real culprit was, and what will happen to you now. The world around you begins to fade...";
+			ALM.AddFileLog("PLAYER_LOSES");
 		}
+		ALM.AddFileLog("**********************");
+		ALM.AddFileLog("Quantitative Info Begins:");
+		ALM.AddFileLog("CITY VISIT COUNT, BUILDING VISIT COUNT, ITEM INTERACTION COUNT, PERSON VISIT COUNT, DIALOGUE COUNT, JOURNAL QUERY COUNT, JOURNAL ITEM QUERY COUNT, JOURNAL PERSON QUERY COUNT, JOURNAL CITY QUERY COUNT");
+		ALM.AddFileLog(ALM.CityTravelCount + "," + ALM.BuildingVisitCount + "," + ALM.ItemInteractionCount + "," + ALM.PersonVisitCount + "," + ALM.DialogueCount + "," + ALM.JournalQueryCount + "," + ALM.JournalItemQueryCount + "," + ALM.JournalPersonQueryCount + "," + ALM.JournalCityQueryCount);
+		ALM.FlushLog();
 	}
 
 	public void PlayFadeout()

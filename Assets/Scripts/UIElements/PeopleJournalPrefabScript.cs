@@ -39,7 +39,12 @@ public class PeopleJournalPrefabScript : MonoBehaviour
 
 		// if this is a suspect, show which facts we know
 		DM.SetFacts(Person);
+		DM.GM.ALM.AddFileLog("JOURNAL_QUERY_PERSON:{" + Person.id + ":" + Person.name + "}");
+		DM.GM.ALM.JournalPersonQueryCount++;
+		DM.GM.ALM.JournalQueryCount++;
 		//DM.SetArrestButton(Person);
+
+		DM.FactsDiscoveredCounter.gameObject.SetActive(false);
 
 	}
 }
