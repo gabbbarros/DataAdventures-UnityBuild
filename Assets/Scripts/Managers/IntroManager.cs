@@ -167,9 +167,9 @@ public class IntroManager : MonoBehaviour
 	}
 
 	// TODO take an input to load the game file for this guy
-	public void PlayGame()
+	public void PlayGame(String gamename)
 	{
-		StaticGameInfo.GameName = "Albert_Einstein";
+		StaticGameInfo.GameName = gamename;
 		SceneManager.LoadScene("WikiMystery");
 	}
 
