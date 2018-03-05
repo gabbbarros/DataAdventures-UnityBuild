@@ -194,7 +194,7 @@ public class DialogManager : MonoBehaviour {
 		{
 			IPhoto.GetComponent<Image>().overrideSprite = GM.CrowbarImage;
 		}
-		else if (me.itemtype.Equals("letter"))
+		else if (me.itemtype.Equals("letter") || me.itemtype.Equals("list"))
 		{
 			IPhoto.GetComponent<Image>().overrideSprite = GM.LetterImage;			
 		}

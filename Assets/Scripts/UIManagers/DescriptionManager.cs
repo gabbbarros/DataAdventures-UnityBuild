@@ -208,6 +208,7 @@ public class DescriptionManager : MonoBehaviour {
 
 	public void LoadItemPhoto(Item me)
 	{
+		FoundInCityButton.gameObject.SetActive(false);
 		FadePanelParent.SetActive(true);
 		Debug.Log("Item ID is : " + me.id);
 		Debug.Log("Item type is : " + me.itemtype);
@@ -243,7 +244,7 @@ public class DescriptionManager : MonoBehaviour {
 		{
 			FadePanel.GetComponent<Image>().overrideSprite = GM.CrowbarImage;
 		}
-		else if (me.itemtype.Equals("letter"))
+		else if (me.itemtype.Equals("letter") || me.itemtype.Equals("list"))
 		{
 			FadePanel.GetComponent<Image>().overrideSprite = GM.LetterImage;
 		}	
@@ -358,6 +359,7 @@ public class DescriptionManager : MonoBehaviour {
 
 	public void ItemPressed(Item me)
 	{
+		FoundInCityButton.gameObject.SetActive(false);
 		LoadedThing = me;
 
 		SetDescription(me.name, me.description);

@@ -530,13 +530,13 @@ public class GameManager : MonoBehaviour {
 					}
 				});
 			}
-			else if (me.locktype.Equals("lock"))
+			else if (me.locktype.Equals("key"))
 			{
 				// change text to the flashlight question
 				texts[1].text = "A heavy padlock holds the door shut. Do you wish to use a key?";
 				// remove all past listeners
 				buttons[0].onClick.RemoveAllListeners();
-				buttons[0].gameObject.GetComponent<Text>().text = "Use";
+				texts[2].text = "Use";
 				// add a Inventory manager event
 				buttons[0].onClick.AddListener(delegate
 				{

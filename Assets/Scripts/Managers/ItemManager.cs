@@ -84,7 +84,7 @@ public class ItemManager : MonoBehaviour {
 		{
 			Photo.GetComponent<Image>().overrideSprite = GM.CrowbarImage;
 		}
-		else if (me.itemtype.Equals("letter"))
+		else if (me.itemtype.Equals("letter") || me.itemtype.Equals("list"))
 		{
 			Photo.GetComponent<Image>().overrideSprite = GM.LetterImage;
 		}
