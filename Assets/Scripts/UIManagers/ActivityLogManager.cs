@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine.UI;
 using System;
 using System.Globalization;
@@ -65,12 +67,12 @@ public class ActivityLogManager : MonoBehaviour {
 			File.Create(uniqueFileName);
 		}
 	}
-
-	[MenuItem("Tools/Write file")]
-
-	// Adds a log object with the given param content to the Activity Log on
-	// both the Overview Tab and the Activity Log Tab
-	public void AddLog(string log)
+#if UNITY_EDITOR
+    [MenuItem("Tools/Write file")]
+#endif
+    // Adds a log object with the given param content to the Activity Log on
+    // both the Overview Tab and the Activity Log Tab
+    public void AddLog(string log)
 	{
 		Canvas.ForceUpdateCanvases();
 		AddActivityLog(log);
@@ -104,6 +106,7 @@ public class ActivityLogManager : MonoBehaviour {
 			LogMe(logAllDis);
 			logAllDis.Clear();
 		}
+		Debug.Log("Log Flushed!");
 	}
 
 	/// <summary>
@@ -143,25 +146,27 @@ public class ActivityLogManager : MonoBehaviour {
 		Canvas.ForceUpdateCanvases();
 	}
 
-	/// <summary>
-	/// Logs the given log list to the game file.
-	/// </summary>
-	/// <param name="log">Log.</param>
-	public void LogMe(List<string> log)
-	{
-		string path = "Assets/Resources/" + uniqueFileName;
-		using (StreamWriter writer =
-		   new StreamWriter(path, true))
-		{
-			foreach (string line in log)
-			{
-				writer.WriteLine(line);
-			}
-		}
-		//Re-import the file to update the reference in the editor
-		AssetDatabase.ImportAsset(path);
-		TextAsset asset = Resources.Load("test") as TextAsset;
-	}
+    /// <summary>
+    /// Logs the given log list to the game file.
+    /// </summary>
+    /// <param name="log">Log.</param>
+    public void LogMe(List<string> log)
+    {
+        string path = "Assets/Resources/" + uniqueFileName;
+        using (StreamWriter writer =
+           new StreamWriter(path, true))
+        {
+            foreach (string line in log)
+            {
+                writer.WriteLine(line);
+            }
+        }
+        //Re-import the file to update the reference in the editor
+#if UNITY_EDITOR
+        AssetDatabase.ImportAsset(path);
+        TextAsset asset = Resources.Load("test") as TextAsset;
+#endif
+    }
 
 
 	//static void WriteString()

@@ -24,6 +24,7 @@ public class IntroDialogueManager : MonoBehaviour
 	 */
 	public void ShowBox(string character, string text, int numDBox, int animNum)
 	{
+        Debug.Log("Show box: " + character + " : " + text);
 		GameObject DBox;
 		Text DText, DTextName;
 		Animator DBoxAnimator;

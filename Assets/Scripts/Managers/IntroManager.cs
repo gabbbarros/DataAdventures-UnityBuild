@@ -33,6 +33,10 @@ public class IntroManager : MonoBehaviour
 		StartCoroutine(LoadGames());
 	}
 
+	public void Reset()
+	{
+		
+	}
 	public void AfterEyeballWakeup()
 	{
 		// start dialogue

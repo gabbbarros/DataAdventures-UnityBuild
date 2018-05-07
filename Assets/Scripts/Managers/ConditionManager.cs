@@ -35,6 +35,8 @@ public class ConditionManager : Singleton<ConditionManager> {
 	}*/
 
 	public void Initialize(int amountConditions) {
+        JM = GameObject.FindWithTag("UI Manager").GetComponent<JournalManager>();
+
 		conditions = new BitArray(amountConditions + 1);
 		Debug.Log("Conditions Size: " + conditions.Count);
 	}
