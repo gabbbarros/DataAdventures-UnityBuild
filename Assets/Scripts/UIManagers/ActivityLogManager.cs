@@ -43,7 +43,7 @@ public class ActivityLogManager : MonoBehaviour {
 	public static List<string> logAllDis;
 
 
-	private bool logging = true;
+	private bool logging = false;
 	void Start()
 	{
 		BuildingVisitCount = 0;
