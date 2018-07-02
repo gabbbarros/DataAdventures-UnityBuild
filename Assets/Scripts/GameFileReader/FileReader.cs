@@ -15,6 +15,8 @@ public class FileReader : MonoBehaviour
 
     public SuspectListManager SLM;
 
+
+    public bool isDemo = true;
     /// <summary>
     /// Reads the save file.
     /// </summary>
@@ -24,15 +26,25 @@ public class FileReader : MonoBehaviour
 
         string filename = System.IO.Path.Combine(Application.streamingAssetsPath, StaticGameInfo.GameName + ".json");
 
-        if (filename.Contains("://") || filename.Contains(":///"))
+        if (isDemo)
         {
-            WWW www = new WWW(filename);
-            result = www.text;
+            TextAsset file = Resources.Load(StaticGameInfo.GameName) as TextAsset;
+            Debug.Log(StaticGameInfo.GameName + ".json");
+            result = file.text;
         }
-        else {
-            result = File.ReadAllText(System.IO.Path.Combine(Application.streamingAssetsPath, StaticGameInfo.GameName + ".json"));
-        }
+        else
+        {
+            if (filename.Contains("://") || filename.Contains(":///"))
+            {
+                WWW www = new WWW(filename);
+                result = www.text;
+            }
+            else
+            {
+                result = File.ReadAllText(System.IO.Path.Combine(Application.streamingAssetsPath, StaticGameInfo.GameName + ".json"));
+            }
 
+        }
 
         //TextAsset gAsset = Resources.Load("Albert_Einstein") as TextAsset;
         //Debug.Log
