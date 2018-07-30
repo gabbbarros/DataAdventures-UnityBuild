@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+
 using UnityEngine;
+using UnityEngine.UI;
 public class FileReader : MonoBehaviour
 {
 
@@ -16,7 +18,8 @@ public class FileReader : MonoBehaviour
     public SuspectListManager SLM;
 
 
-    public bool isDemo = true;
+    public bool isDemo = false;
+
     /// <summary>
     /// Reads the save file.
     /// </summary>
@@ -24,7 +27,7 @@ public class FileReader : MonoBehaviour
     {
         string result = "";
 
-        string filename = System.IO.Path.Combine(Application.streamingAssetsPath, StaticGameInfo.GameName + ".json");
+        string filename = Path.Combine(Application.streamingAssetsPath, StaticGameInfo.GameName + ".json");
 
         if (isDemo)
         {
@@ -41,7 +44,7 @@ public class FileReader : MonoBehaviour
             }
             else
             {
-                result = File.ReadAllText(System.IO.Path.Combine(Application.streamingAssetsPath, StaticGameInfo.GameName + ".json"));
+                result = File.ReadAllText(Path.Combine(Application.streamingAssetsPath, StaticGameInfo.GameName + ".json"));
             }
 
         }
@@ -61,10 +64,10 @@ public class FileReader : MonoBehaviour
 		TheGameFile.Chains = new List<Building>();
 
 		// setup keywords list
-		foreach (DialogueNode p in TheGameFile.dialoguenodes)
-		{
-			Debug.Log(p.keywords);
-		}
+		//foreach (DialogueNode p in TheGameFile.dialoguenodes)
+		//{
+		//	Debug.Log(p.keywords);
+		//}
 		//// setup keywords list
 		//foreach (DialogueNode p in TheGameFile.dialoguenodes)
 		//{
@@ -127,4 +130,47 @@ public class FileReader : MonoBehaviour
 			}
 		}
 	}
+
+    public Sprite[] LoadSprites() {
+        Sprite[] Images;
+        if(isDemo) {
+            Images = Resources.LoadAll<Sprite>(StaticGameInfo.GameName + "/");
+
+        } else{
+            string path = Path.Combine(Application.streamingAssetsPath, StaticGameInfo.GameName);
+            Debug.Log(path);
+            var info = new DirectoryInfo(path);
+            var fileInfo = info.GetFiles();
+
+            List<Sprite> temp = new List<Sprite> ();
+            foreach(FileInfo file in fileInfo) {
+                if (!file.Name.Contains(".meta") && file.Name.Contains(".png")) {
+                    //WWW www = new WWW(file.FullName);
+                    //while(!www.isDone) {
+                    //    Debug.Log("not done");
+                    //}
+                    //Debug.Log(www);
+                    //Texture2D texture = www.texture;
+                    //Debug.Log(texture);
+
+                    //Texture2D texture = new WWW(file.FullName).texture;
+                    Sprite sprite = Utilities.LoadNewSprite(file.FullName);
+                    sprite.name = file.Name;
+                    //Debug.Log(file.Name);
+                    temp.Add(sprite);
+                }
+            }
+            Images = temp.ToArray();
+
+
+        }
+
+        foreach (Sprite s in Images)
+        {
+            Debug.Log(s.name);
+
+        }
+        
+        return Images;
+    }
 }

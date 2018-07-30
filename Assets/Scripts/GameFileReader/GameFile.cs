@@ -217,7 +217,7 @@ public class GameFile
 							if (node.eventid != -1)
 							{
 								city.eventConditions.Add(node.eventid);
-								Debug.Log(node.eventid);
+								//Debug.Log(node.eventid);
 							}
 							//foreach (int condition in node.condition)
 							//{
@@ -238,11 +238,11 @@ public class GameFile
 				{
 					
 					Item item = SearchItems(itemid);
-					Debug.Log("**" + item.name + " : " + item.eventid);
+					//Debug.Log("**" + item.name + " : " + item.eventid);
 					if (item.eventid != -1)
 					{
 						city.eventConditions.Add(item.eventid);
-						Debug.Log(item.eventid);
+						//Debug.Log(item.eventid);
 					}
                     foreach(int c in item.condition)
                     {
@@ -259,7 +259,7 @@ public class GameFile
 	{
 		foreach (Building building in buildings)
 		{
-			Debug.Log(building.name);
+			//Debug.Log(building.name);
 			building.eventConditions = new HashSet<int>();
 			building.discoveredEventConditions = new HashSet<int>();
 			building.conditions = new List<int>();
@@ -273,7 +273,7 @@ public class GameFile
 			{
 				Person person = SearchPeople(personid);
 				Suspect s = SearchSuspects(personid);
-				Debug.Log("**" + person.name);
+				//Debug.Log("**" + person.name);
 				if (s == null)
 				{
 					foreach (DNode node in person.allNodes)
@@ -281,7 +281,7 @@ public class GameFile
 						if (node.eventid != -1)
 						{
 							building.eventConditions.Add(node.eventid);
-							Debug.Log(node.eventid);
+							//Debug.Log(node.eventid);
 						}
 						//foreach (int condition in node.condition)
 						//{

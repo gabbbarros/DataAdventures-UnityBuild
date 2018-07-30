@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -17,6 +19,9 @@ public class IntroManager : MonoBehaviour
 	public Animator MurderTextFlyManager;
 	public GameObject SkipButton;
 
+    public GameObject GameSelector;
+    public GameObject GameHolder;
+
 	public int dialogueAdvance;
 
 	public List<Sprite> Backgrounds;
@@ -30,13 +35,42 @@ public class IntroManager : MonoBehaviour
 		// start ringing
 		PhoneRingAnimator.Play("RingRingAnimation");
 		SFXM.PlaySingle(0);
-		StartCoroutine(LoadGames());
+
+        LoadGamesAvailable();
 	}
 
 	public void Reset()
 	{
 		
 	}
+
+    public void LoadGamesAvailable()
+    {
+        string path = Application.streamingAssetsPath;
+        var info = new DirectoryInfo(path);
+        var fileInfo = info.GetFiles();
+
+        foreach(FileInfo file in fileInfo) {
+            
+            if(!file.Name.Contains(".meta") && file.Name.Contains(".json")) {
+                Debug.Log(file.Name);
+                GameObject game = Instantiate(GameSelector, GameHolder.transform);
+                string actualName = file.Name.Replace(".json", "");
+                string gameName = Utilities.UppercaseWords(actualName.Replace("_", " "));
+                game.name = gameName;
+                game.GetComponentInChildren<Text>().text = gameName;
+
+                game.GetComponent<Button>().onClick.RemoveAllListeners();
+                game.GetComponent<Button>().onClick.AddListener(delegate
+                {
+                    PlayGame(actualName);
+                });
+            }
+        }
+    }
+
+
+
 	public void AfterEyeballWakeup()
 	{
 		// start dialogue
@@ -170,6 +204,7 @@ public class IntroManager : MonoBehaviour
 		MurderTextFlyManager.gameObject.SetActive(false);
 	}
 
+
 	// TODO take an input to load the game file for this guy
 	public void PlayGame(String gamename)
 	{
@@ -177,15 +212,6 @@ public class IntroManager : MonoBehaviour
 		SceneManager.LoadScene("WikiMystery");
 	}
 
-	/// <summary>
-	/// Loads the games.
-	/// </summary>
-	/// <returns>The games.</returns>
-	IEnumerator LoadGames()
-	{
-		
-		yield return null;
-	}
 
 }
 

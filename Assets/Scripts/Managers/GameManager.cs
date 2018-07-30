@@ -143,9 +143,10 @@ public class GameManager : MonoBehaviour {
         DLB.AddDialogueRootToPeople(peeps, roots);
 		FileReader.TheGameFile.SetCityConditions();
 		FileReader.TheGameFile.SetBuildingConditions();
-		// Load all images into their respective lists
-		// load people list
-		Sprite[] Images = Resources.LoadAll<Sprite>(StaticGameInfo.GameName+"/");
+        // Load all images into their respective lists
+        // load people list
+        Sprite[] Images = FileReaderManager.LoadSprites();
+		//Sprite[] Images = Resources.LoadAll<Sprite>(StaticGameInfo.GameName+"/");
 		foreach (Sprite me in Images)
 		{
 			if (me.name.Contains("PERSON"))
