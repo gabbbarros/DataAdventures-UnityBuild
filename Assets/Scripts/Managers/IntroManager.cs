@@ -29,13 +29,14 @@ public class IntroManager : MonoBehaviour
 	{
 		// make the intro happen
 		Fan.SetActive(true);
+        EyeballAnimator.gameObject.SetActive(true);
 		EyeballAnimator.Play("EyeballWakeup");
 		FadeAnimator.gameObject.GetComponent<Button>().enabled = false;
 		MurderTextAnimator.gameObject.GetComponent<Button>().enabled = false;
 		// start ringing
 		PhoneRingAnimator.Play("RingRingAnimation");
 		SFXM.PlaySingle(0);
-
+        FadeAnimator.gameObject.SetActive(true);
         LoadGamesAvailable();
 	}
 
