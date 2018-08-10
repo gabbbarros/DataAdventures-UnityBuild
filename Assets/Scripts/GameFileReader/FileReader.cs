@@ -18,7 +18,7 @@ public class FileReader : MonoBehaviour
     public SuspectListManager SLM;
 
 
-    public bool isDemo = false;
+    public static bool isDemo = false;
 
     /// <summary>
     /// Reads the save file.

@@ -25,6 +25,8 @@ public class IntroManager : MonoBehaviour
 	public int dialogueAdvance;
 
 	public List<Sprite> Backgrounds;
+
+    public GameObject Albert_Demo;
 	public void Start()
 	{
 		// make the intro happen
@@ -37,7 +39,12 @@ public class IntroManager : MonoBehaviour
 		PhoneRingAnimator.Play("RingRingAnimation");
 		SFXM.PlaySingle(0);
         FadeAnimator.gameObject.SetActive(true);
-        LoadGamesAvailable();
+        if(!FileReader.isDemo) {
+            LoadGamesAvailable();    
+        }
+        else {
+            Albert_Demo.SetActive(true);
+        }
 	}
 
 	public void Reset()

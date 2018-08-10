@@ -1,11 +1,11 @@
 ﻿<Properties StartupConfiguration="{86BC520C-144C-74A0-18FE-78DCE9F89095}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Managers/IntroManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameFileReader/FileReader.cs">
     <Files>
-      <File FileName="Assets/Scripts/GameFileReader/FileReader.cs" Line="134" Column="21" />
-      <File FileName="Assets/Scripts/Managers/GameManager.cs" Line="148" Column="51" />
+      <File FileName="Assets/Scripts/GameFileReader/FileReader.cs" Line="16" Column="40" />
+      <File FileName="Assets/Scripts/Managers/GameManager.cs" Line="382" Column="8" />
       <File FileName="Assets/Scripts/GameFileReader/GameFile.cs" Line="262" Column="19" />
-      <File FileName="Assets/Scripts/GameFileReader/IMG2Sprite.cs" Line="54" Column="1" />
-      <File FileName="Assets/Scripts/Managers/IntroManager.cs" Line="171" Column="3" />
+      <File FileName="Assets/Scripts/GameFileReader/Utilities.cs" Line="55" Column="12" />
+      <File FileName="Assets/Scripts/Managers/IntroManager.cs" Line="46" Column="41" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
