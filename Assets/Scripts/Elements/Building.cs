@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 [System.Serializable]
 
-public class Building : Entity
-{
+public class Building : Entity {
 	/// <summary>
 	/// Gets or sets the identifier.
 	/// </summary>
@@ -61,7 +60,7 @@ public class Building : Entity
 	/// </summary>
 	public string image;
 
-
+	
 	public int totalConditionCount;
 	public int currentConditionCount;
 

@@ -481,75 +481,75 @@ public class GameManager : MonoBehaviour {
 			ALM.AddFileLog("BUILDING_TRAVEL:{" + me.id + ":" + me.name + "}");
 			ALM.BuildingVisitCount++;
 		}
-		else
-		{
+		else {
 			// activate panel
-		BuildingDetailsPanel.SetActive(true);
+			BuildingDetailsPanel.SetActive(true);
 
-		// get texts and buttons
-		Text[] texts = BuildingDetailsPanel.GetComponentsInChildren<Text>();
-		Button[] buttons = BuildingDetailsPanel.GetComponentsInChildren<Button>();
+			// get texts and buttons
+			Text[] texts = BuildingDetailsPanel.GetComponentsInChildren<Text>();
+			Button[] buttons = BuildingDetailsPanel.GetComponentsInChildren<Button>();
 
-		// change title to the building name
-		texts[0].text = me.name;
-		if (me.locktype.Equals("flashlight") && !me.lockBroken)
-			{
+			// change title to the building name
+			texts[0].text = me.name;
+			Debug.Log("!! "+me.name+" "+me.lockBroken+" "+ me.locktype);
+			if(!me.lockBroken) {
+				if (me.locktype.Equals("dark")) {
 
-				// change text to the flashlight question
-				texts[1].text = "It is too dark to see within. Do you wish to use a flashlight?";
-				// remove all past listeners
-				buttons[0].onClick.RemoveAllListeners();
-				texts[2].text = "Use";
-				// add a Inventory manager event
-				buttons[0].onClick.AddListener(delegate
-				{
-					if (IM.RemoveFlashlight())
-					{
-						me.lockBroken = true;
-						PressedBuildingDot(me, dot);
-						BuildingDetailsPanel.SetActive(false);
-						ALM.AddFileLog("BUILDING_LIGHT:{" + me.id + ":" + me.name + "}");
+						// change text to the flashlight question
+						texts[1].text = "It is too dark to see within. Do you wish to use a flashlight?";
+						// remove all past listeners
+						buttons[0].onClick.RemoveAllListeners();
+						texts[2].text = "Use";
+						// add a Inventory manager event
+						buttons[0].onClick.AddListener(delegate
+						{
+							if (IM.RemoveFlashlight())
+							{
+								me.lockBroken = true;
+								PressedBuildingDot(me, dot);
+								BuildingDetailsPanel.SetActive(false);
+								ALM.AddFileLog("BUILDING_LIGHT:{" + me.id + ":" + me.name + "}");
+							}
+						});
+						
 					}
-				});
-			}
-			else if (me.locktype.Equals("crowbar") && !me.lockBroken)
-			{
-				// change text to the flashlight question
-				texts[1].text = "A chain is wound tightly around the entrance. Do you wish to use a crowbar?";
-				// remove all past listeners
-				buttons[0].onClick.RemoveAllListeners();
-				texts[2].text = "Use";
-				// add a Inventory manager event
-				buttons[0].onClick.AddListener(delegate
-				{
-					if (IM.RemoveCrowbar())
-					{
-						me.lockBroken = true;
-						PressedBuildingDot(me, dot);
-						BuildingDetailsPanel.SetActive(false);
-						ALM.AddFileLog("BUILDING_UNCHAIN:{" + me.id + ":" + me.name + "}");
+					else if (me.locktype.Equals("chain")) {
+						// change text to the flashlight question
+						texts[1].text = "A chain is wound tightly around the entrance. Do you wish to use a crowbar?";
+						// remove all past listeners
+						buttons[0].onClick.RemoveAllListeners();
+						texts[2].text = "Use";
+						// add a Inventory manager event
+						buttons[0].onClick.AddListener(delegate
+						{
+							if (IM.RemoveCrowbar())
+							{
+								me.lockBroken = true;
+								PressedBuildingDot(me, dot);
+								BuildingDetailsPanel.SetActive(false);
+								ALM.AddFileLog("BUILDING_UNCHAIN:{" + me.id + ":" + me.name + "}");
+							}
+						});
 					}
-				});
-			}
-			else if (me.locktype.Equals("key") && !me.lockBroken)
-			{
-				// change text to the flashlight question
-				texts[1].text = "A heavy padlock holds the door shut. Do you wish to use a key?";
-				// remove all past listeners
-				buttons[0].onClick.RemoveAllListeners();
-				texts[2].text = "Use";
-				// add a Inventory manager event
-				buttons[0].onClick.AddListener(delegate
-				{
-					if (IM.RemoveKey())
-					{
-						me.lockBroken = true;
-						PressedBuildingDot(me, dot);
-						BuildingDetailsPanel.SetActive(false);
-						ALM.AddFileLog("BUILDING_UNLOCKED:{" + me.id + ":" + me.name + "}");
+					else if (me.locktype.Equals("key")) {
+						// change text to the flashlight question
+						texts[1].text = "A heavy padlock holds the door shut. Do you wish to use a key?";
+						// remove all past listeners
+						buttons[0].onClick.RemoveAllListeners();
+						texts[2].text = "Use";
+						// add a Inventory manager event
+						buttons[0].onClick.AddListener(delegate
+						{
+							if (IM.RemoveKey())
+							{
+								me.lockBroken = true;
+								PressedBuildingDot(me, dot);
+								BuildingDetailsPanel.SetActive(false);
+								ALM.AddFileLog("BUILDING_UNLOCKED:{" + me.id + ":" + me.name + "}");
+							}
+						});
 					}
-				});
-			}
+				}
 		}
 	}
 
